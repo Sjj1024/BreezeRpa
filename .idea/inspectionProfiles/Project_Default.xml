@@ -1,0 +1,87 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <Languages>
+        <language minSize="80" name="Python" />
+      </Languages>
+    </inspection_tool>
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="51">
+            <item index="0" class="java.lang.String" itemvalue="mdt-util" />
+            <item index="1" class="java.lang.String" itemvalue="mdt-auth" />
+            <item index="2" class="java.lang.String" itemvalue="mdt-collector" />
+            <item index="3" class="java.lang.String" itemvalue="mdt-config-profiles" />
+            <item index="4" class="java.lang.String" itemvalue="mdt-rc" />
+            <item index="5" class="java.lang.String" itemvalue="dramatiq-workers" />
+            <item index="6" class="java.lang.String" itemvalue="mdt-db" />
+            <item index="7" class="java.lang.String" itemvalue="mdt-datamarket" />
+            <item index="8" class="java.lang.String" itemvalue="mdt-table" />
+            <item index="9" class="java.lang.String" itemvalue="shapely" />
+            <item index="10" class="java.lang.String" itemvalue="PyYAML" />
+            <item index="11" class="java.lang.String" itemvalue="logger" />
+            <item index="12" class="java.lang.String" itemvalue="isort" />
+            <item index="13" class="java.lang.String" itemvalue="uWSGI" />
+            <item index="14" class="java.lang.String" itemvalue="pycryptodome" />
+            <item index="15" class="java.lang.String" itemvalue="Naked" />
+            <item index="16" class="java.lang.String" itemvalue="shellescape" />
+            <item index="17" class="java.lang.String" itemvalue="petal" />
+            <item index="18" class="java.lang.String" itemvalue="alibabacloud_tea_console" />
+            <item index="19" class="java.lang.String" itemvalue="alibabacloud_dysmsapi20170525" />
+            <item index="20" class="java.lang.String" itemvalue="alibabacloud_tea_openapi" />
+            <item index="21" class="java.lang.String" itemvalue="gensim" />
+            <item index="22" class="java.lang.String" itemvalue="mdt_datamarket" />
+            <item index="23" class="java.lang.String" itemvalue="jieba" />
+            <item index="24" class="java.lang.String" itemvalue="psycopg2-binary" />
+            <item index="25" class="java.lang.String" itemvalue="minio" />
+            <item index="26" class="java.lang.String" itemvalue="numpy" />
+            <item index="27" class="java.lang.String" itemvalue="mdt_config-profiles" />
+            <item index="28" class="java.lang.String" itemvalue="importlib-metadata" />
+            <item index="29" class="java.lang.String" itemvalue="redis" />
+            <item index="30" class="java.lang.String" itemvalue="celery" />
+            <item index="31" class="java.lang.String" itemvalue="mdt_table" />
+            <item index="32" class="java.lang.String" itemvalue="pendulum" />
+            <item index="33" class="java.lang.String" itemvalue="pypinyin" />
+            <item index="34" class="java.lang.String" itemvalue="vine" />
+            <item index="35" class="java.lang.String" itemvalue="apache-airflow" />
+            <item index="36" class="java.lang.String" itemvalue="pyarrow" />
+            <item index="37" class="java.lang.String" itemvalue="email-validator" />
+            <item index="38" class="java.lang.String" itemvalue="cattrs" />
+            <item index="39" class="java.lang.String" itemvalue="bitstring" />
+            <item index="40" class="java.lang.String" itemvalue="htmlmin" />
+            <item index="41" class="java.lang.String" itemvalue="sqlalchemy" />
+            <item index="42" class="java.lang.String" itemvalue="pandas" />
+            <item index="43" class="java.lang.String" itemvalue="boto3" />
+            <item index="44" class="java.lang.String" itemvalue="regex" />
+            <item index="45" class="java.lang.String" itemvalue="mdt_airflow" />
+            <item index="46" class="java.lang.String" itemvalue="mdt_db" />
+            <item index="47" class="java.lang.String" itemvalue="mdt_util" />
+            <item index="48" class="java.lang.String" itemvalue="oss2" />
+            <item index="49" class="java.lang.String" itemvalue="furl" />
+            <item index="50" class="java.lang.String" itemvalue="mdt_config" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="E111" />
+          <option value="E114" />
+          <option value="E712" />
+          <option value="E131" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N801" />
+          <option value="N806" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

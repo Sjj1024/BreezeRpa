@@ -1,0 +1,3 @@
+[console_scripts]
+dalongcli = cli:hello
+

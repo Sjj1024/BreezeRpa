@@ -2,9 +2,10 @@ from abc import ABC
 from apps.app import Person
 
 
-class Man(Person, ABC):
+class ManMAnMan(Person, ABC):
     def __init__(self):
-        super(Man, self).__init__()
+        super(ManMAnMan, self).__init__()
+        self.name = "ManMAnMan"
         self.age = 18
 
     def eat(self):
@@ -14,4 +15,4 @@ class Man(Person, ABC):
         print("Man say 你好")
 
     def run(self, params=None):
-        print(f"Man 接收到的参数是：{params}")
+        print(f"{self.name} 接收到的参数是：{params}")

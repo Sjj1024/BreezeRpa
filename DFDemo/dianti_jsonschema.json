@@ -1,0 +1,182 @@
+{
+  "json_schema": {
+    "type": "object",
+    "required": [],
+    "properties": {
+      "纬度": {
+        "type": "number",
+        "title": "纬度"
+      },
+      "经度": {
+        "type": "number",
+        "title": "经度"
+      },
+      "使用单位": {
+        "type": "string",
+        "title": "使用单位"
+      },
+      "使用状态": {
+        "enum": [
+          "报废",
+          "停用",
+          "在用",
+          "注销"
+        ],
+        "type": "string",
+        "title": "使用状态"
+      },
+      "制造单位": {
+        "type": "string",
+        "title": "制造单位"
+      },
+      "品牌类型": {
+        "type": "string",
+        "title": "品牌类型"
+      },
+      "图片地址": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "title": "图片地址"
+      },
+      "安装地址": {
+        "type": "string",
+        "title": "安装地址"
+      },
+      "安装日期": {
+        "type": "integer",
+        "title": "安装日期",
+        "format": "timestamp",
+        "default": 0
+      },
+      "检验结论": {
+        "type": "string",
+        "title": "检验结论"
+      },
+      "用途中类": {
+        "enum": [
+          "箱式客梯",
+          "观光客梯",
+          "自动电梯",
+          "其他客梯",
+          "箱式货梯",
+          "其他货梯",
+          "消防电梯"
+        ],
+        "type": "string",
+        "title": "用途中类"
+      },
+      "用途大类": {
+        "enum": [
+          "客梯",
+          "货梯",
+          "其他"
+        ],
+        "type": "string",
+        "title": "用途大类"
+      },
+      "用途小类": {
+        "enum": [
+          "自动扶梯",
+          "自动人行道",
+          "病床电梯",
+          "宅梯",
+          "杂物电梯",
+          "汽车电梯"
+        ],
+        "type": "string",
+        "title": "用途小类"
+      },
+      "维保单位": {
+        "type": "string",
+        "title": "维保单位"
+      },
+      "重点监控": {
+        "type": "boolean",
+        "title": "重点监控"
+      },
+      "乡镇(街道)": {
+        "type": "string",
+        "title": "乡镇(街道)"
+      },
+      "下次检验日期": {
+        "type": "integer",
+        "title": "下次检验日期",
+        "format": "timestamp",
+        "default": 0
+      },
+      "历史检验信息": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "检验日期": {
+              "type": "integer",
+              "title": "检验日期",
+              "format": "timestamp",
+              "default": 0
+            },
+            "检验结论": {
+              "enum": [
+                "适合加梯",
+                "不适宜加梯"
+              ],
+              "type": "string",
+              "title": "检验结论"
+            },
+            "检验责任所在单位": {
+              "type": "string"
+            },
+            "检验责任所在单位联系方式": {
+              "type": "string"
+            }
+          }
+        },
+        "title": "历史检验信息"
+      },
+      "设备注册代码": {
+        "type": "string",
+        "title": "设备注册代码"
+      },
+      "下次自检测日期": {
+        "type": "integer",
+        "title": "下次自检测日期",
+        "format": "timestamp",
+        "default": 0
+      },
+      "使用单位联系人": {
+        "type": "string",
+        "title": "使用单位联系人"
+      },
+      "维保单位联系人": {
+        "type": "string",
+        "title": "维保单位联系人"
+      },
+      "使用单位联系方式": {
+        "type": "string",
+        "title": "使用单位联系方式"
+      },
+      "制造单位联系方式": {
+        "type": "string",
+        "title": "制造单位联系方式"
+      },
+      "检验责任所在单位": {
+        "type": "string",
+        "title": "检验责任所在单位"
+      },
+      "维保单位联系方式": {
+        "type": "string",
+        "title": "维保单位联系方式"
+      },
+      "设备名称（型号）": {
+        "type": "string",
+        "title": "设备名称（型号）"
+      },
+      "检验责任所在单位联系方式": {
+        "type": "string",
+        "title": "检验责任所在单位联系方式"
+      }
+    }
+  }
+}

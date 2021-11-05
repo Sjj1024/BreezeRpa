@@ -17,8 +17,6 @@ def loc_change(loc):
         yy = loc.partition('号')
         yy_y = [yy[0], yy[1]]
         return ''.join(yy_y)
-      else:
-        return ''
     elif '道' in loc:  # 清洗有“道”的元素
       z1 = str1.index('号')
       z2 = str1.index('道')
@@ -26,12 +24,9 @@ def loc_change(loc):
         zz = loc.partition('号')
         zz_z = [zz[0], zz[1]]
         return ''.join(zz_z)
-    else:
-      return ''
   elif '桥' in loc:
     return loc
-  else:  # 没有以上两个的删去变空白
-    return ''
+  return ''
 
 
 # 去除特定的前面部分

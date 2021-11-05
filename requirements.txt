@@ -29,13 +29,11 @@ distlib==0.3.3
 distributed==2.17.0
 docker==5.0.3
 docstring-parser==0.12
-dramatiq-workers==0.20.20
 dynaconf==3.1.7
 eccodes-python==0.9.9
 et-xmlfile==1.1.0
 filelock==3.3.2
 Fiona==1.8.13.post1
-furl==2.1.0
 future==0.18.2
 GeoAlchemy2==0.6.3
 geocoder==1.38.1
@@ -117,7 +115,6 @@ regex==2021.11.1
 requests==2.25.0
 retrying==1.3.3
 sasl==0.3.1
-Shapely==1.7a2
 simplejson==3.16.0
 six==1.16.0
 sortedcontainers==2.4.0

@@ -1,45 +1,49 @@
 # 清洗安装地址列，使其成为统一
-import pandas as pd
 
 
 # 构造列清洗函数
+import pandas as pd
+
+
 def loc_change(loc):
-  str1 = list(loc)
   if '弄' in loc:  # 清洗有“弄”的元素
-    xx = loc.partition('弄')
-    xx_x = [xx[0], xx[1]]
-    return ''.join(xx_x)
+    if '路' in loc:  # 将元素中有“路”的留下，没有的删去
+      return bj_func('弄', '路', loc)
+    elif '道' in loc:  # 清洗有“道”的元素
+      return bj_func('弄', '道', loc)
   elif '号' in loc:  # 清洗有“号”的元素
     if '路' in loc:  # 将元素中有“路”的留下，没有的删去
-      y1 = str1.index('号')
-      y2 = str1.index('路')
-      if y1 > y2:
-        yy = loc.partition('号')
-        yy_y = [yy[0], yy[1]]
-        return ''.join(yy_y)
+      return bj_func('号', '路', loc)
     elif '道' in loc:  # 清洗有“道”的元素
-      z1 = str1.index('号')
-      z2 = str1.index('道')
-      if z1 > z2:
-        zz = loc.partition('号')
-        zz_z = [zz[0], zz[1]]
-        return ''.join(zz_z)
+      return bj_func('号', '道', loc)
   elif '桥' in loc:
     return loc
   return ''
 
 
-# 去除特定的前面部分
+def bj_func(word1, word2, loc):  # 比较函数，保留‘号’在后面的字符，同时取前面部分
+  if loc.index(word1) > loc.index(word2):
+    a1 = loc.partition(word1)
+    a_a = [a1[0], a1[1]]
+    return ''.join(a_a)
+
+  # 去除特定的前面部分
+
+
 def del_ts(loc):
   del_list = ['苑', '园', '源', '庭', '第', '期', '区', '厦', ')', '市', '浦东', '花木镇', ' ']
   for o in del_list:
     if o in loc:
       loc = loc.rsplit(o)[1]
+    else:
+      pass
   return loc
 
 
 # 将数字转换一遍，且去除杨高南路严家桥、东北角等字符元素
 def trans_dz(loc):
+  if '路站' in loc:
+    return ''
   if '杨高南路严家桥' in loc:
     return ''
   if '东北角' in loc:
@@ -60,4 +64,4 @@ def lift_loc_change(path):  # path为excel文件的路径
 
 # 主程序
 if __name__ == '__main__':
-  lift_loc_change("/Users/metrodata/Downloads/全量电梯.xlsx")
+  lift_loc_change("./全量电梯.xlsx")

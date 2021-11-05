@@ -237,6 +237,15 @@ def pipei_two_df():
   """
   another = df1.drop_duplicates(subset=["电梯编号"], keep=False)
   print(another)
+  print("----------------------------------")
+  df1["key2"] = df1["key2"].apply(key_func)
+  print(df1)
+
+
+def key_func(path):
+  if path.startswith("o"):
+    return "ooooo"
+  return path
 
 
 if __name__ == '__main__':

@@ -4,8 +4,8 @@ import tkinter.messagebox
 import pickle
 
 window = tk.Tk()
-window.title('Soul')
-window.geometry('400x600')
+window.title('Souler')
+window.geometry('400x650')
 # 登陆界面
 tk.Label(window, text='姓名：').place(x=100, y=100)
 tk.Label(window, text='姓名：').place(x=100, y=140)

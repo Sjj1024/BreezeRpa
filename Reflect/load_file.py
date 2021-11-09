@@ -6,7 +6,6 @@ from apps.app import Person
 
 
 def load_model(file, init_params=None):
-  # Ignore anything that isn't a .py file
   module_name = ''
   if len(file) > 3 and (file[-3:] == '.py' or file[-4:] == '.pyc'):
     if file[-3:] == '.py':
@@ -64,7 +63,7 @@ def search_file():
   recursive_dir(os.getcwd(), "apps", app_files)
   print(app_files)
   for app in app_files:
-    if app.endswith(".py"):
+    if app.endswith(".py") or app.endswith(".pyc"):
       app_dicts.update(load_model(app))
   print(f"所有模块已加载完成: {app_dicts}")
   # 调用模块中的方法

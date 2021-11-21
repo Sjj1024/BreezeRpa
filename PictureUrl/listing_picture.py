@@ -217,7 +217,9 @@ class Toutiao_picurl():
                         imgByteArr = io.BytesIO()
                         img.save(imgByteArr, format='PNG')  # format: PNG / JPEG
                         imgByteArr = imgByteArr.getvalue()
+                        # 图床选择
                         picture_url = self.tt_upload(imgByteArr)
+                        # picture_url = self.async_nsaimg_link(imgByteArr)
                     except Exception as e:
                         print(e)
                         cookie = input("cookie不可用，请输入新Cookie：\n")

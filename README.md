@@ -14,3 +14,8 @@ http://mirrors.163.com/pypi/simple/ 网易
 ```
 pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple/
 ```
+
+忽略错误安装依赖方式:
+```
+cat requirement_s.txt | xargs -n 1 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple/
+```

@@ -6,6 +6,7 @@ class Person(object):
 
     def __init__(self):
         self.name = "wan"
+        self.route = "路由"
 
     @abc.abstractmethod
     def say(self):

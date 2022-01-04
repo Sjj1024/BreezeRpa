@@ -1,0 +1,32 @@
+接口梳理:
+
+| 名称                       | 地址                                                         | 响应                                                        |
+| -------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
+| 政务地图                   | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/BaseMap/MapServer | BaseMap (MapServer)                                     |
+| 公众地图                   | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/shmap/MapServer | shmap (MapServer)                              |
+| 综合地形图（单色）     | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/DLG_unicolor/MapServer | Error Code: 401<br/>Mseeage: 禁止访问：授权访问时间已结束！ |
+| 综合地形图（彩色）     | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/DLG_fullcolor/MapServer | Error Code: 401<br/>Mseeage: 禁止访问：授权访问时间已结束！ |
+| 中比例尺地形图（单色） | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/DLG_10k_unicolor/MapServer | Error Code: 401<br/>Mseeage: 禁止访问：授权访问时间已结束！ |
+| 中比例尺地形图（彩色） | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/DLG_10k_fullcolor/MapServer | Error Code: 401<br/>Mseeage: 禁止访问：授权访问时间已结束！ |
+| 最新航空影像           | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/Air/MapServer | Air (MapServer) |
+| 2006航空影像       | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/Air2006/MapServer | Air2006 (MapServer) |
+| 2008航空影像       | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/Air2008/MapServer | Air2008 (MapServer) |
+| 2010航空影像       | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/Air2010/MapServer | Air2010 (MapServer) |
+| 2011航空影像       | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/Air2011/MapServer | Air2011 (MapServer) |
+| 2012上半年航空影像 | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/Air2012S/MapServer | Air2012S (MapServer) |
+| 2012下半年航空影像 | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/Air2012X/MapServer | Air2012X (MapServer) |
+| 2013航空影像       | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/Air2013S/MapServer | Air2013S (MapServer) |
+| 2014航空影像       | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/Air2014S/MapServer | Air2014S (MapServer) |
+| 2015航空影像       | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/Air2015S/MapServer | Air2015S (MapServer) |
+| 最新资三影像           | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/ZY3/MapServer | Error Code: 401<br/>Mseeage: 禁止访问：授权访问时间已结束！ |
+| 影像注记               | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/ZY3_ZJ/MapServer | ZY3_ZJ (MapServer) |
+
+
+
+功能服务地址
+
+| 类别                             | 服务地址                                                 | 结果 |
+| ------------------------------------ | ------------------------------------------------------------ | ---- |
+| 地址查询服务                     | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/address_p/Transfer |      |
+| 坐标转换  CGCS2000转上海 | http://map.smi.sh.cegn.cn/OneMapServer/rest/services/coordtransm1ws/Transfer |      |
+

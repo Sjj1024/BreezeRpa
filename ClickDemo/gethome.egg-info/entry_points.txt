@@ -1,0 +1,4 @@
+[console_scripts]
+gethome = cli1.hello:gethome
+gohome = cli1.hello:hello
+

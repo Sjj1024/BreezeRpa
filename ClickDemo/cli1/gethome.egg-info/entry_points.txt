@@ -1,0 +1,4 @@
+[console_scripts]
+gethome = hello:gethome
+gohome = hello:hello
+

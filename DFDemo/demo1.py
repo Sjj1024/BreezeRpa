@@ -238,7 +238,8 @@ def pipei_two_df():
   another = df1.drop_duplicates(subset=["电梯编号"], keep=False)
   print(another)
   print("----------------------------------")
-  df1["key2"] = df1["key2"].apply(key_func)
+  # df1["key2"] = df1["key2"].apply(key_func)
+  df1["key2"] = df1["key2"].apply(lambda x: x.replace("o", "a"))
   print(df1)
 
 

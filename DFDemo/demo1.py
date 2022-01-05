@@ -61,6 +61,9 @@ def fillter_data():
   print(f'日期所属的年份为 : {int(d1.year)}')
   print(f'日期所属的月份为 : {type(d1.month)}')
   print(f'日期具体的日期号为 : {d1.day}')
+  print("-------------------------")
+  res = frame[frame['pop'].apply(lambda x: "c" in x)]
+  print(res)
 
 
 def timestamp_to_date():
@@ -255,7 +258,7 @@ if __name__ == '__main__':
   # none_if()
   # cast_list()
   # list_creat()
-  # fillter_data()
+  fillter_data()
   # timestamp_to_date()
   # dataframe_grpupby()
   # two_df_merge()
@@ -263,4 +266,4 @@ if __name__ == '__main__':
   # drop_columns()
   # apply_datarow()
   # test_axis()
-  pipei_two_df()
+  # pipei_two_df()

@@ -6,7 +6,8 @@ from mdt_collector.collector_api.api_client.template_client import \
 
 def get_collector_base_url():
     """collector 域名"""
-    return "https://abc.agile.com.cn/public/api"
+    # return "https://abc.agile.com.cn/public/api"
+    return "https://abctest.agile.com.cn/public/api"
 
 
 def get_base_credential():
@@ -25,3 +26,4 @@ def get_template_client_base(template_uuid: str) -> TemplateClient:
     return TemplateClient.from_credentials(credentials=get_base_credential(),
                                            base_url=get_collector_base_url(),
                                            template_uuid=template_uuid)
+

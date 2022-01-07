@@ -1,0 +1,26 @@
+{
+  "home": {
+    "you": "None",
+    "love": "now",
+    "type": {
+      "interval": "5m"
+    }
+  },
+  "values": {
+    "data": [
+      "cpu_r"
+    ],
+    "event": [
+      "cpu_r",
+      "cpu_w"
+    ],
+    "threshold": [
+      1,
+      1
+    ]
+  },
+  "ay_name": "王健林",
+  "objects": {
+    "al": "beauty"
+  }
+}

@@ -203,7 +203,8 @@ def pipei_two_df():
     '电梯编号': ['a', 'b', 'c', 'd', 'e'],
     'key2': ['one', 'two', 'one', 'two', 'three'],
     '本月实缴金额': [2, 2, 2, 2, 2],
-    'data2': [5, 5, 5, 10, 5]
+    'data2': [5, 5, 5, 10, 5],
+    'data3': [5.01, 5.01, 5.01, 10.23, 5.01]
   })
 
   df2 = pd.DataFrame({
@@ -213,6 +214,8 @@ def pipei_two_df():
     'data2': [6, 6, 6, 6, 6],
     'data3': [5, 5, 5, 10, 5],
   })
+  df1["data3"] = df1["data3"].astype("int")
+  print(df1)
   # inner是取交集
   data_mer = pd.merge(df1, df2, on=["电梯编号"], how="inner")
   print(data_mer)
@@ -242,7 +245,9 @@ def pipei_two_df():
   print(another)
   print("----------------------------------")
   # df1["key2"] = df1["key2"].apply(key_func)
-  df1["key2"] = df1["key2"].apply(lambda x: x.replace("o", "a"))
+  # df1["key2"] = df1["key2"].apply(lambda x: x.replace("o", "a"))
+  # df1["key2"] = df1["key2"].replace("one", "a")
+  df1["data2"] = df1["data2"].replace(5, np.nan)
   print(df1)
 
 
@@ -258,7 +263,7 @@ if __name__ == '__main__':
   # none_if()
   # cast_list()
   # list_creat()
-  fillter_data()
+  # fillter_data()
   # timestamp_to_date()
   # dataframe_grpupby()
   # two_df_merge()
@@ -266,4 +271,4 @@ if __name__ == '__main__':
   # drop_columns()
   # apply_datarow()
   # test_axis()
-  # pipei_two_df()
+  pipei_two_df()

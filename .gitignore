@@ -2,3 +2,4 @@
 .idea/BreezeRpa.iml
 venv
 *.py[cod]
+.DS_Store

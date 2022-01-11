@@ -1,549 +1,130 @@
 {
-    "alias": null,
-    "upload": {
-        "enable": true,
-        "upload_type": "default"
-    },
-    "display": null,
-    "formula": null,
-    "indices": null,
-    "plugins": [
-        {
-            "name": "yjl",
-            "customized": {
-                "steps": [
-                    "pre_data_created"
-                ],
-                "target_uuid": "09090641-9559-4e77-a3c8-227740e43937"
-            }
-        }
-    ],
-    "uniques": [],
-    "geometry": {
-        "lat": "纬度",
-        "lng": "经度",
-        "type": "lnglat"
-    },
-    "hide_keys": null,
-    "json_schema": {
-        "type": "object",
-        "required": [],
-        "properties": {
-            "GUID": {
-                "type": "string",
-                "title": "GUID"
-            },
-            "区域": {
-                "type": "string",
-                "title": "区域"
-            },
-            "城市": {
-                "type": "string",
-                "title": "城市"
-            },
-            "备注": {
-                "type": "string",
-                "title": "备注"
-            },
-            "省份": {
-                "type": "string",
-                "title": "省份"
-            },
-            "类型": {
-                "type": "string",
-                "title": "类型",
-                "description": "招拍挂、收并购、合作开发"
-            },
-            "纬度": {
-                "type": "number",
-                "title": "纬度"
-            },
-            "经度": {
-                "type": "number",
-                "title": "经度"
-            },
-            "限高": {
-                "type": "string",
-                "title": "限高"
-            },
-            "地块ID": {
-                "type": "string",
-                "title": "地块ID"
-            },
-            "land_uuid": {
-                "type": "string",
-                "title": "land_uuid"
-            },
-            "容积率": {
-                "type": "string",
-                "title": "容积率"
-            },
-            "数据源": {
-                "type": "string",
-                "title": "数据源",
-                "description": "数据库、自定义输入"
-            },
-            "溢价率": {
-                "type": "number",
-                "title": "溢价率"
-            },
-            "绿化率": {
-                "type": "string",
-                "title": "绿化率"
-            },
-            "围栏ewkb": {
-                "type": "string",
-                "title": "围栏ewkb"
-            },
-            "交易状况": {
-                "type": "string",
-                "title": "交易状况"
-            },
-            "付款条件": {
-                "type": "string",
-                "title": "付款条件"
-            },
-            "代征面积": {
-                "type": "number",
-                "title": "代征面积"
-            },
-            "公告日期": {
-                "type": "integer",
-                "title": "公告日期",
-                "format": "timestamp",
-                "default": 0
-            },
-            "公告编号": {
-                "type": "string",
-                "title": "公告编号"
-            },
-            "出让单位": {
-                "type": "string",
-                "title": "出让单位"
-            },
-            "出让年限": {
-                "type": "string",
-                "title": "出让年限"
-            },
-            "出让方式": {
-                "type": "string",
-                "title": "出让方式"
-            },
-            "加价幅度": {
-                "type": "string",
-                "title": "加价幅度"
-            },
-            "区域建议": {
-                "type": "string",
-                "title": "区域建议"
-            },
-            "占地面积": {
-                "type": "string",
-                "title": "占地面积"
-            },
-            "受让单位": {
-                "type": "string",
-                "title": "受让单位"
-            },
-            "咨询电话": {
-                "type": "string",
-                "title": "咨询电话"
-            },
-            "品牌房企": {
-                "type": "string",
-                "title": "品牌房企"
-            },
-            "商业占比": {
-                "type": "string",
-                "title": "商业占比"
-            },
-            "商业面积": {
-                "type": "number",
-                "title": "商业面积"
-            },
-            "土地位置": {
-                "type": "string",
-                "title": "地块位置"
-            },
-            "土地名称": {
-                "type": "string",
-                "title": "土地名称"
-            },
-            "土地属性": {
-                "type": "string",
-                "title": "土地属性"
-            },
-            "土地状态": {
-                "type": "string",
-                "title": "土地状态"
-            },
-            "土地编码": {
-                "type": "string",
-                "title": "土地编码"
-            },
-            "地块四至": {
-                "type": "string",
-                "title": "地块四至"
-            },
-            "城市等级": {
-                "type": "string",
-                "title": "城市等级"
-            },
-            "城市类别": {
-                "type": "string",
-                "title": "城市类别"
-            },
-            "建筑密度": {
-                "type": "string",
-                "title": "建筑密度"
-            },
-            "开发程度": {
-                "type": "string",
-                "title": "开发程度"
-            },
-            "开发进度": {
-                "type": "string",
-                "title": "开发进度"
-            },
-            "成交时间": {
-                "type": "integer",
-                "title": "成交时间",
-                "format": "timestamp",
-                "default": 0
-            },
-            "拿地房企": {
-                "type": "string",
-                "title": "拿地房企"
-            },
-            "板块名称": {
-                "type": "string",
-                "title": "板块名称"
-            },
-            "板块属性": {
-                "type": "string",
-                "title": "板块属性"
-            },
-            "板块编码": {
-                "type": "string",
-                "title": "板块编码"
-            },
-            "流程节点": {
-                "type": "string",
-                "title": "流程节点",
-                "description": "项目通报、项目立项、项目预审、项目投委会、项目总结"
-            },
-            "用地性质": {
-                "type": "string",
-                "title": "用地性质"
-            },
-            "用地描述": {
-                "type": "string",
-                "title": "用地描述"
-            },
-            "竞买资格": {
-                "type": "string",
-                "title": "竞买资格"
-            },
-            "竞价时间": {
-                "type": "integer",
-                "title": "竞价时间",
-                "format": "timestamp",
-                "default": 0
-            },
-            "自持年限": {
-                "type": "string",
-                "title": "自持年限"
-            },
-            "自持类型": {
-                "type": "string",
-                "title": "自持类型"
-            },
-            "计容建面": {
-                "type": "number",
-                "title": "计容建面"
-            },
-            "详细规划": {
-                "type": "string",
-                "title": "详细规划"
-            },
-            "起始时间": {
-                "type": "integer",
-                "title": "起始时间",
-                "format": "timestamp",
-                "default": 0
-            },
-            "配建情况": {
-                "type": "string",
-                "title": "配建情况"
-            },
-            "集中供地": {
-                "type": "string",
-                "title": "集中供地"
-            },
-            "项目名称": {
-                "type": "string",
-                "title": "项目名称"
-            },
-            "保障房类型": {
-                "type": "string",
-                "title": "保障房类型"
-            },
-            "成交每亩价": {
-                "type": "number",
-                "title": "成交每亩价"
-            },
-            "成交每单价": {
-                "type": "number",
-                "title": "成交每单价"
-            },
-            "招拍挂链接": {
-                "type": "string",
-                "title": "招拍挂链接"
-            },
-            "是否限地价": {
-                "type": "boolean",
-                "title": "是否限地价"
-            },
-            "综合容积率": {
-                "type": "number",
-                "title": "综合容积率"
-            },
-            "起拍每亩价": {
-                "type": "string",
-                "title": "起拍每亩价"
-            },
-            "项目推广名": {
-                "type": "string",
-                "title": "项目推广名"
-            },
-            "保证金_万元": {
-                "type": "number",
-                "title": "保证金_万元"
-            },
-            "起拍价_万元": {
-                "type": "number",
-                "title": "起拍价_万元"
-            },
-            "雅居乐_区域": {
-                "type": "string",
-                "title": "雅居乐_区域"
-            },
-            "住宅车位配比": {
-                "type": "number",
-                "title": "住宅车位配比"
-            },
-            "保障房回购价": {
-                "type": "number",
-                "title": "保障房回购价"
-            },
-            "初始自持比例": {
-                "type": "number",
-                "title": "初始自持比例"
-            },
-            "初始自持面积": {
-                "type": "number",
-                "title": "初始自持面积"
-            },
-            "初始配建面积": {
-                "type": "number",
-                "title": "初始配建面积"
-            },
-            "商业车位配比": {
-                "type": "number",
-                "title": "商业车位配比"
-            },
-            "土地创建时间": {
-                "type": "integer",
-                "title": "土地创建时间",
-                "format": "timestamp",
-                "default": 0
-            },
-            "土地删除状态": {
-                "type": "string",
-                "title": "土地删除状态"
-            },
-            "土地更新时间": {
-                "type": "integer",
-                "title": "土地更新时间",
-                "format": "timestamp",
-                "default": 0
-            },
-            "建设用地面积": {
-                "type": "string",
-                "title": "建设用地面积"
-            },
-            "成交原则原文": {
-                "type": "string",
-                "title": "成交原则原文"
-            },
-            "成交特殊政策": {
-                "type": "string",
-                "title": "成交特殊政策"
-            },
-            "投资项目名称": {
-                "type": "string",
-                "title": "投资项目名称"
-            },
-            "挂牌截止时间": {
-                "type": "integer",
-                "title": "挂牌截止时间",
-                "format": "timestamp",
-                "default": 0
-            },
-            "特殊挂牌信息": {
-                "type": "string",
-                "title": "特殊挂牌信息"
-            },
-            "成交价格_万元": {
-                "type": "number",
-                "title": "成交价格_万元"
-            },
-            "保证金截止时间": {
-                "type": "integer",
-                "title": "保证金截止时间",
-                "format": "timestamp",
-                "default": 0
-            },
-            "保障房回购面积": {
-                "type": "number",
-                "title": "保障房回购面积"
-            },
-            "剩余款支付时间": {
-                "type": "string",
-                "title": "剩余款支付时间"
-            },
-            "成交保障房面积": {
-                "type": "number",
-                "title": "成交保障房面积"
-            },
-            "推出保障房面积": {
-                "type": "number",
-                "title": "推出保障房面积"
-            },
-            "是否有最高限价": {
-                "type": "boolean",
-                "title": "是否有最高限价"
-            },
-            "诚意金（万元）": {
-                "type": "number",
-                "title": "诚意金（万元）"
-            },
-            "配建自住房情况": {
-                "type": "string",
-                "title": "配建自住房情况"
-            },
-            "出让楼板价_万元": {
-                "type": "number",
-                "title": "出让楼板价_万元"
-            },
-            "保证预计退回时间": {
-                "type": "integer",
-                "title": "保证预计退回时间",
-                "format": "timestamp",
-                "default": 0
-            },
-            "总建筑面积（㎡）": {
-                "type": "number",
-                "title": "总建筑面积（㎡）"
-            },
-            "竞买保证金截止日": {
-                "type": "integer",
-                "title": "竞买保证金截止日",
-                "format": "timestamp",
-                "default": 0
-            },
-            "竞报整体自持比例": {
-                "type": "number",
-                "title": "竞报整体自持比例"
-            },
-            "最高限制总价_万元": {
-                "type": "number",
-                "title": "最高限制总价_万元"
-            },
-            "成交楼板价_元_平米": {
-                "type": "number",
-                "title": "成交楼板价_元_平米"
-            },
-            "起拍楼板价_元_平米": {
-                "type": "number",
-                "title": "起拍楼板价_元_平米"
-            },
-            "诚意金预计支付时间": {
-                "type": "integer",
-                "title": "诚意金预计支付时间",
-                "format": "timestamp",
-                "default": 0
-            },
-            "限售价_毛坯_元_平米": {
-                "type": "number",
-                "title": "限售价_毛坯_元_平米"
-            },
-            "限售价_精装_元_平米": {
-                "type": "number",
-                "title": "限售价_精装_元_平米"
-            },
-            "成交楼面价(除保障房)": {
-                "type": "number",
-                "title": "成交楼面价(除保障房)"
-            },
-            "推出楼面价(除保障房)": {
-                "type": "number",
-                "title": "推出楼面价(除保障房)"
-            },
-            "是否需要提供资信证明": {
-                "type": "boolean",
-                "title": "是否需要提供资信证明"
-            },
-            "竞报商办部分自持比例": {
-                "type": "number",
-                "title": "竞报商办部分自持比例"
-            },
-            "竞报商品住房自持比例": {
-                "type": "number",
-                "title": "竞报商品住房自持比例"
-            },
-            "配建养老设施面积情况": {
-                "type": "string",
-                "title": "配建养老设施面积情况"
-            },
-            "折算起拍楼板价_元_平米": {
-                "type": "number",
-                "title": "折算起拍楼板价_元_平米"
-            },
-            "达到各种上限后是否摇号": {
-                "type": "boolean",
-                "title": "达到各种上限后是否摇号"
-            },
-            "最高限制楼面价_万元_平米": {
-                "type": "number",
-                "title": "最高限制楼面价_万元_平米"
-            },
-            "达到地价上限后是否竞自持": {
-                "type": "boolean",
-                "title": "达到地价上限后是否竞自持"
-            },
-            "达到地价上限后是否竞配建": {
-                "type": "boolean",
-                "title": "达到地价上限后是否竞配建"
-            },
-            "折算最高限制楼面价_元_平米": {
-                "type": "number",
-                "title": "折算最高限制楼面价_元_平米"
-            },
-            "底价成交需缴纳剩余地价款_元": {
-                "type": "number",
-                "title": "底价成交需缴纳剩余地价款_元"
-            },
-            "如最高限价成交需缴纳剩余地价款_万元": {
-                "type": "number",
-                "title": "如最高限价成交需缴纳剩余地价款_万元"
-            }
-        },
-        "additionalProperties": true
-    },
-    "default_keys": null,
-    "foreign_keys": null,
-    "protect_keys": null,
-    "related_packages": null,
-    "template_condition": null
+  "地块名称": {
+    "type": "string",
+    "title": "地块名称"
+  },
+  "控规单元名称": {
+    "type": "string",
+    "title": "控规单元名称"
+  },
+  "经度": {
+    "type": "number",
+    "title": "经度"
+  },
+  "纬度": {
+    "type": "number",
+    "title": "纬度"
+  },
+  "控规单元": {
+    "type": "string",
+    "title": "控规单元"
+  },
+  "街镇": {
+    "type": "string",
+    "title": "街镇"
+  },
+  "区县": {
+    "type": "string",
+    "title": "区县"
+  },
+  "是否在水乡客厅": {
+    "type": "boolean",
+    "title": "是否在水乡客厅"
+  },
+  "面积": {
+    "type": "number",
+    "title": "面积"
+  },
+  "geometry": {
+    "type": "string",
+    "title": "geometry"
+  },
+  "人数": {
+    "type": "integer",
+    "title": "人数"
+  },
+  "总达标率": {
+    "type": "number",
+    "title": "总达标率"
+  },
+  "总覆盖人数比例": {
+    "type": "number",
+    "title": "总覆盖人数比例"
+  },
+  "总覆盖面积比例": {
+    "type": "number",
+    "title": "总覆盖面积比例"
+  },
+  "文化设施达标率": {
+    "type": "number",
+    "title": "文化设施达标率"
+  },
+  "文化设施覆盖人数比例": {
+    "type": "number",
+    "title": "文化设施覆盖人数比例"
+  },
+  "文化设施覆盖面积比例": {
+    "type": "number",
+    "title": "文化设施覆盖面积比例"
+  },
+  "教育设施达标率": {
+    "type": "number",
+    "title": "教育设施达标率"
+  },
+  "教育设施覆盖人数比例": {
+    "type": "number",
+    "title": "教育设施覆盖人数比例"
+  },
+  "教育设施覆盖面积比例": {
+    "type": "number",
+    "title": "教育设施覆盖面积比例"
+  },
+  "交通设施达标率": {
+    "type": "number",
+    "title": "交通设施达标率"
+  },
+  "交通设施覆盖人数比例": {
+    "type": "number",
+    "title": "交通设施覆盖人数比例"
+  },
+  "交通设施覆盖面积比例": {
+    "type": "number",
+    "title": "交通设施覆盖面积比例"
+  },
+  "医疗设施达标率": {
+    "type": "number",
+    "title": "医疗设施达标率"
+  },
+  "医疗设施覆盖人数比例": {
+    "type": "number",
+    "title": "医疗设施覆盖人数比例"
+  },
+  "医疗设施覆盖面积比例": {
+    "type": "number",
+    "title": "医疗设施覆盖面积比例"
+  },
+  "体育设施达标率": {
+    "type": "number",
+    "title": "体育设施达标率"
+  },
+  "体育设施覆盖人数比例": {
+    "type": "number",
+    "title": "体育设施覆盖人数比例"
+  },
+  "体育设施覆盖面积比例": {
+    "type": "number",
+    "title": "体育设施覆盖面积比例"
+  },
+  "养老设施达标率": {
+    "type": "number",
+    "title": "养老设施达标率"
+  },
+  "养老设施覆盖人数比例": {
+    "type": "number",
+    "title": "养老设施覆盖人数比例"
+  },
+  "养老设施覆盖面积比例": {
+    "type": "number",
+    "title": "养老设施覆盖面积比例"
+  }
 }

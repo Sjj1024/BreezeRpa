@@ -1,26 +1,174 @@
 {
-  "home": {
-    "you": "None",
-    "love": "now",
-    "type": {
-      "interval": "5m"
-    }
+  "alias": null,
+  "upload": {
+    "enable": true,
+    "upload_type": "default"
   },
-  "values": {
-    "data": [
-      "cpu_r"
-    ],
-    "event": [
-      "cpu_r",
-      "cpu_w"
-    ],
-    "threshold": [
-      1,
-      1
-    ]
+  "display": null,
+  "formula": null,
+  "indices": null,
+  "overlay": null,
+  "plugins": null,
+  "uniques": null,
+  "geometry": null,
+  "hide_keys": null,
+  "mask_keys": null,
+  "reference": null,
+  "json_schema": {
+    "type": "object",
+    "required": [],
+    "properties": {
+      "人数": {
+        "type": "integer",
+        "title": "人数"
+      },
+      "区县": {
+        "type": "string",
+        "title": "区县"
+      },
+      "街镇": {
+        "type": "string",
+        "title": "街镇"
+      },
+      "面积": {
+        "type": "number",
+        "title": "面积"
+      },
+      "区域ID": {
+        "type": "string",
+        "title": "区域ID"
+      },
+      "区域名称": {
+        "type": "string",
+        "title": "区域名称"
+      },
+      "区域类别": {
+        "type": "string",
+        "title": "区域类别"
+      },
+      "综合提升率": {
+        "type": "number",
+        "title": "综合提升率"
+      },
+      "交通设施达标率": {
+        "type": "number",
+        "title": "交通设施达标率"
+      },
+      "体育设施达标率": {
+        "type": "number",
+        "title": "体育设施达标率"
+      },
+      "养老设施达标率": {
+        "type": "number",
+        "title": "养老设施达标率"
+      },
+      "医疗设施达标率": {
+        "type": "number",
+        "title": "医疗设施达标率"
+      },
+      "总覆盖人数比例": {
+        "type": "number",
+        "title": "总覆盖人数比例"
+      },
+      "总覆盖地块数量": {
+        "type": "integer",
+        "title": "总覆盖地块数量"
+      },
+      "总覆盖面积比例": {
+        "type": "number",
+        "title": "总覆盖面积比例"
+      },
+      "教育设施达标率": {
+        "type": "number",
+        "title": "教育设施达标率"
+      },
+      "文化设施达标率": {
+        "type": "number",
+        "title": "文化设施达标率"
+      },
+      "是否在水乡客厅": {
+        "type": "boolean",
+        "title": "是否在水乡客厅"
+      },
+      "交通设施覆盖人数比例": {
+        "type": "number",
+        "title": "交通设施覆盖人数比例"
+      },
+      "交通设施覆盖面积比例": {
+        "type": "number",
+        "title": "交通设施覆盖面积比例"
+      },
+      "体育设施覆盖人数比例": {
+        "type": "number",
+        "title": "体育设施覆盖人数比例"
+      },
+      "体育设施覆盖面积比例": {
+        "type": "number",
+        "title": "体育设施覆盖面积比例"
+      },
+      "养老设施覆盖人数比例": {
+        "type": "number",
+        "title": "养老设施覆盖人数比例"
+      },
+      "养老设施覆盖面积比例": {
+        "type": "number",
+        "title": "养老设施覆盖面积比例"
+      },
+      "医疗设施覆盖人数比例": {
+        "type": "number",
+        "title": "医疗设施覆盖人数比例"
+      },
+      "医疗设施覆盖面积比例": {
+        "type": "number",
+        "title": "医疗设施覆盖面积比例"
+      },
+      "教育设施覆盖人数比例": {
+        "type": "number",
+        "title": "教育设施覆盖人数比例"
+      },
+      "教育设施覆盖面积比例": {
+        "type": "number",
+        "title": "教育设施覆盖面积比例"
+      },
+      "文化设施覆盖人数比例": {
+        "type": "number",
+        "title": "文化设施覆盖人数比例"
+      },
+      "文化设施覆盖面积比例": {
+        "type": "number",
+        "title": "文化设施覆盖面积比例"
+      },
+      "文化设施覆盖地块数量": {
+        "type": "integer",
+        "title": "文化设施覆盖地块数量"
+      },
+      "教育设施覆盖地块数量": {
+        "type": "integer",
+        "title": "教育设施覆盖地块数量"
+      },
+      "交通设施覆盖地块数量": {
+        "type": "integer",
+        "title": "交通设施覆盖地块数量"
+      },
+      "医疗设施覆盖地块数量": {
+        "type": "integer",
+        "title": "医疗设施覆盖地块数量"
+      },
+      "体育设施覆盖地块数量": {
+        "type": "integer",
+        "title": "体育设施覆盖地块数量"
+      },
+      "养老设施覆盖地块数量": {
+        "type": "integer",
+        "title": "养老设施覆盖地块数量"
+      }
+    },
+    "additionalProperties": false
   },
-  "ay_name": "王健林",
-  "objects": {
-    "al": "beauty"
-  }
+  "default_keys": null,
+  "exclude_keys": null,
+  "foreign_keys": null,
+  "protect_keys": null,
+  "related_packages": null,
+  "template_condition": null
 }

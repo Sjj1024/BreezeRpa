@@ -84,7 +84,7 @@ def dataframe_grpupby():
   # df["total_num"] = df.data1 + df.data2
   # print(df)
   print("--------------------")
-  ass = df.groupby("党员编号").sum()
+  ass = df.groupby("党员编号").count()
   print(ass)
   print("--------------------")
   # 只统计值类型的数据列
@@ -170,6 +170,7 @@ def apply_datarow():
     "array_date": [[{"a": 5, "b": 6}, ], [{"a": 5, "b": 6}, ], [{"a": 5, "b": 6}, ], [{"a": 5, "b": 6}, ],
                    [{"a": 5, "b": 6}, ], ]
   })
+  df.set_index(["党员编号"], inplace=True)
   df2 = df.apply(generate_age, axis=1)
   print(df2)
 
@@ -269,6 +270,6 @@ if __name__ == '__main__':
   # two_df_merge()
   # time_df()
   # drop_columns()
-  # apply_datarow()
+  apply_datarow()
   # test_axis()
-  pipei_two_df()
+  # pipei_two_df()

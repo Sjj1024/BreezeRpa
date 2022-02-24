@@ -40,6 +40,7 @@ class HuaMuFlow(Task):
     (
       self.new_etl()
         .from_sql(sql=huamu_sql_flow, dbe=self.get_db())
+        .to_sql()
         .call_with_df(self.to_collector, "695ae7db-6bc9-42d6-ae5d-c41111ceacbb")
     )
 

@@ -16,9 +16,13 @@ def union_test():
 
 
 def df_col_dup():
-  data = {'state': [1, 1, 2, 5, 1, 2, 3], 'pop': ['a', 'b', 'c', 'd', 'b', 'c', 'd']}
+  data = {'state': [1, 1, 2, 5, 1, 2, 3], 'pop': ['a', 'a', 'c', 'd', 'b', 'c', 'd']}
   frame = pd.DataFrame(data)
   print(frame)
+  # 去除重复数据，不指定列明
+  df_copy = frame.drop_duplicates()
+  print(df_copy)
+  print("-------------------------")
   # 去除重复值的行，指定列名
   res = frame.drop_duplicates(subset=['pop'])
   print("-------------------------")
@@ -55,6 +59,16 @@ def fillter_data():
   frame = pd.DataFrame(data)
   # print(frame)
   res = frame[frame["state"] >= 2]
+  keys = frame.keys()
+  values = frame.values.tolist()
+  print(values)
+  table_name = "Student"
+  key_sql = ','.join(keys)
+  value_sql = ",".join([str(tuple(i)) for i in values])
+  update_sql = ','.join([f"{key}=values({key})" for key in keys])
+  insert_data_str = """ insert into %s (%s) values (%s)""" % ("table_name", key_sql, value_sql)
+  sql_str = f"insert into {table_name}({key_sql}) values {value_sql} on duplicate key update {update_sql}"
+  print(sql_str)
   print(res)
   print(res.columns.values)
   d1 = datetime.date.today()
@@ -74,12 +88,13 @@ def timestamp_to_date():
 
 def dataframe_grpupby():
   df = pd.DataFrame({
-    '党员编号': ['a', 'a', 'b', 'b', 'a'],
+    '党员编号': ['a', 'b', 'c', 'd', 'e'],
     'key2': ['one', 'two', 'one', 'two', 'three'],
     '本月实缴金额': [2, 2, 2, 2, 2],
     'data2': [5, 5, 5, 10, 5]
   })
   print(df)
+  print(df["党员编号"].is_unique)
   print("--------------------")
   # df["total_num"] = df.data1 + df.data2
   # print(df)
@@ -94,6 +109,9 @@ def dataframe_grpupby():
   print("--------------------")
   # df2 = ass.to_frame()
   df2 = ass.rename(columns={"本月实缴金额": "年度汇总金额"})
+  ass.rename(columns={"本月实缴金额": "年度汇总金额"}, inplace=True)
+  # print(df2.keys())
+  print(ass.keys())
   # 只保留某列
   df2 = df2[["年度汇总金额"]]
   print(df2)
@@ -146,7 +164,7 @@ def drop_columns():
     'data2': [5, 5, 5, 10, 5]
   })
   print(df)
-  df.drop(["data2"], axis=1, inplace=True)
+  df.drop(["data2", "key2"], axis=1, inplace=True)
   print(df)
 
 
@@ -258,6 +276,25 @@ def key_func(path):
   return path
 
 
+def fillna_demo():
+  # 填充空值
+  df1 = pd.DataFrame({
+    '电梯编号': ['a', 'b', 'c', 'd', 'e'],
+    'key2': ['one', 'two', 'one', 'two', 'three'],
+    '本月实缴金额': [2, 2, 2, 2, 2],
+    'data2': [5, 5, 5, np.nan, 5],
+    'data3': [5.01, 5.01, np.nan, 10.23, 5.01]
+  })
+  print(df1)
+  # 只能单列替换
+  # df1["data2"].fillna("100", inplace=True)
+  # 多列替换
+  # df1[["data2", "data3"]] = df1[["data2", "data3"]].replace(np.nan, 0)
+  df1[["data2", "data3"]] = df1[["data2", "data3"]].fillna(0)
+  # df1[["data2", "data3"]].fillna(0, inplace=True)
+  print(df1)
+
+
 if __name__ == '__main__':
   # union_test()
   # df_col_dup()
@@ -270,6 +307,7 @@ if __name__ == '__main__':
   # two_df_merge()
   # time_df()
   # drop_columns()
-  apply_datarow()
+  # apply_datarow()
   # test_axis()
   # pipei_two_df()
+  fillna_demo()

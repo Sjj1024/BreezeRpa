@@ -53,14 +53,17 @@ def clear_douhao():
 
 
 def run():
-  data_client = get_template_client_base("47100530-2e14-481b-8613-86062f609a16")
+  data_client = get_template_client_base("8f81ed9f-c410-42b6-8317-9b7a94eb07f1")
   target_df = data_client.data_select(to_df=True)
+  # target_df.to_excel("长三角示范区-缺口覆盖汇总.xlsx")
+  target_df.to_csv("长三角示范区-区域汇总.csv")
+  # data_client.data_delete(target_df)
   # 读数据从excel
-  res_inner = target_df[(target_df["月度"] == 1) & (target_df["年度"] == 2022)]
+  # res_inner = target_df[(target_df["月度"] == 1) & (target_df["年度"] == 2022)]
   # source_data = read_data_from_excel()
   # res_inner = pd.merge(source_data, target_df, on=["land_uuid"], how="inner", suffixes=("_s", "_t"))
   # print(res_inner)
-  data_client.data_delete(res_inner)
+  # data_client.data_delete(res_inner)
   # data_client.data_create(res_inner)
 
 

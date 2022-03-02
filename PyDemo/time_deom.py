@@ -18,6 +18,10 @@ def get_last_time():
   last_day_of_last_month = datetime.date(today.year, today.month, 1) - datetime.timedelta(1)
   first_day_of_last_month = datetime.date(last_day_of_last_month.year,
                                           last_day_of_last_month.month, 1)
+  # 加一秒
+  today_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+  today_second = datetime.datetime.strptime(today_str, "%Y-%m-%d %H:%M:%S")
+  last_second = today_second + datetime.timedelta(seconds=1)
   last_day = last_day_of_last_month.day
   first_day = first_day_of_last_month.day
   five_day_after = first_day_of_last_month + datetime.timedelta(5)
@@ -58,7 +62,40 @@ def start_run():
   print(f"得到的结果是:\n{result_data}")
 
 
+def list_err():
+  list_e = [
+    [314583, '2022-02-24 10:34:48', '0', '5', '璞吉(上海)医疗科技有限公司', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+     '0', '0', '91310117MA1J2J1054', '嘉发大厦', '嘉发大厦', '0', '0', '0', '0', '0', '0',
+     "[{'楼宇': '嘉发大厦', '楼层': '5', '楼宇名称二级': '嘉发大厦'}]"],
+    [314584, '2022-02-24 10:34:48', '0', '5', '上海黄章林品牌策划工作室', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+     '0', '0', '310117003208313', '嘉发大厦', '嘉发大厦', '0', '0', '0', '0', '0', '0',
+     "[{'楼宇': '嘉发大厦', '楼层': '5', '楼宇名称二级': '嘉发大厦'}]"],
+    [314585, '2022-02-24 10:34:48', '0', '1,1', '上海云聚程国际旅行社有限公司', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+     '0', '0', '91310106MA1FYLTG0L', '嘉发大厦', '嘉发大厦', '0', '0', '0', '0', '0', '0',
+     "[{'楼宇': '嘉发大厦', '楼层': '1', '楼宇名称二级': '嘉发大厦'}, {'楼宇': '嘉发大厦', '楼层': '1', '楼宇名称二级': '嘉发大厦'}]"],
+    [314586, '2022-02-24 10:34:48', '0', '1,1', '上海市静安区秦鹏私立口腔诊所', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
+     '0', '0', '92310106MA1KE7053C', '嘉发大厦', '嘉发大厦', '0', '0', '0', '0', '0', '0',
+     "[{'楼宇': '嘉发大厦', '楼层': '1', '楼宇名称二级': '嘉发大厦'}, {'楼宇': '嘉发大厦', '楼层': '1', '楼宇名称二级': '嘉发大厦'}]"],
+    [314587, '2022-02-24 10:34:48', '0', '10',
+     '北京冲浪科技有限公司                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ',
+     '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '91110108MA00EQAT57', '嘉发大厦', '嘉发大厦', '0', '0',
+     '0', '0', '0', '0', "[{'楼宇': '嘉发大厦', '楼层': '10', '楼宇名称二级': '嘉发大厦'}]"]]
+  if "91110108MA00EQAT57" in str(list_e):
+    print("在")
+  str_1 = "1"
+  int_1 = [1, 3]
+  if isinstance(int_1, (list, str)):
+    print("类型正确")
+
+
+def get_time_str():
+  import datetime
+  print(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
+
 if __name__ == '__main__':
   # timestamp_to_time()
-  # get_last_time()
-  start_run()
+  get_last_time()
+  # start_run()
+  # list_err()
+  # get_time_str()

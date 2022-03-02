@@ -291,7 +291,6 @@ def fillna_demo():
   # 多列替换
   # df1[["data2", "data3"]] = df1[["data2", "data3"]].replace(np.nan, 0)
   df1[["data2", "data3"]] = df1[["data2", "data3"]].fillna(0)
-  # df1[["data2", "data3"]].fillna(0, inplace=True)
   print(df1)
 
 

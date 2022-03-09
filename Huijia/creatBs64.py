@@ -32,7 +32,7 @@ appInfo = {
     "header_ms": "这里总有你想看的吧", # 这是app菜单栏头部
     "header_url": "", # 点击头部显示的跳转
     "article_ad": "微信:sxsuccess",
-    "commit_ad": "虎年邀请码发放请加微信:sxsuccess", # 草榴评论区广告，支持html
+    "commit_ad": "", # 草榴评论区广告，支持html
     "porn_share_url":"",
     "porn_video_1ad":"",
     "porn_video_2ad":"",

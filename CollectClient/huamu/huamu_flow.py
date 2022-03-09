@@ -1,3 +1,5 @@
+import datetime
+
 import cx_Oracle
 from petal import Task
 from petal.util.db import DBEngineX
@@ -61,12 +63,13 @@ class HuaMuFlow(Task):
     old = data_mgr.data_select(to_df=True)
     if not old.empty:
       # 如果有历史数据，就取出最后的历史时间
-      last_time = old["更新时间"].max()
+      last_time = old["更新时间"].max() + 1
       last_time = pd.to_datetime(last_time, unit='s').to_datetime64()
       df = df[df["更新时间"] > last_time]
-    # 将图片转为数组存储到Collector
-    df["会议图片"] = [[pic] if pic else [''] for pic in df["会议图片"]]
-    df["处理图片"] = [[pic] if pic else [''] for pic in df["处理图片"]]
-    df["问题图片"] = [[pic] if pic else [''] for pic in df["问题图片"]]
-    df = data_mgr.df_drop_columns(df)
-    data_mgr.data_create(df)
+    if not df.empty:
+      # 将图片转为数组存储到Collector
+      df["会议图片"] = [[pic] if pic else [''] for pic in df["会议图片"]]
+      df["处理图片"] = [[pic] if pic else [''] for pic in df["处理图片"]]
+      df["问题图片"] = [[pic] if pic else [''] for pic in df["问题图片"]]
+      df = data_mgr.df_drop_columns(df)
+      data_mgr.data_create(df)

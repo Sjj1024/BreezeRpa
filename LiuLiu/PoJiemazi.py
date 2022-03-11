@@ -30,7 +30,7 @@ class DemaUi(object):
         self.newversion = None
         self.mustup = "No"
         self.updataurl = ""
-        self.dizhi = "https://cl.7089y.xyz"
+        self.dizhi = "https://cl.6035x.xyz"
         self.shenhome = ""
         self.success = False
         self.lock = threading.Lock()
@@ -57,7 +57,7 @@ class DemaUi(object):
         self.combox.current(0)
         # 设置一个开始破解按钮
         self.goshen = tk.Button(self.win, text="开始破解", font=("微软雅黑", 12), bd=1, command=self.start_decode_thread)
-        self.goshen.place(x=520, y=89)
+        self.goshen.place(x=520, y=92)
         # 添加一个文本框，用于提示注意事项和破解结果
         # self.res_text = tk.Text(self.win, height=8, width=55, font=("微软雅黑", 12))
         self.res_text = ScrolledText(self.win, height=8, width=55, font=("微软雅黑", 12))

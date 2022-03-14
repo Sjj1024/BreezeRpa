@@ -8,5 +8,11 @@ def test_json():
     print(json_str)
 
 
+def list_demo():
+  list_null = [""] * 4
+  print(list_null)
+
+
 if __name__ == '__main__':
-  test_json()
+  # test_json()
+  list_demo()

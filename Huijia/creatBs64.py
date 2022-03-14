@@ -10,8 +10,8 @@ app-user-agent:
 Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1
 """
 
-app_surl = "https://wwi.lanzoup.com/i0WELyxcc5g"
-fenxiang_ma = "1月分享两个邀请码：【a6aff412*e2dee7e】【65d*db9db9089820】"
+app_surl = "https://wwi.lanzoup.com/iPi1V008ix3i"
+fenxiang_ma = "3月分享两个邀请码：【a6aff412*e2dee7e】【65d*db9db9089820】"
 
 
 # 下面是手机app信息：https://www.cnblogs.com/sdfasdf/p/15019781.html
@@ -24,14 +24,14 @@ appInfo = {
     "message": "这里是message",
     # 我真的爱你，爱你的宝贝,我的大吗
     # "headers": "/index.php?u=595021&ext=8c45d;/index.php?u=587907&ext=962d2;/index.php?u=595023&ext=15a7e;",
-    "headers": "/index.php?u=587907&ext=962d2;/index.php?u=587906&ext=88a67;/index.php?u=598447&ext=a3102;",
+    "headers": "/index.php?u=593826&ext=d6690;/index.php?u=587907&ext=962d2;/index.php?u=429809&ext=3a7cb;",
     "about": "1.黑料视频可以点右上角用浏览器打开观看，本APP看不了，不知道问题<br>"
              f"2.{fenxiang_ma}<br>"
              "3.隐藏其中一位，每月都会不定时在这里分享两个1024码子！<br>"
              '4.本APP永久停止更新！愿你安好',
     "header_ms": "这里总有你想看的吧", # 这是app菜单栏头部
     "header_url": "", # 点击头部显示的跳转
-    "article_ad": "微信:sxsuccess",
+    "article_ad": "",
     "commit_ad": "", # 草榴评论区广告，支持html
     "porn_share_url":"",
     "porn_video_1ad":"",

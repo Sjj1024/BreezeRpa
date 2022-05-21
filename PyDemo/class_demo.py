@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-
+import os
+import time
 
 class Parent(object):
   a = 0
@@ -38,3 +39,12 @@ print(c.__dict__)
 
 print(Parent.__dict__)
 print(Child.__dict__)
+
+os.system('say "抢菜成功"')
+os.system('say "正在抢菜......"')
+os.system('say "好难抢"')
+# os.system('say "张和毅，傻乎乎"')
+os.system('say "主人我抢到菜了，快来支付"')
+os.system('say "美好的一天，从抢菜开始"')
+
+time.sleep(10)

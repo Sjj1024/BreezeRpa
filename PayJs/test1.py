@@ -7,6 +7,7 @@ KEY = 'YiQtLvcisq1Fjzo5'
 # 初始化
 p = PayJS(MCHID, KEY)
 
+CALLBACK_URL = ""
 # 扫码支付
 OUT_TRADE_NO = '2017TEST' # 外部订单号（自己的支付系统的订单号，请保证唯一）
 TOTAL_FEE = 10 # 支付金额，单位为分，金额最低 0.01 元最多 10000 元

@@ -1,0 +1,6 @@
+2022-05-24 20:47:44,350 [_internal] WARNING [225]  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-05-24 20:47:44,351 [_internal] INFO [225]  * Running on http://192.168.31.176:5000/ (Press CTRL+C to quit)
+2022-05-24 20:48:29,954 [books] INFO [25] 添加图书信息
+2022-05-24 20:48:30,026 [_internal] INFO [225] 192.168.31.176 - - [24/May/2022 20:48:30] "POST /books/add HTTP/1.1" 200 -
+2022-05-24 20:48:37,452 [_internal] INFO [225] 192.168.31.176 - - [24/May/2022 20:48:37] "GET /books/all HTTP/1.1" 200 -

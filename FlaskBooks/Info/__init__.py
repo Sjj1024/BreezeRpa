@@ -2,6 +2,7 @@ import logging
 import os
 import pkgutil
 import sys
+import time
 from logging.handlers import TimedRotatingFileHandler
 
 from flask import Flask, Blueprint
@@ -33,9 +34,11 @@ def setup_log(log_level):
     # 下面的日志处理二选一：RotatingFileHandler TimedRotatingFileHandler
     # 创建日志记录器，指明日志保存的路径、每个日志文件的最大大小、保存的日志文件个数上限
     # file_log_handler = RotatingFileHandler("logs/log", maxBytes=1024, backupCount=3)
-
+    # 文件名，以日期作为文件名
+    log_file_name = 'logger-' + time.strftime('%Y-%m-%d', time.localtime(time.time())) + '.log'
+    log_file_str = path + os.sep + log_file_name
     # 间隔5(S)创建新的名称为myLog%Y%m%d_%H%M%S.log的文件，并一直占用myLog文件。
-    file_log_handler = TimedRotatingFileHandler('logs/log', when='S', interval=60, backupCount=3)
+    file_log_handler = TimedRotatingFileHandler(log_file_str, when='S', interval=60, backupCount=3)
 
     # 创建日志记录的格式 日志等级 输入日志信息的文件名 行数 日志信息
     formatter = logging.Formatter('%(asctime)s [%(module)s] %(levelname)s [%(lineno)d] %(message)s')

@@ -1,18 +1,17 @@
-import json
-
-
-def test_json():
-  dict_l = {'a': "1", 'b': None, 'c': 3, 'd': 4}
-  if all(dict_l.values()):
-    json_str = json.dumps(dict_l)
-    print(json_str)
-
-
-def list_demo():
-  list_null = [""] * 4
-  print(list_null)
-
-
-if __name__ == '__main__':
-  # test_json()
-  list_demo()
+import turtle
+t=turtle.Pen()
+#turtle.width(3)
+#turtle.color("red")
+for x in range(80):
+    t.forward(x)
+    t.color("red")
+    t.width(3)
+    t.left(56)
+turtle.penup()
+turtle.goto(0,-10)
+turtle.pendown()
+turtle.width(6)
+turtle.color("green")
+turtle.left(270)
+turtle.forward(200)
+turtle.curve(40)

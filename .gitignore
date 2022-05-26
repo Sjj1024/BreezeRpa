@@ -1,6 +1,7 @@
 *.pyc
 .DS_Store
 *.log
+logs
 /*.pkl*
 /__pycache__
 __MACOSX/

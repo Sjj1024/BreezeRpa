@@ -1,5 +1,0 @@
-2022-05-24 21:09:01,162 [_internal] WARNING [225]  * Running on all addresses.
-   WARNING: This is a development server. Do not use it in a production deployment.
-2022-05-24 21:09:01,165 [_internal] INFO [225]  * Running on http://192.168.31.176:5000/ (Press CTRL+C to quit)
-2022-05-24 21:09:08,334 [_internal] INFO [225] 192.168.31.176 - - [24/May/2022 21:09:08] "GET /books/del?id=3 HTTP/1.1" 200 -
-2022-05-24 21:09:13,828 [_internal] INFO [225] 192.168.31.176 - - [24/May/2022 21:09:13] "GET /books/all HTTP/1.1" 200 -

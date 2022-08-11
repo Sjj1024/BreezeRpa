@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Flask-SocketIO Test</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+    <script type="application/javascript">
+        var ws = new WebSocket("ws://localhost:5000/test");
+        ws.onmessage = function (messageEvent) {
+            console.log(messageEvent.data);
+        }
+    </script>
+</head>
+<body>
+<h1>Flask-SocketIO Test</h1>
+<p>Async mode is: <b>{{ async_mode }}</b></p>
+<h2>Send:</h2>
+<form id="emit" method="POST" action='#'>
+    <input type="text" name="emit_data" id="emit_data" placeholder="Message">
+    <input type="submit" value="Echo">
+</form>
+<h2>Receive:</h2>
+<div id="log"></div>
+</body>
+</html>

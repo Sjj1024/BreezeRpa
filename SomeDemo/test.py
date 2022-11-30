@@ -1,8 +1,72 @@
-import time
+import turtle as t
 
-starttime = time.time()
-time.sleep(2.1) #延时2.1s
-endtime = time.time()
-dtime = endtime - starttime
+def heart(x,y,z):    # 绘制爱心
+    t.pensize(2)
+    t.pencolor("black")
+    if z == 1:
+        t.fillcolor("red")
+    elif z == 0:
+        t.fillcolor("pink")
+    t.begin_fill()     #左半边
+    t.penup()
+    t.goto(x,y)
+    t.pendown()
+    t.circle(50,180)
+    t.circle(180,37)
+    t.left(46)      #右半边
+    t.circle(180,37)
+    t.circle(50, 182)
+    t.end_fill()
+def arrow1(x,y):
+   t.pensize(5)
+    t.pencolor("black")
+    t.fillcolor("brown")
+    t.penup()
+    t.goto(x, y)
+    t.pendown()
+    t.setheading(210)
+    t.forward(150)
+    t.begin_fill()
+    t.left(30)
+    t.forward(20)
+    t.right(30)
+    t.forward(50)
+    t.right(150)
+    t.forward(20)
+    t.left(120)
+    t.forward(20)
+    t.right(150)
+    t.forward(50)
+    t.right(30)
+    t.forward(20)
+    t.end_fill()
 
-print("程序运行时间：%.8s s" % dtime)  #显示到微秒
+def arrow2(x, y):
+    t.pensize(5)
+    t.pencolor("black")
+    t.fillcolor("brown")
+    t.penup()
+    t.goto(x, y)
+    t.pendown()
+    t.begin_fill()
+    t.setheading(30)
+    t.forward(100)
+    t.left(90)
+    t.forward(8)
+    t.right(120)
+    t.forward(16)
+    t.right(120)
+    t.forward(16)
+    t.right(120)
+    t.forward(8)
+    t.end_fill()
+
+def main():
+    t.setheading(90)
+    heart(50, 130, 0)
+    t.setheading(120)
+    heart(0, 100, 1)
+    arrow1(-20, 60)
+    arrow2(100, 130)
+    t.hideturtle()
+    t.exitonclick()

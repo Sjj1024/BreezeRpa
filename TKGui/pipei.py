@@ -4,7 +4,7 @@ import tkinter.messagebox
 import pickle
 
 window = tk.Tk()
-window.title('Souler')
+window.title('爱情匹配度')
 window.geometry('400x650')
 # 登陆界面
 tk.Label(window, text='姓名：').place(x=100, y=100)
@@ -42,9 +42,11 @@ def usr_log_in():
   elif usr_name == '' or usr_pwd == '':
     tk.messagebox.showerror(message='姓名不能为空！')
   # 开始计算匹配度
-  pipei_num = random.randint(90, 100)
-  if usr_name == "宋江江":
+  pipei_num = random.randint(0, 100)
+  if usr_name == "宋江江" or usr_pwd == "宋江江":
     pipei_num = 100
+  # if usr_name == "张高杰" or usr_pwd == "张高杰":
+  #   pipei_num = 0.00000000
   # tk.messagebox.showerror(message=f'你们的匹配度是{pipei_num}%')
   tk.messagebox.showinfo(title="匹配结果", message=f'你们的匹配度是{pipei_num}%')
 

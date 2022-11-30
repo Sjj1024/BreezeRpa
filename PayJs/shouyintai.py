@@ -26,6 +26,8 @@ order = {
     "type":"alipay"
 }
 
+
+
 # 构造签名函数
 def sign(attributes,key):
     attributes_list = list(attributes)

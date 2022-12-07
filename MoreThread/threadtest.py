@@ -12,7 +12,7 @@ def make_date(index, sub_target, random_data):
         random_data[0] = str(uuid.uuid1()).upper().replace("-", "") + str(uuid.uuid1()).upper().replace("-", "")
         target_data.append(deepcopy(random_data))
         print(f"\r{index + 1}号线程正在努力创造数据了，进度：{(len(target_data) / sub_target) * 100}%， 客官别着急哦...",
-              end="", flush=True)
+              end="\n", flush=True)
     client = clickhouse_connect.get_client(host='172.20.8.110', port=32003, username='default', password='ck@12345')
     client.insert(f"{data_name}.{table}", target_data)
     return index, target_data
@@ -40,12 +40,12 @@ def run():
     for future in as_completed(task_list):
         index, target_data = future.result()
         count += len(target_data)
-        print(f"\n\033[1;31m{index}任务已经完成, 当前有{count}条数据，进度{count / target * 100}%...\033[0m")
+        print(f"\033[1;31m{index}号线程已经完成, 当前有{count}条数据，进度{count / target * 100}%\033[0m")
     print("所有任务已经添加完成！！！！！开心吧")
 
 
 if __name__ == '__main__':
     data_name = "p_6391260117622329344"
     table = "d_6391262608552366080"
-    target = 3700000
+    target = 9900000
     run()

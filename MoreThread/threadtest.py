@@ -15,6 +15,7 @@ def make_date(index, sub_target, random_data):
               end="\n", flush=True)
     client = clickhouse_connect.get_client(host='172.20.8.110', port=32003, username='default', password='ck@12345')
     client.insert(f"{data_name}.{table}", target_data)
+    client.close()
     return index, target_data
 
 
@@ -46,6 +47,6 @@ def run():
 
 if __name__ == '__main__':
     data_name = "p_6391260117622329344"
-    table = "d_6391262608552366080"
-    target = 9900000
+    table = "d_6402658882224656384"
+    target = 8000000
     run()

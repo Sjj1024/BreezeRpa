@@ -23,7 +23,7 @@ order = {
     'out_trade_no' : 'payjs_jspay_demo_'+time,   # 订单号
     "auto":1,
     "hide":1,
-    "type":"alipay"
+    # "type":"alipay" # 微信支付无需填写
 }
 
 

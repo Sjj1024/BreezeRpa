@@ -10,6 +10,7 @@ def get_pictures():
     print(f"扫描到{len(dirs_pictures)}个文件夹")
     return dirs_pictures
 
+
 def del_others(dir):
     print("仅保留前24张")
     pictures = os.listdir(dir)
@@ -28,6 +29,7 @@ def del_others(dir):
             print(e)
             continue
 
+
 def cut_pic(pic):
     img = Image.open(pic)
     size = img.size
@@ -45,7 +47,6 @@ def run():
     # 获取文件夹中图片个数并随机抽选24张
     for dir in dirs_pictures:
         del_others(dir)
-
 
 
 if __name__ == '__main__':

@@ -10,8 +10,8 @@ from subprocess import call
 
 import pyperclip
 import requests
-from PIL import Image
-from PIL import ImageGrab, ImageFont, ImageDraw
+# from PIL import Image
+# from PIL import ImageGrab, ImageFont, ImageDraw
 
 
 class Toutiao_picurl():
@@ -181,14 +181,14 @@ class Toutiao_picurl():
         # 获取cookie
         cookie_path = os.path.join(self.get_path(), "cookie.txt")
         print(cookie_path)
-        with open(cookie_path, "r") as f:
+        with open(cookie_path, "r", encoding="utf-8") as f:
             data = f.read()
         return data
 
     def save_cookie(self, cookie):
         # 保存cookie
         cookie_path = os.path.join(self.get_path(), "cookie.txt")
-        with open(cookie_path, "w") as f:
+        with open(cookie_path, "w", encoding="utf-8") as f:
             f.write(cookie)
 
     def get_path(self):
@@ -345,7 +345,7 @@ def down_upload_img(img_url, count_upload, urls_img):
 
 def write_html_str(htmls_str):
     html_res = os.path.join(os.path.split(__file__)[0], "html_res.txt")
-    with open(html_res, "w") as f:
+    with open(html_res, "w", encoding="utf-8") as f:
         data = f.write(htmls_str)
     return data
 
@@ -354,19 +354,21 @@ def read_html_str():
     # 读取txt中的文本作为数据源
     cookie_path = os.path.join(os.path.split(__file__)[0], "demotest.html")
     print(cookie_path)
-    with open(cookie_path, "r") as f:
+    with open(cookie_path, "r", encoding="utf-8") as f:
         data = f.read()
     return data
 
 
 def write_caoliu_html_str(htmls_str):
     html_res = os.path.join(os.path.split(__file__)[0], "caoliu_html_res.txt")
-    with open(html_res, "w") as f:
+    with open(html_res, "w", encoding="utf-8") as f:
         data = f.write(htmls_str)
     return data
 
-def clear_content(html:str):
+
+def clear_content(html: str):
     html = html.replace(' ', "")
+    html = re.sub(r'<img +.*?src="data.*?alt="">', "", html)
     html = re.sub(r'<img +.*?src="', "[img]", html)
     html = re.sub(r'" alt=.*?>', '>', html)
     html = re.sub(r'" data-src=.*?>', '>', html)
@@ -377,14 +379,22 @@ def clear_content(html:str):
     html = re.sub(r'\[img\]', '\n[img]', html)
     # html = re.sub(r'\[/img\]', '[/img]\n', html)
     html = re.sub(r'jpg.*?/?>', 'jpg[/img]\n', html)
-    # print(html)
-    write_caoliu_html_str(html)
-    print("替换标签后的文章出来了")
+    print(html)
+    write_html_str(html)
+
+
+def read_html_res():
+    # 读取txt中的文本作为数据源
+    cookie_path = os.path.join(os.path.split(__file__)[0], "html_res.txt")
+    print(cookie_path)
+    with open(cookie_path, "r", encoding="utf-8") as f:
+        data = f.read()
+    return data
 
 
 def run():
     find_img_urls(htmls)
-    htmls_res = read_html_str()
+    htmls_res = read_html_res()
     clear_content(htmls_res)
 
 

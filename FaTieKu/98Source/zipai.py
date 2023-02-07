@@ -4,7 +4,6 @@ import os
 from bs4 import BeautifulSoup
 
 
-
 def get_img_links(url):
     payload = {}
     headers = {
@@ -30,7 +29,7 @@ def get_img_links(url):
     soup = BeautifulSoup(html, "lxml")
     title_span = soup.select("span#thread_subject")
     title = title_span[0].get_text()
-    image_tags = soup.select("div.pattl")[0].select("div.savephotop > img")
+    image_tags = soup.select("img.zoom")
     image_links = []
     for img in image_tags:
         img_link = img.get("file")
@@ -57,6 +56,7 @@ def down_load_imgs(title, imgs):
         name = future.result()
         print(f"name: {name}.jpg已下载完成")
 
+
 def down_jpg(path, img_url, name):
     # 开始下载图片
     name = f"{name}.jpg"
@@ -72,9 +72,10 @@ def down_jpg(path, img_url, name):
 
 
 def run():
-    url = "https://www.djsd997.com/thread-1039093-1-1.html"
+    url = "https://www.djsd997.com/thread-1164573-1-1.html"
     title, image_links = get_img_links(url)
     down_load_imgs(title, image_links)
+
 
 if __name__ == '__main__':
     run()

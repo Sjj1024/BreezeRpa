@@ -6,16 +6,14 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 def make_date(index, start_num, sub_target, random_data):
     target_data = []
-    # start_num = 0
+    index_num = start_num + (index * sub_target)
     while True:
-        start_num += 1
         if len(target_data) >= sub_target:
             break
-        index_num = start_num + (index * sub_target)
+        index_num += 1
         random_data[0] = str(index_num)
         target_data.append(deepcopy(random_data))
-        # print(f"\r{index + 1}号线程正在努力创造数据了，进度：{(len(target_data) / sub_target) * 100}%， 客官别着急哦...",
-        #       end="\n", flush=True)
+        # print(f"\r{index + 1}号线程正在创造数据，进度：{(len(target_data) / sub_target) * 100}%", end="\r", flush=True)
     client = clickhouse_connect.get_client(host=host, port=port, username=username, password=password)
     client.insert(f"{data_name}.{table}", target_data)
     client.close()
@@ -35,22 +33,24 @@ def run():
     total_thread = need_num // thread_num
     last_num = need_num % thread_num
     task_list = []
-    executor = ThreadPoolExecutor(max_workers=10)
-    print("所有子线程都在努力创造数据了，请稍等......")
+    executor = ThreadPoolExecutor(max_workers=50)
+    print(f"所有子线程都在努力创造数据了，total_thread: {total_thread}，last_num: {last_num}")
     for index in range(0, total_thread):
         random_data = client.command(f"select * from {data_name}.{table} order by rand() limit 1;")
         task_list.append(executor.submit(lambda cxp: make_date(*cxp), (index, count, thread_num, random_data)))
     if last_num:
         random_data = client.command(f"select * from {data_name}.{table} order by rand() limit 1;")
-        task_list.append(executor.submit(lambda cxp: make_date(*cxp), (total_thread, count, last_num, random_data)))
+        start_num = count + thread_num * total_thread
+        task_list.append(executor.submit(lambda cxp: make_date(*cxp), (0, start_num, last_num, random_data)))
     for future in as_completed(task_list):
         index, target_data = future.result()
         current_count += len(target_data)
         print(f"\033[1;31m{index}号线程已经完成, 进度{current_count / target * 100}%\033[0m", end="\n", flush=True)
-    print("所有任务已经添加完成！！！！！开心吧")
+    count = client.command(f"select count() from {data_name}.{table};")
+    distinct_count = client.command(f"select count(DISTINCT id) from {data_name}.{table};")
+    print(f"所有任务已经添加完成！总数据有{count}条，去重后有{distinct_count}条，重复数据{count - distinct_count}条")
 
 
-#
 # 薛蕾 1-13 16:56:31
 # C端参与方：
 # 薛蕾 1-13 16:56:40
@@ -71,6 +71,6 @@ if __name__ == '__main__':
     username = "default"
     password = "ck@12345"
     data_name = "p_6481060737912410112"
-    table = "d_6481062251838050304"
-    target = 50000000
+    table = "d_6482427017089257472"
+    target = 50 * 10000
     run()

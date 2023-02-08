@@ -34,7 +34,7 @@ def cut_pic(pic):
     img = Image.open(pic)
     size = img.size
     width = size[0]
-    height = size[1] - 24
+    height = size[1] - 48
     cropped = img.crop((0, 0, width, height))  # (left, upper, right, lower)
     cropped.save(pic)
     print(f"图片{pic}处理完成")

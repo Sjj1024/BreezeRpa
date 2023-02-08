@@ -20,6 +20,14 @@ pip install -r requirements.txt -i https://nexus.idatatlas.com/repository/python
 ```
 cat requirements.txt | xargs -n 1 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple/
 ```
-测试一下头条图床:  
-![](https://image-tt-private.toutiao.com/tos-cn-i-3003/5469f68c75a54217bc7f302b719dc83c~tplv-obj.image?policy=eyJ2bSI6MywidWlkIjoiMjc4MTM1ODEyOCJ9&traceid=202111211424520102121460744F3CD51F&x-orig-authkey=5a21e4afda5945d9a206a695e4c78a63&x-orig-expires=2147483647&x-orig-sign=YQeKaihCRkKN8zmdUYaRsB9OU7U%3D)
+
+
+博客园：
+![](https://img2023.cnblogs.com/blog/2466361/202212/2466361-20221208182656762-1298240916.png)
+
+cdnd:  
+![](https://img-blog.csdnimg.cn/2049460a205a4b869ce2c66ee58a38c0.png)
+
+github:
+![](https://sjj1024.github.io/CvReport/img/220310103457shan.jpg)
 

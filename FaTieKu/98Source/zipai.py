@@ -29,12 +29,13 @@ def get_img_links(url):
     soup = BeautifulSoup(html, "lxml")
     title_span = soup.select("span#thread_subject")
     title = title_span[0].get_text()
+    title = title.replace("【", "").replace("】", "").replace("|", "")
     image_tags = soup.select("img.zoom")
     image_links = []
     for img in image_tags:
         img_link = img.get("file")
         image_links.append(img_link)
-    print(f"title: {title}, imgs: {len(image_links)}")
+    print(f"title: {title}, images: {len(image_links)}")
     return title, image_links
 
 
@@ -50,29 +51,29 @@ def down_load_imgs(title, imgs):
     task_list = []
     for index, img_url in enumerate(imgs):
         print(f"开始下载标题：{title},图片链接是{img_url}")
-        # down_jpg(title, img_url)
-        task_list.append(threadpool.submit(down_jpg, path, img_url, index))
+        image_type = img_url.split(".")[-1]
+        image_name = f"{index + 1}.{image_type}"
+        task_list.append(threadpool.submit(down_jpg, path, img_url, image_name))
     for future in as_completed(task_list):
         name = future.result()
-        print(f"name: {name}.jpg已下载完成")
+        print(f"name: {name}已下载完成")
 
 
-def down_jpg(path, img_url, name):
+def down_jpg(path, img_url, image_name):
     # 开始下载图片
-    name = f"{name}.jpg"
-    print(f"开始下载图片{name}-------->")
+    print(f"开始下载图片{image_name}-------->")
     res = requests.get(img_url)
     if res.status_code == 404:
         print(f"图片{img_url}下载出错------->")
-    img_name = os.path.join(path, name)
+    img_name = os.path.join(path, image_name)
     with open(img_name, "wb") as f:
         f.write(res.content)
-    print(f"图片{name}下载完成--------->")
-    return name
+    print(f"图片{image_name}下载完成--------->")
+    return image_name
 
 
 def run():
-    url = "https://www.djsd997.com/thread-1164573-1-1.html"
+    url = "https://www.djsd997.com/thread-1167973-1-2.html"
     title, image_links = get_img_links(url)
     down_load_imgs(title, image_links)
 

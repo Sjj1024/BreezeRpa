@@ -73,7 +73,7 @@ def down_jpg(path, img_url, image_name):
 
 
 def run():
-    url = "https://www.djsd997.com/thread-1167973-1-2.html"
+    url = "https://www.djsd997.com/thread-1105248-1-1.html"
     title, image_links = get_img_links(url)
     down_load_imgs(title, image_links)
 

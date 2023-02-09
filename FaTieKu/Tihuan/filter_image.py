@@ -24,6 +24,7 @@ class Toutiao_picurl():
             # "Cookie": "_ga=GA1.2.1838920340.1591889347; __utmz=68473421.1592400213.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); __utma=68473421.1838920340.1591889347.1592400213.1592734500.2; tt_webid=6855618365789406728; SLARDAR_WEB_ID=0e3909f6-390f-44d0-9727-09af436760a1; _gid=GA1.2.200393803.1596948295; passport_csrf_token=c0b2df7c7e7e4b99a2d7d6ff6cd0f3fe; s_v_web_id=verify_kdmls7jv_9BX2xa3m_vZzc_4x1D_AIJd_QLy3mQyi4M12; sso_auth_status=801dd1e700f47f2c22c5f80a67c4c6e7; sso_uid_tt=97a2f920d77e2585ccb7abd3682faeb6; sso_uid_tt_ss=97a2f920d77e2585ccb7abd3682faeb6; toutiao_sso_user=7451232a9670d287a611fd84c4c24cfa; toutiao_sso_user_ss=7451232a9670d287a611fd84c4c24cfa; passport_auth_status=d3bc991571cbe17a78247636b02d6a35%2C69b1d85deb0720c4be2547fea32f8d3a; sid_guard=4aa8c025cb0ba0e8976a7fa476fc90d7%7C1596948356%7C5184000%7CThu%2C+08-Oct-2020+04%3A45%3A56+GMT; uid_tt=a5f69c8159558848355015bf72aaf831; uid_tt_ss=a5f69c8159558848355015bf72aaf831; sid_tt=4aa8c025cb0ba0e8976a7fa476fc90d7; sessionid=4aa8c025cb0ba0e8976a7fa476fc90d7; sessionid_ss=4aa8c025cb0ba0e8976a7fa476fc90d7; gftoken=NGFhOGMwMjVjYnwxNTk2OTQ4MzU2NjB8fDAGBgYGBgY; ttcid=560e73f6806a4dbaa94683ce03d0427711; tt_scid=rOW6J.sxx7BszD.wpz14N-z3-KI92pjHwu9FzHd17BRU7zoG9qsTsI2ZOpTATeGGcde5"
             "Cookie": self.get_cookie()
         }
+        self.cut_height = 0
 
     def tt_upload(self, image, img_url):
         """
@@ -134,7 +135,7 @@ class Toutiao_picurl():
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36",
             "Referer": "https://xoimg.com/"
         }
-        jpg_content = {"file": (f"{img_url}.jpg", image)}
+        jpg_content = {"file": (f"{img_url}", image)}
         random_num = random.randint(100, 900000)
         data = {"name": (None, f"{img_url}.jpg"),
                 "uuid": f"o_1feklnhtu122{random_num}t3h5vvhuknrhb"
@@ -275,7 +276,7 @@ def find_img_urls(html_str):
     print(urls_img)
     imgs_unm = len(urls_img)
     count_upload = []
-    executor = ThreadPoolExecutor(max_workers=10)
+    executor = ThreadPoolExecutor(max_workers=20)
     for i in urls_img:
         executor.submit(down_upload_img, i, count_upload, urls_img)
         # t = threading.Thread(target=down_upload_img, args=(i, count_upload))
@@ -328,10 +329,19 @@ def down_upload_img(img_url, count_upload, urls_img):
     print(res)
     print(f"图片下载完成{img_url}")
     img_content = res.content
+    # 剪切图片，去除98水印
+    img = Image.open(io.BytesIO(img_content))
+    size = img.size
+    width = size[0]
+    height = size[1] - toutiao.cut_height
+    cropped = img.crop((0, 0, width, height))  # (left, upper, right, lower)
+    imgByteArr = io.BytesIO()
+    cropped.save(imgByteArr, format='JPEG')
+    res = imgByteArr.getvalue()
     # 开始上传到头条
     # picture_url = toutiao.tt_upload(img_content, img_url)
     # picture_url = toutiao.jd_upload(img_content, img_url)
-    picture_url = toutiao.async_duotu_link(img_content, img_url)
+    picture_url = toutiao.async_duotu_link(res, img_url)
     # picture_url = toutiao.upload_skeing(img_content)
     # picture_url = toutiao.async_nsaimg_link(img_content, img_url)
     lock.acquire()
@@ -344,7 +354,7 @@ def down_upload_img(img_url, count_upload, urls_img):
 
 def write_html_str(htmls_str):
     html_res = os.path.join(os.path.split(__file__)[0], "html_res.txt")
-    with open(html_res, "w") as f:
+    with open(html_res, "w", encoding="utf-8") as f:
         data = f.write(htmls_str)
     return data
 
@@ -353,18 +363,19 @@ def read_html_str():
     # 读取txt中的文本作为数据源
     cookie_path = os.path.join(os.path.split(__file__)[0], "demotest.html")
     print(cookie_path)
-    with open(cookie_path, "r") as f:
+    with open(cookie_path, "r", encoding="utf-8") as f:
         data = f.read()
     return data
 
 
 def write_caoliu_html_str(htmls_str):
     html_res = os.path.join(os.path.split(__file__)[0], "caoliu_html_res.txt")
-    with open(html_res, "w") as f:
+    with open(html_res, "w", encoding="utf-8") as f:
         data = f.write(htmls_str)
     return data
 
-def clear_content(html:str):
+
+def clear_content(html: str):
     html = html.replace(' ', "")
     html = re.sub(r'<img +.*?src="', "[img]", html)
     html = re.sub(r'" alt=.*?>', '>', html)
@@ -390,5 +401,6 @@ def run():
 if __name__ == '__main__':
     url = "https://23img.com/application/upload.php"
     toutiao = Toutiao_picurl(url)
+    toutiao.cut_height = 48
     htmls = read_html_str()
     run()

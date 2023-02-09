@@ -36,6 +36,7 @@ def cut_pic(pic):
     width = size[0]
     height = size[1] - 48
     cropped = img.crop((0, 0, width, height))  # (left, upper, right, lower)
+    res = cropped.tobytes()
     cropped.save(pic)
     print(f"图片{pic}处理完成")
 

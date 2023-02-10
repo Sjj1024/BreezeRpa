@@ -11,6 +11,7 @@ import pyperclip
 import requests
 from PIL import Image
 from PIL import ImageGrab, ImageFont, ImageDraw
+from bs4 import BeautifulSoup
 
 
 class Toutiao_picurl():
@@ -122,6 +123,30 @@ class Toutiao_picurl():
         except Exception as e:
             print(e)
 
+    def upload_duotu_link(self):
+        url = "https://23img.com/application/upload.php"
+        payload = {'name': 'ksmehzs6644889.jpg',
+                   'uuid': 'o_1gor6k4fk1lia1ra014h1aoi1poaa'}
+        files = [
+            ('file', ('file', open('/path/to/file', 'rb'), 'application/octet-stream'))
+        ]
+        headers = {
+            'authority': '23img.com',
+            'accept': '*/*',
+            'accept-language': 'zh-CN,zh;q=0.9,zh-HK;q=0.8,zh-TW;q=0.7',
+            'origin': 'https://23img.com',
+            'referer': 'https://23img.com/',
+            'sec-ch-ua': '"Not_A Brand";v="99", "Google Chrome";v="109", "Chromium";v="109"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"Windows"',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'same-origin',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+        }
+        response = requests.request("GET", url, headers=headers, data=payload, files=files)
+        print(response.text)
+
     def async_duotu_link(self, image, img_url="dasfdas.jpg"):
         """
         异步获取头条图床图片链接
@@ -131,18 +156,28 @@ class Toutiao_picurl():
         """
         print("获取多图图床网站链接\n")
         url = self.url
-        header = {
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36",
-            "Referer": "https://xoimg.com/"
+        headers = {
+            'authority': '23img.com',
+            'accept': '*/*',
+            'accept-language': 'zh-CN,zh;q=0.9,zh-HK;q=0.8,zh-TW;q=0.7',
+            'origin': 'https://23img.com',
+            'referer': 'https://23img.com/',
+            'sec-ch-ua': '"Not_A Brand";v="99", "Google Chrome";v="109", "Chromium";v="109"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"Windows"',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'same-origin',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
         }
         jpg_content = {"file": (f"{img_url}", image)}
-        random_num = random.randint(100, 900000)
-        data = {"name": (None, f"{img_url}.jpg"),
+        random_num = random.randint(1000, 900000)
+        data = {"name": (None, f"{img_url}random_num.jpg"),
                 "uuid": f"o_1feklnhtu122{random_num}t3h5vvhuknrhb"
                 }
         try:
             print("开始发送上传图片请求")
-            res = requests.post(url, headers=header, data=data, files=jpg_content)
+            res = requests.post(url, headers=headers, data=data, files=jpg_content)
             rel_str = res.content.decode()
             print(rel_str)
             json_str = json.loads(rel_str)
@@ -264,9 +299,10 @@ lock = threading.Lock()
 
 
 def find_img_urls(html_str):
-    urls_img = re.findall(r'<img.*?src="(.*?)"', html_str)
+    urls_img = re.findall(r'<img.*?file="(.*?)"', html_str)
     urls_img = [i for i in urls_img if i.startswith("http")]
     urls_img = [i for i in urls_img if not i.endswith("html")]
+    urls_img = [i for i in urls_img if not i.endswith("gif")]
     urls_img = [i for i in urls_img if "face" not in i]
     urls_img = [i for i in urls_img if not i.startswith("https://23img")]
     urls_img = [i for i in urls_img if not i.startswith("http://skeimg")]
@@ -313,7 +349,7 @@ def find_img_urls(html_str):
             spam = pyperclip.paste()
             print("图片全部上传成功，已将htmls复制到剪切板")
             cmd = 'display notification "' + "文章替换成功success" + '" with title "文章替换成功"'
-            call(["osascript", "-e", cmd])
+            # call(["osascript", "-e", cmd])
             break
         time.sleep(2)
 
@@ -359,13 +395,38 @@ def write_html_str(htmls_str):
     return data
 
 
-def read_html_str():
-    # 读取txt中的文本作为数据源
-    cookie_path = os.path.join(os.path.split(__file__)[0], "demotest.html")
-    print(cookie_path)
-    with open(cookie_path, "r", encoding="utf-8") as f:
+def read_html_res_str():
+    html_res = os.path.join(os.path.split(__file__)[0], "html_res.txt")
+    with open(html_res, "r", encoding="utf-8") as f:
         data = f.read()
     return data
+
+
+def read_html_str(url):
+    payload = {}
+    headers = {
+        'authority': 'www.djsd997.com',
+        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'accept-language': 'zh-CN,zh;q=0.9,zh-HK;q=0.8,zh-TW;q=0.7',
+        'cache-control': 'max-age=0',
+        'cookie': 'cPNj_2132_saltkey=rAn74F3P; cPNj_2132_lastvisit=1675774221; cPNj_2132_lastfp=66abe79b56fe4d1db0defa055279da8b; cPNj_2132_atarget=1; cPNj_2132_st_t=0%7C1675941723%7Ca1f3e77896f05f6faeee5b1abeb96dbb; cPNj_2132_forum_lastvisit=D_142_1675855944D_125_1675861867D_165_1675861875D_95_1675941563D_154_1675941719D_155_1675941723; cPNj_2132_visitedfid=155D154D95D165D125D142; cPNj_2132_viewid=tid_992050; cPNj_2132_st_p=0%7C1675943535%7C7ebf9161c05f7d405c9f79ace6fea3e2; cPNj_2132_lastact=1675943535%09home.php%09misc; cPNj_2132_lastact=1675946504%09forum.php%09viewthread; cPNj_2132_st_p=0%7C1675946504%7Ce45d44ad73f9968a43b344b00d00599d; cPNj_2132_viewid=tid_1169430; cPNj_2132_visitedfid=95D155D154D165D125D142',
+        'referer': 'https://www.djsd997.com/forum-95-1.html',
+        'sec-ch-ua': '"Not_A Brand";v="99", "Google Chrome";v="109", "Chromium";v="109"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-fetch-dest': 'document',
+        'sec-fetch-mode': 'navigate',
+        'sec-fetch-site': 'same-origin',
+        'sec-fetch-user': '?1',
+        'upgrade-insecure-requests': '1',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+    }
+    response = requests.request("GET", url, headers=headers, data=payload)
+    html = response.content.decode()
+    soup = BeautifulSoup(html, "lxml")
+    content = soup.select("div.t_fsz")[0].decode()
+    print(content)
+    return content
 
 
 def write_caoliu_html_str(htmls_str):
@@ -385,27 +446,32 @@ def clear_content(html: str):
     html = re.sub(r'\S.*?上传', '', html)
     html = re.sub(r' ', '', html)
     html = re.sub(r'	', '', html)
-    html = re.sub(r'\n', '', html)
+    html = re.sub(r'\n+?', '', html)
+    html = re.sub(r'&nbsp;', '', html)
     html = re.sub(r'微信.*?上传', '', html)
     html = re.sub(r'QQ.*?上传', '', html)
     html = re.sub(r'<div class="xs0">.*?</div>', '', html, re.S)
     html = re.sub(r'\[img\]', '\n[img]', html)
     html = re.sub(r'jpg.*?/?>', 'jpg[/img]\n', html)
     html = re.sub(r'\S.*?下载附件', '', html)
+    html = re.sub(r'堂', '', html)
     html = re.sub(r'\[img\]st.*?">', '', html)
+    html = re.sub(r'static.*?zoomfile="', '', html)
+    html = re.sub(r'\[/img\]', '[/img]\n', html)
     print(html)
-    write_html_str(html)
+    write_caoliu_html_str(html)
 
 
-def run():
+def run(htmls):
     find_img_urls(htmls)
-    htmls_res = read_html_str()
-    clear_content(htmls_res)
+    second_html = read_html_res_str()
+    clear_content(second_html)
 
 
 if __name__ == '__main__':
     url = "https://23img.com/application/upload.php"
     toutiao = Toutiao_picurl(url)
     toutiao.cut_height = 48
-    htmls = read_html_str()
-    run()
+    url = "https://www.djsd997.com/thread-1170234-1-1.html"
+    htmls = read_html_str(url)
+    run(htmls)

@@ -37,6 +37,7 @@ def clear_content(html: str):
     html = re.sub(r'jpg.*?/?>', 'jpg[/img]\n', html)
     html = re.sub(r'\S.*?下载附件', '', html)
     html = re.sub(r'\[img\]st.*?">', '', html)
+    html = re.sub(r'\[img\]static.*?>', '', html)
     print(html)
     write_html_str(html)
 

@@ -312,7 +312,7 @@ def find_img_urls(html_str):
     print(urls_img)
     imgs_unm = len(urls_img)
     count_upload = []
-    executor = ThreadPoolExecutor(max_workers=20)
+    executor = ThreadPoolExecutor(max_workers=10)
     for i in urls_img:
         executor.submit(down_upload_img, i, count_upload, urls_img)
         # t = threading.Thread(target=down_upload_img, args=(i, count_upload))
@@ -425,7 +425,7 @@ def read_html_str(url):
     html = response.content.decode()
     soup = BeautifulSoup(html, "lxml")
     content = soup.select("div.t_fsz")[0].decode()
-    print(content)
+    # print(content)
     return content
 
 
@@ -458,6 +458,8 @@ def clear_content(html: str):
     html = re.sub(r'\[img\]st.*?">', '', html)
     html = re.sub(r'static.*?zoomfile="', '', html)
     html = re.sub(r'\[/img\]', '[/img]\n', html)
+    html = re.sub(r'\[img\]static.*?>', '', html)
+    html = re.sub(r'\[img\]static.*?\]', '', html)
     print(html)
     write_caoliu_html_str(html)
 
@@ -472,6 +474,6 @@ if __name__ == '__main__':
     url = "https://23img.com/application/upload.php"
     toutiao = Toutiao_picurl(url)
     toutiao.cut_height = 48
-    url = "https://www.djsd997.com/thread-1170234-1-1.html"
+    url = "https://www.djsd997.com/forum.php?mod=viewthread&tid=1165797&extra=page%3D1%26filter%3Dtypeid%26typeid%3D712"
     htmls = read_html_str(url)
     run(htmls)

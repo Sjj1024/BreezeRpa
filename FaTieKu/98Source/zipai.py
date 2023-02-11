@@ -27,15 +27,18 @@ def get_img_links(url):
     html = response.content.decode()
     # print(html)
     soup = BeautifulSoup(html, "lxml")
-    title_span = soup.select("span#thread_subject")
-    title = title_span[0].get_text()
-    title = title.replace("【", "").replace("】", "").replace("|", "")
-    image_tags = soup.select("img.zoom")
-    image_links = []
-    for img in image_tags:
-        img_link = img.get("file")
-        image_links.append(img_link)
-    print(f"title: {title}, images: {len(image_links)}")
+    if "98堂" in soup.decode():
+        title = soup.select("title")[0].get_text()
+        title = title.replace("【", "").replace("】", "").replace("|", "")
+        image_tags = soup.select("img.zoom")
+        image_links = [img.get("file") for img in image_tags]
+    elif "yaomitao" in soup.decode():
+        title = soup.select("title")[0].get_text()
+        title = title.replace("【", "").replace("】", "").replace("|", "")
+        image_tags = soup.select("p")[0].select("img")
+        image_links = [img.get("src") for img in image_tags]
+    else:
+        raise Exception("没有找到图片和标题")
     return title, image_links
 
 

@@ -5,6 +5,7 @@ import random
 import re
 import threading
 import time
+from concurrent.futures import as_completed
 from concurrent.futures.thread import ThreadPoolExecutor
 from subprocess import call
 import pyperclip
@@ -298,62 +299,6 @@ class Toutiao_picurl():
 lock = threading.Lock()
 
 
-def find_img_urls(html_str):
-    urls_img = re.findall(r'<img.*?file="(.*?)"', html_str)
-    urls_img = [i for i in urls_img if i.startswith("http")]
-    urls_img = [i for i in urls_img if not i.endswith("html")]
-    urls_img = [i for i in urls_img if not i.endswith("gif")]
-    urls_img = [i for i in urls_img if "face" not in i]
-    urls_img = [i for i in urls_img if not i.startswith("https://23img")]
-    urls_img = [i for i in urls_img if not i.startswith("http://skeimg")]
-    urls_img = [i for i in urls_img if not i.startswith("https://vxotu.com")]
-    urls_img = [i for i in urls_img if not i.startswith("https://s1.xoimg.com")]
-    urls_img = set(urls_img)
-    print(urls_img)
-    imgs_unm = len(urls_img)
-    count_upload = []
-    executor = ThreadPoolExecutor(max_workers=10)
-    for i in urls_img:
-        executor.submit(down_upload_img, i, count_upload, urls_img)
-        # t = threading.Thread(target=down_upload_img, args=(i, count_upload))
-        # t.start()
-        # down_upload_img(i, count_upload)
-    # print(html_str)
-    while True:
-        print(f"正在等待替换图片，当前已替换：{len(count_upload)},总的图片数：{imgs_unm}")
-        # print("11111111111111111111")
-        # print(htmls)
-        write_html_str(htmls)
-        # print("2222222222222222222222")
-        print(f"还剩图片链接是:{urls_img}")
-        print(f"还剩图片个数是:{len(urls_img)}")
-        # print("33333333333333333333333")
-        if len(count_upload) == imgs_unm:
-            print("图片全部替换完成")
-            # print(htmls)
-            filter_html = htmls
-            filter_html = re.sub(r"马蜂窝", "", filter_html)
-            filter_html = re.sub(r"</?a.*?>", "", filter_html)
-            filter_html = re.sub(r"</?video.*?>", "", filter_html)
-            filter_html = re.sub(r'class=".*?"', "", filter_html)
-            filter_html = re.sub(r'style=".*?"', "", filter_html)
-            filter_html = re.sub(r'id=".*?"', "", filter_html)
-            filter_html = re.sub(r'data-seq=".*?"', "", filter_html)
-            filter_html = re.sub(r'data-pid=".*?"', "", filter_html)
-            filter_html = re.sub(r'data-index=".*?"', "", filter_html)
-            filter_html = re.sub(r'data-p', "", filter_html)
-            filter_html = re.sub(r'&nbsp;', "", filter_html)
-            filter_html = re.sub(r'<div data-cs-t="ginfo_kw_hotel"><div></div><div>', "", filter_html)
-            write_html_str(filter_html)
-            pyperclip.copy(filter_html)
-            spam = pyperclip.paste()
-            print("图片全部上传成功，已将htmls复制到剪切板")
-            cmd = 'display notification "' + "文章替换成功success" + '" with title "文章替换成功"'
-            # call(["osascript", "-e", cmd])
-            break
-        time.sleep(2)
-
-
 def down_upload_img(img_url, count_upload, urls_img):
     # 下载并上传图片到头条图床
     header = {
@@ -372,7 +317,12 @@ def down_upload_img(img_url, count_upload, urls_img):
     height = size[1] - toutiao.cut_height
     cropped = img.crop((0, 0, width, height))  # (left, upper, right, lower)
     imgByteArr = io.BytesIO()
-    cropped.save(imgByteArr, format='JPEG')
+    if img_url.endswith("jpg"):
+        cropped.save(imgByteArr, format='JPEG')
+    elif img_url.endswith("png"):
+        cropped.save(imgByteArr, format='png')
+    else:
+        cropped.save(imgByteArr, format='JPEG')
     res = imgByteArr.getvalue()
     # 开始上传到头条
     # picture_url = toutiao.tt_upload(img_content, img_url)
@@ -380,12 +330,13 @@ def down_upload_img(img_url, count_upload, urls_img):
     picture_url = toutiao.async_duotu_link(res, img_url)
     # picture_url = toutiao.upload_skeing(img_content)
     # picture_url = toutiao.async_nsaimg_link(img_content, img_url)
-    lock.acquire()
-    global htmls
-    htmls = htmls.replace(img_url, picture_url)
-    count_upload.append(picture_url)
-    urls_img.remove(img_url)
-    lock.release()
+    return img_url, picture_url
+    # lock.acquire()
+    # global htmls
+    # htmls = htmls.replace(img_url, picture_url)
+    # count_upload.append(picture_url)
+    # urls_img.remove(img_url)
+    # lock.release()
 
 
 def write_html_str(htmls_str):
@@ -402,7 +353,47 @@ def read_html_res_str():
     return data
 
 
-def read_html_str(url):
+def write_caoliu_html_str(htmls_str):
+    html_res = os.path.join(os.path.split(__file__)[0], "caoliu_html_res.txt")
+    with open(html_res, "w", encoding="utf-8") as f:
+        data = f.write(htmls_str)
+    return data
+
+
+def clear_content(html: str):
+    html = html.replace(' ', "")
+    html = re.sub(r'<img +.*?file="', "[img]", html)
+    html = re.sub(r'<img +.*?src="data', "[img]", html)
+    html = re.sub(r'<img +.*?src="', "[img]", html)
+    html = re.sub(r'" alt=.*?>', '>', html)
+    html = re.sub(r'" data-src=.*?>', '>', html)
+    html = re.sub(r'<.*?>', '', html)
+    html = re.sub(r'\S.*?上传', '', html)
+    html = re.sub(r' ', '', html)
+    html = re.sub(r'	', '', html)
+    html = re.sub(r'\n\n+', '', html)
+    html = re.sub(r'&nbsp;', '', html)
+    html = re.sub(r'微信.*?上传', '', html)
+    html = re.sub(r'QQ.*?上传', '', html)
+    html = re.sub(r'<div class="xs0">.*?</div>', '', html, re.S)
+    html = re.sub(r'115截图.*?下载附件', '', html, re.S)
+    html = re.sub(r'jpg.*?/?>', 'jpg[/img]\n', html)
+    html = re.sub(r'png.*?/?>', 'png[/img]\n', html)
+    html = re.sub(r'IMG.*?\n', '', html, re.S)
+    html = re.sub(r'\(.*?\n', '', html, re.S)
+    html = re.sub(r'堂', '', html)
+    html = re.sub(r'\[img\]st.*?">', '', html)
+    html = re.sub(r'static.*?zoomfile="', '', html)
+    html = re.sub(r'\[/img\]', '[/img]\n', html)
+    html = re.sub(r'\[img\]static.*?>', '', html)
+    html = re.sub(r'\[img\]static.*?\]', '', html)
+    html = re.sub(r'\n\n+', '', html)
+    html = re.sub(r'\[img\]', '\n[img]', html)
+    print(html)
+    write_caoliu_html_str(html)
+
+
+def find_img_urls(article_url):
     payload = {}
     headers = {
         'authority': 'www.djsd997.com',
@@ -421,51 +412,66 @@ def read_html_str(url):
         'upgrade-insecure-requests': '1',
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
     }
-    response = requests.request("GET", url, headers=headers, data=payload)
-    html = response.content.decode()
-    soup = BeautifulSoup(html, "lxml")
-    content = soup.select("div.t_fsz")[0].decode()
-    # print(content)
-    return content
+    response = requests.request("GET", article_url, headers=headers, data=payload)
+    htmls = response.content.decode()
+    if "98堂" in htmls:
+        # 98堂的图片链接
+        soup = BeautifulSoup(htmls, "lxml")
+        htmls = soup.select("div.t_fsz")[0].decode()
+        urls_img = re.findall(r'<img.*?file="(.*?)"', htmls)
+    elif "yaomitao.com" in htmls:
+        # yaomitao.com
+        soup = BeautifulSoup(htmls, "lxml")
+        htmls = soup.select("p")[0].decode()
+        image_tags = soup.select("p")[0].select("img")
+        urls_img = [img.get("src") for img in image_tags]
+    else:
+        raise Exception("识别不了的图片和网站内容")
+    urls_img = [i for i in urls_img if i.startswith("http")]
+    urls_img = [i for i in urls_img if not i.endswith("html")]
+    urls_img = [i for i in urls_img if not i.endswith("gif")]
+    urls_img = [i for i in urls_img if "face" not in i]
+    urls_img = [i for i in urls_img if not i.startswith("https://23img")]
+    urls_img = [i for i in urls_img if not i.startswith("http://skeimg")]
+    urls_img = [i for i in urls_img if not i.startswith("https://vxotu.com")]
+    urls_img = [i for i in urls_img if not i.startswith("https://s1.xoimg.com")]
+    urls_img = set(urls_img)
+    print(urls_img)
+    imgs_unm = len(urls_img)
+    count_upload = []
+    task_list = []
+    executor = ThreadPoolExecutor(max_workers=1)
+    for i in urls_img:
+        task_list.append(executor.submit(down_upload_img, i, count_upload, urls_img))
+    for future in as_completed(task_list):
+        img_url, picture_url = future.result()
+        htmls = htmls.replace(img_url, picture_url)
+        count_upload.append(picture_url)
+        urls_img.remove(img_url)
+        print(f"正在等待替换图片，当前已替换：{len(count_upload)},总的图片数：{imgs_unm}")
+        print(f"还剩图片链接是:{urls_img}")
+        print(f"还剩图片个数是:{len(urls_img)}")
+    if len(count_upload) == imgs_unm:
+        print("图片全部替换完成")
+        filter_html = htmls
+        filter_html = re.sub(r"马蜂窝", "", filter_html)
+        filter_html = re.sub(r"</?a.*?>", "", filter_html)
+        filter_html = re.sub(r"</?video.*?>", "", filter_html)
+        filter_html = re.sub(r'class=".*?"', "", filter_html)
+        filter_html = re.sub(r'style=".*?"', "", filter_html)
+        filter_html = re.sub(r'id=".*?"', "", filter_html)
+        filter_html = re.sub(r'data-seq=".*?"', "", filter_html)
+        filter_html = re.sub(r'data-pid=".*?"', "", filter_html)
+        filter_html = re.sub(r'data-index=".*?"', "", filter_html)
+        filter_html = re.sub(r'data-p', "", filter_html)
+        filter_html = re.sub(r'&nbsp;', "", filter_html)
+        filter_html = re.sub(r'<div data-cs-t="ginfo_kw_hotel"><div></div><div>', "", filter_html)
+        write_html_str(filter_html)
+        print("图片全部上传成功，已将htmls复制到剪切板")
 
 
-def write_caoliu_html_str(htmls_str):
-    html_res = os.path.join(os.path.split(__file__)[0], "caoliu_html_res.txt")
-    with open(html_res, "w", encoding="utf-8") as f:
-        data = f.write(htmls_str)
-    return data
-
-
-def clear_content(html: str):
-    html = html.replace(' ', "")
-    html = re.sub(r'<img +.*?src="data', "[img]", html)
-    html = re.sub(r'<img +.*?src="', "[img]", html)
-    html = re.sub(r'" alt=.*?>', '>', html)
-    html = re.sub(r'" data-src=.*?>', '>', html)
-    html = re.sub(r'<.*?>', '', html)
-    html = re.sub(r'\S.*?上传', '', html)
-    html = re.sub(r' ', '', html)
-    html = re.sub(r'	', '', html)
-    html = re.sub(r'\n+?', '', html)
-    html = re.sub(r'&nbsp;', '', html)
-    html = re.sub(r'微信.*?上传', '', html)
-    html = re.sub(r'QQ.*?上传', '', html)
-    html = re.sub(r'<div class="xs0">.*?</div>', '', html, re.S)
-    html = re.sub(r'\[img\]', '\n[img]', html)
-    html = re.sub(r'jpg.*?/?>', 'jpg[/img]\n', html)
-    html = re.sub(r'\S.*?下载附件', '', html)
-    html = re.sub(r'堂', '', html)
-    html = re.sub(r'\[img\]st.*?">', '', html)
-    html = re.sub(r'static.*?zoomfile="', '', html)
-    html = re.sub(r'\[/img\]', '[/img]\n', html)
-    html = re.sub(r'\[img\]static.*?>', '', html)
-    html = re.sub(r'\[img\]static.*?\]', '', html)
-    print(html)
-    write_caoliu_html_str(html)
-
-
-def run(htmls):
-    find_img_urls(htmls)
+def run(article_url):
+    # find_img_urls(article_url)
     second_html = read_html_res_str()
     clear_content(second_html)
 
@@ -474,6 +480,5 @@ if __name__ == '__main__':
     url = "https://23img.com/application/upload.php"
     toutiao = Toutiao_picurl(url)
     toutiao.cut_height = 48
-    url = "https://www.djsd997.com/forum.php?mod=viewthread&tid=1165797&extra=page%3D1%26filter%3Dtypeid%26typeid%3D712"
-    htmls = read_html_str(url)
-    run(htmls)
+    article_url = "https://www.djsd997.com/thread-1171864-1-2.html"
+    run(article_url)

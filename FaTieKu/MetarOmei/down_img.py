@@ -4,6 +4,7 @@ import requests
 from lxml import etree
 from bs4 import BeautifulSoup
 
+
 def down_jpg(title, img_url):
     # 开始下载图片
     path = os.path.join(os.getcwd(), "欧美套图", title)
@@ -22,6 +23,7 @@ def down_jpg(title, img_url):
         f.write(res.content)
     print(f"图片{name}下载完成--------->")
 
+
 def get_one_img(one_url):
     print(f"one_url:{one_url}")
     res = requests.get(one_url)
@@ -35,6 +37,7 @@ def get_one_img(one_url):
         # down_jpg(title, img_url)
         threadpool.submit(down_jpg, title, img_url)
 
+
 def page_url(pag_url):
     print(f"pag_url:{pag_url}")
     html = requests.get(pag_url).content.decode()
@@ -44,6 +47,7 @@ def page_url(pag_url):
         full_url = f"http://www.picsmetart.com/{url}"
         get_one_img(full_url)
 
+
 def start_ru():
     # 一共176页
     # page_threadpool = ThreadPoolExecutor(max_workers=10)
@@ -52,6 +56,7 @@ def start_ru():
         page_url(page_i)
         # page_threadpool.submit(page_url, page_i)
     print("所有图片已经下载完了")
+
 
 if __name__ == '__main__':
     start_ru()

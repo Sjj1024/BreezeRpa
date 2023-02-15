@@ -1,5 +1,6 @@
 import base64
 import json
+import math
 
 """
 再分享一个APP，可以自动获取所有网站免翻地址，并过滤广告：
@@ -73,9 +74,9 @@ appInfo = {
     "javbus1": "https://www.seejav.pw",
     "javbus2": "https://www.busjav.fun",
     "javbus3": "https://www.javsee.club",
-    "luntan20481": "https://4s.aaa567.com/2048/",
-    "luntan20482": "https://3q.gouxie8.com/2048/",
-    "luntan20483": "https://lsp.souaiqin.com/2048/"
+    "luntan20481": "https://4s.aaa567.com/2048",
+    "luntan20482": "https://3q.gouxie8.com/2048",
+    "luntan20483": "https://lsp.souaiqin.com/2048"
 }
 
 ## 下面是exe程序的信息：https://www.cnblogs.com/sdfasdf/p/15266773.html
@@ -113,7 +114,10 @@ def creat_app():
     # print("转换后的json字符串是:" + jsonStr)
     # print("")
     res2 = base64.b64encode(jsonStr.encode())
-    bs64Str = str(res2).replace("b'", "").replace("'", "")
+    bs64Str = res2.decode("utf-8")
+    # 随机增加n个混淆字符
+    huixiao_str = "VGhlIHF1aWNrIGFuZCBzaW1wbGUgZWRpdG9yIGZvciBjcm9uIHNjaGVkdWxlIGV4cHJlc3Npb25zIGJ5IENyb25pdG9y"
+    bs64Str = bs64Str[:(math.floor(len(bs64Str)/2))] + huixiao_str + bs64Str[(math.floor(len(bs64Str)/2)):]
     realContent = f"""
 <div class="cnblogs_code">
 <pre style="display: none;"><span style="color: #000000;">

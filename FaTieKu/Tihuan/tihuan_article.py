@@ -362,6 +362,7 @@ def write_caoliu_html_str(htmls_str):
 
 def clear_content(html: str):
     html = html.replace(' ', "")
+    html = html.replace('​', "")
     html = re.sub(r'<img +.*?file="', "[img]", html)
     html = re.sub(r'<img +.*?src="data', "[img]", html)
     html = re.sub(r'<img +.*?src="', "[img]", html)
@@ -377,8 +378,10 @@ def clear_content(html: str):
     html = re.sub(r'QQ.*?上传', '', html)
     html = re.sub(r'<div class="xs0">.*?</div>', '', html, re.S)
     html = re.sub(r'115截图.*?下载附件', '', html, re.S)
-    html = re.sub(r'jpg.*?/?>', 'jpg[/img]\n', html)
-    html = re.sub(r'png.*?/?>', 'png[/img]\n', html)
+    html = re.sub(r'jpeg.*?下载附件', 'jpg[/img]\n', html)
+    html = re.sub(r'jpg.*?下载附件', 'jpg[/img]\n', html)
+    html = re.sub(r'jpg.*?/>', 'jpg[/img]\n', html)
+    html = re.sub(r'png.*?下载附件', 'png[/img]\n', html)
     html = re.sub(r'IMG.*?\n', '', html, re.S)
     html = re.sub(r'\(.*?\n', '', html, re.S)
     html = re.sub(r'堂', '', html)
@@ -388,6 +391,7 @@ def clear_content(html: str):
     html = re.sub(r'\[img\]static.*?>', '', html)
     html = re.sub(r'\[img\]static.*?\]', '', html)
     html = re.sub(r'\n\n+', '', html)
+    html = re.sub(r'JoinFTVGirlstoGETFULLSET', '', html)
     html = re.sub(r'\[img\]', '\n[img]', html)
     print(html)
     write_caoliu_html_str(html)
@@ -424,7 +428,13 @@ def find_img_urls(article_url):
         soup = BeautifulSoup(htmls, "lxml")
         htmls = soup.select("p")[0].decode()
         image_tags = soup.select("p")[0].select("img")
-        urls_img = [img.get("src") for img in image_tags]
+        urls_img = [img.get("src") for img in image_tags if img.get("src").startswith("http")]
+    elif "xftvgirls" in htmls:
+        # https://www.xftvgirls.com/
+        soup = BeautifulSoup(htmls, "lxml")
+        htmls = soup.select("div.gallery")[0].decode()
+        image_tags = soup.select("div.gallery")[0].select("a")
+        urls_img = [img.get("href") for img in image_tags if img.get("href").startswith("http")]
     else:
         raise Exception("识别不了的图片和网站内容")
     urls_img = [i for i in urls_img if i.startswith("http")]
@@ -440,14 +450,19 @@ def find_img_urls(article_url):
     imgs_unm = len(urls_img)
     count_upload = []
     task_list = []
-    executor = ThreadPoolExecutor(max_workers=1)
+    executor = ThreadPoolExecutor(max_workers=10)
     for i in urls_img:
         task_list.append(executor.submit(down_upload_img, i, count_upload, urls_img))
     for future in as_completed(task_list):
         img_url, picture_url = future.result()
-        htmls = htmls.replace(img_url, picture_url)
-        count_upload.append(picture_url)
         urls_img.remove(img_url)
+        # 如果原图片链接里有photos则替换为真img标签的src
+        if "photos" in img_url:
+            img_url = img_url.replace("photos", "thumbs")
+            htmls = htmls.replace(img_url, picture_url)
+        else:
+            htmls = htmls.replace(img_url, picture_url)
+        count_upload.append(picture_url)
         print(f"正在等待替换图片，当前已替换：{len(count_upload)},总的图片数：{imgs_unm}")
         print(f"还剩图片链接是:{urls_img}")
         print(f"还剩图片个数是:{len(urls_img)}")
@@ -471,7 +486,7 @@ def find_img_urls(article_url):
 
 
 def run(article_url):
-    # find_img_urls(article_url)
+    find_img_urls(article_url)
     second_html = read_html_res_str()
     clear_content(second_html)
 
@@ -480,5 +495,5 @@ if __name__ == '__main__':
     url = "https://23img.com/application/upload.php"
     toutiao = Toutiao_picurl(url)
     toutiao.cut_height = 48
-    article_url = "https://www.djsd997.com/thread-1171864-1-2.html"
+    article_url = "https://www.djsd997.com/thread-1174190-1-1.html"
     run(article_url)

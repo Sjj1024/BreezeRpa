@@ -114,7 +114,15 @@ def creat_app():
     # print("")
     res2 = base64.b64encode(jsonStr.encode())
     bs64Str = str(res2).replace("b'", "").replace("'", "")
-    realContent = f"""HJlc3Npb25zIGJ5IEN{bs64Str}HJlc3Npb25zIGJ5IEN"""
+    realContent = f"""
+<div class="cnblogs_code">
+<pre style="display: none;"><span style="color: #000000;">
+pythonpython{bs64Str}pythonpython
+
+</span></pre>
+</div>
+<p><a href="https://img2022.cnblogs.com/blog/2506425/202204/2506425-20220403173022189-492682951.png" data-fancybox="gallery"><img src="https://img2022.cnblogs.com/blog/2506425/202204/2506425-20220403173022189-492682951.png" alt="" class="medium-zoom-image" loading="lazy" /></a></p>
+"""
     print("app信息如下：")
     print(realContent)
 

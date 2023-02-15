@@ -1,3 +1,4 @@
+# 加密所有的数据
 import base64
 import json
 
@@ -94,31 +95,48 @@ exeInfo = {
     "mazinote": "需要邀请码才可以注册哦!",
 }
 
+# 以下是1024回家插件的数据信息
+chrome_extension = {
+    "name": "Chrome浏览器1024回家插件",
+    "version": "0.0.1",
+    "dialog": {
+        "show": True,
+        "content": "这是弹窗信息"
+    },
+    "update": {
+        "show": True,
+        "content": "更新了更高级的信息",
+        "url": "http://www.jsons.cn/base64/"
+    },
+    "data": {
+        "navigation": {
+            "热门区域": [{"title": "百度一下", "url": "www.baidu.com", "icon": ""},
+                         {"title": "淘宝一下", "url": "www.baidu.com", "icon": ""}],
+            "新闻头条": [{"title": "百度一下", "url": "www.baidu.com", "icon": ""},
+                         {"title": "百度一下", "url": "www.baidu.com", "icon": ""}]
+        }
+    }
+}
 
-def creat_exe():
-    # jsonStr = json.dumps(exeInfo)
-    jsonStr = json.dumps(exeInfo)
-    # print("转换后的json字符串是:" + jsonStr)
-    # print("")
-    res2 = base64.b64encode(jsonStr.encode())
-    bs64Str = str(res2).replace("b'", "").replace("'", "")
-    realContent = f"pythonpython{bs64Str}pythonpython"
-    print("\nexe信息如下：")
-    print(realContent)
+
+def encode_json(info):
+    jsonStr = json.dumps(info)
+    b_encode = base64.b64encode(jsonStr.encode("utf-8"))
+    bs64_str = b_encode.decode("utf-8")
+    realContent = f"VkdWxlIGV4cHJlc3Npb25z{bs64_str}VkdWxlIGV4cHJlc3Npb25z"
+    print(f"解密结果:\n{realContent}")
+    return realContent
 
 
-def creat_app():
-    # jsonStr = json.dumps(exeInfo)
-    jsonStr = json.dumps(appInfo)
-    # print("转换后的json字符串是:" + jsonStr)
-    # print("")
-    res2 = base64.b64encode(jsonStr.encode())
-    bs64Str = str(res2).replace("b'", "").replace("'", "")
-    realContent = f"""HJlc3Npb25zIGJ5IEN{bs64Str}HJlc3Npb25zIGJ5IEN"""
-    print("app信息如下：")
-    print(realContent)
+def decode_bs64(content):
+    content = content.replace("VkdWxlIGV4cHJlc3Npb25z", "")
+    info_str = base64.b64decode(content).decode("utf-8")
+    json_info = json.loads(info_str)
+    print(f"解密结果:{json_info}")
 
 
 if __name__ == '__main__':
-    creat_app()
-    # creat_exe()
+    content_json = chrome_extension
+    print(f"原始信息:{content_json}")
+    content = encode_json(content_json)
+    decode_bs64(content)

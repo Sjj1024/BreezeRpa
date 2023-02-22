@@ -495,5 +495,5 @@ if __name__ == '__main__':
     url = "https://23img.com/application/upload.php"
     toutiao = Toutiao_picurl(url)
     toutiao.cut_height = 48
-    article_url = "https://www.djsd997.com/thread-1174190-1-1.html"
+    article_url = "https://www.djsd997.com/thread-1165045-1-1.html"
     run(article_url)

@@ -11,9 +11,11 @@ def make_date(index, start_num, sub_target, random_data):
         if len(target_data) >= sub_target:
             break
         index_num += 1
-        random_data[0] = str(index_num)
+        if use_uuid:
+            random_data[0] = str(uuid.uuid1()).upper().replace("-", "") + str(uuid.uuid1()).upper().replace("-", "")
+        else:
+            random_data[0] = str(index_num)
         target_data.append(deepcopy(random_data))
-        # print(f"\r{index + 1}号线程正在创造数据，进度：{(len(target_data) / sub_target) * 100}%", end="\r", flush=True)
     client = clickhouse_connect.get_client(host=host, port=port, username=username, password=password)
     client.insert(f"{data_name}.{table}", target_data)
     client.close()
@@ -73,4 +75,6 @@ if __name__ == '__main__':
     data_name = "p_6481060737912410112"
     table = "d_6482427017089257472"
     target = 50 * 10000
+    # 是否对ID加密
+    use_uuid = True
     run()

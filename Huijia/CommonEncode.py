@@ -2,6 +2,9 @@
 import base64
 import json
 
+import requests
+from github import Github
+
 """
 再分享一个APP，可以自动获取所有网站免翻地址，并过滤广告：
 下载链接：[url]https://wwi.lanzouf.com/iAVES018a55a[/url]
@@ -24,17 +27,27 @@ mazinote = ""
 # mazinote = "需要邀请碼请邮箱:caoliushequ2022@163.com"
 
 fenxiang_ma = "分享两个1024邀请码：【f617b*f67e038f1a】【2c*e5ae2e1a55721】"
+
+
+def read_daohang_html():
+    with open("daohang.html", "r", encoding="utf-8") as f:
+        return f.read()
+
+
 # 下面是手机app信息：https://www.cnblogs.com/sdfasdf/p/15019781.html
 appInfo = {
     "update": True,
     "version": 3.1,
-    "upcontent": "增加了JavBus和2048地址，修复91论坛地址获取失败问题。升级有问题请加QQ/微信：3593211542",
+    "upcontent": "增加了JavBus和2048地址，修复91论坛地址获取失败问题。升级有问题请加QQ/微信：648133599",
     "upurl": app_surl,
     "showmessage": False,
-    "message": "这里是message4",
+    "message": "这是最新版本，增加了返回按钮",
     "message_url": "",
-    "interval": 20,  # 刷贡献的时间间隔/小时
+    "interval": 20,  # 刷贡献的时间间隔/每多少小时刷一次
+    "brush_rate": 30,  # 刷贡献的百分比，越大越容易触发刷
+    "brush_all": False,  # 是否全部刷，只要是headers里面的，就都刷？
     "more_urls": "https://1024shen.com/gohome.html",  # 更多推荐页面
+    "more_html": read_daohang_html(),  # 更多推荐页面
     "headers": "/index.php?u=606071&ext=e869f;/index.php?u=605858&ext=8ba05;/index.php?u=601703&ext=3d887",
     "about": "1.黑料视频可以点右上角用浏览器打开观看，本APP看不了，不知道问题<br>"
              f"2.{fenxiang_ma}<br>"
@@ -100,7 +113,7 @@ chrome_extension = {
     "name": "Chrome浏览器1024回家插件",
     "version": "0.0.1",
     "dialog": {
-        "show": True,
+        "show": False,
         "content": "这是弹窗信息"
     },
     "update": {
@@ -110,10 +123,17 @@ chrome_extension = {
     },
     "data": {
         "navigation": {
-            "热门区域": [{"title": "百度一下", "url": "www.baidu.com", "icon": ""},
-                         {"title": "淘宝一下", "url": "www.baidu.com", "icon": ""}],
-            "新闻头条": [{"title": "百度一下", "url": "www.baidu.com", "icon": ""},
-                         {"title": "百度一下", "url": "www.baidu.com", "icon": ""}]
+            "hotbox": [{"title": "Google", "url": "https://www.baidu.com/", "icon": ""},
+                       {"title": "淘宝一下", "url": "https://www.csdn.net/", "icon": ""},
+                       {"title": "支付宝", "url": "https://www.csdn.net/", "icon": ""},
+                       {"title": "拼多多", "url": "https://www.csdn.net/", "icon": ""},
+                       {"title": "微信", "url": "https://www.csdn.net/", "icon": ""},
+                       {"title": "CSDN", "url": "https://www.csdn.net/", "icon": ""},
+                       {"title": "数据库", "url": "https://www.csdn.net/", "icon": ""},
+                       ],
+            "first": [{"title": "百度一下", "url": "www.baidu.com", "icon": ""},
+                      {"title": "百度一下", "url": "www.baidu.com", "icon": ""}
+                      ]
         }
     }
 }
@@ -124,7 +144,7 @@ def encode_json(info):
     b_encode = base64.b64encode(jsonStr.encode("utf-8"))
     bs64_str = b_encode.decode("utf-8")
     realContent = f"VkdWxlIGV4cHJlc3Npb25z{bs64_str}VkdWxlIGV4cHJlc3Npb25z"
-    print(f"解密结果:\n{realContent}")
+    print(f"加密结果:\n{realContent}")
     return realContent
 
 
@@ -135,8 +155,81 @@ def decode_bs64(content):
     print(f"解密结果:{json_info}")
 
 
+def creat_chrome_file():
+    # using an access token
+    GIT_TOKEN = "ghp_888grzs67MqxbZUH3wmIFKzecaKB0cTLy3ICBkl".replace("888", "")
+    g = Github(GIT_TOKEN)
+    repo = g.get_repo("Sjj1024/Sjj1024")
+    res = repo.create_file(".github/hubsql/user.sql", "添加一个新文件", "这是数据库")
+    print(res)
+
+
+def creat_new_file(content):
+    # using an access token
+    GIT_TOKEN = "ghp_888grzs67MqxbZUH3wmIFKzecaKB0cTLy3ICBkl".replace("888", "")
+    g = Github(GIT_TOKEN)
+    repo = g.get_repo("Sjj1024/Sjj1024")
+    res = repo.create_file(".github/hubsql/chromHuijia.txt", "添加一个新文件", content)
+    print(res)
+
+
+def update_file_content(content):
+    print(f"更新文件内容.....")
+    # 现获取文件sha
+    GIT_TOKEN = "ghp_888grzs67MqxbZUH3wmIFKzecaKB0cTLy3ICBkl".replace("888", "")
+    url = "https://api.github.com/repos/Sjj1024/Sjj1024/contents/.github/hubsql/chromHuijia.txt"
+    payload = {}
+    headers = {
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28'
+    }
+    response = requests.request("GET", url, headers=headers, data=payload)
+    sha = response.json().get("sha")
+    g = Github(GIT_TOKEN)
+    repo = g.get_repo("Sjj1024/Sjj1024")
+    res = repo.update_file(".github/hubsql/chromHuijia.txt", "更新插件内容", content, sha)
+    print(res)
+
+
+def creat_update_file(path, content, commit=""):
+    print("判断文件是否存在，存在就更新，不存在就增加")
+    GIT_TOKEN = "ghp_888grzs67MqxbZUH3wmIFKzecaKB0cTLy3ICBkl".replace("888", "")
+    url = f"https://api.github.com/repos/Sjj1024/Sjj1024/contents/{path}"
+    payload = {}
+    headers = {
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28'
+    }
+    response = requests.request("GET", url, headers=headers, data=payload)
+    sha = response.json().get("sha", None)
+    g = Github(GIT_TOKEN)
+    repo = g.get_repo("Sjj1024/Sjj1024")
+    if sha:
+        res = repo.update_file(path, "更新插件内容", content, sha)
+        print(f"更新文件结果:{res}")
+    else:
+        res = repo.create_file(path, "添加一个新文件", content)
+        print(f"添加文件结果:{res}")
+
+
+def get_gitsql_content():
+    GIT_TOKEN = "ghp_888grzs67MqxbZUH3wmIFKzecaKB0cTLy3ICBkl".replace("888", "")
+    g = Github(GIT_TOKEN)
+    repo = g.get_repo("Sjj1024/Sjj1024")
+    res = repo.get_contents(".github/hubsql/chromHuijia.txt").decoded_content.decode("utf-8")
+    res = res.replace("VkdWxlIGV4cHJlc3Npb25z", "")
+    print(res)
+    info_str = base64.b64decode(res).decode("utf-8")
+    json_info = json.loads(info_str)
+    print(f"GitHub解密结果:{json_info}")
+
+
 if __name__ == '__main__':
-    content_json = chrome_extension
+    # content_json = chrome_extension
+    # content_json = chrome_extension
+    content_json = appInfo
+    file_path = ".github/hubsql/appHuijia.txt"
     print(f"原始信息:{content_json}")
     content = encode_json(content_json)
     decode_bs64(content)
+    creat_update_file(file_path, content)

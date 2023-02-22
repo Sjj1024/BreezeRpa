@@ -1,5 +1,21 @@
-import base64
+import random
 
-content = "The quick and simple editor for cron schedule expressions by Cronitor"
-print(len(content))
-print(base64.b64encode(content.encode("utf-8")))
+
+def random_dic(dicts):
+    dict_key_ls = list(dicts.keys())
+    random.shuffle(dict_key_ls)
+    new_dict = {}
+    for key in dict_key_ls:
+        new_dict[key] = dicts.get(key)
+    return new_dict
+
+
+if __name__ == '__main__':
+    demo_dict = {
+        'google': 'android',
+        'facebook': 'whatsapp',
+        'microsoft': 'windows',
+        'apple': 'mac',
+    }
+    print(demo_dict)
+    print(random_dic(demo_dict))

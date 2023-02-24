@@ -381,6 +381,7 @@ def clear_content(html: str):
     html = re.sub(r'jpeg.*?下载附件', 'jpg[/img]\n', html)
     html = re.sub(r'jpg.*?下载附件', 'jpg[/img]\n', html)
     html = re.sub(r'jpg.*?/>', 'jpg[/img]\n', html)
+    html = re.sub(r'png.*?/>', 'png[/img]\n', html)
     html = re.sub(r'png.*?下载附件', 'png[/img]\n', html)
     html = re.sub(r'IMG.*?\n', '', html, re.S)
     html = re.sub(r'\(.*?\n', '', html, re.S)
@@ -400,13 +401,13 @@ def clear_content(html: str):
 def find_img_urls(article_url):
     payload = {}
     headers = {
-        'authority': 'www.djsd997.com',
-        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'authority': 'www.dks54s.com',
+        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
         'accept-language': 'zh-CN,zh;q=0.9,zh-HK;q=0.8,zh-TW;q=0.7',
         'cache-control': 'max-age=0',
-        'cookie': 'cPNj_2132_saltkey=rAn74F3P; cPNj_2132_lastvisit=1675774221; cPNj_2132_lastfp=66abe79b56fe4d1db0defa055279da8b; cPNj_2132_atarget=1; cPNj_2132_st_t=0%7C1675941723%7Ca1f3e77896f05f6faeee5b1abeb96dbb; cPNj_2132_forum_lastvisit=D_142_1675855944D_125_1675861867D_165_1675861875D_95_1675941563D_154_1675941719D_155_1675941723; cPNj_2132_visitedfid=155D154D95D165D125D142; cPNj_2132_viewid=tid_992050; cPNj_2132_st_p=0%7C1675943535%7C7ebf9161c05f7d405c9f79ace6fea3e2; cPNj_2132_lastact=1675943535%09home.php%09misc; cPNj_2132_lastact=1675946504%09forum.php%09viewthread; cPNj_2132_st_p=0%7C1675946504%7Ce45d44ad73f9968a43b344b00d00599d; cPNj_2132_viewid=tid_1169430; cPNj_2132_visitedfid=95D155D154D165D125D142',
-        'referer': 'https://www.djsd997.com/forum-95-1.html',
-        'sec-ch-ua': '"Not_A Brand";v="99", "Google Chrome";v="109", "Chromium";v="109"',
+        'cookie': 'cPNj_2132_saltkey=A3M58zQv; _safe=vqd37pjm4p5uodq339yzk6b7jdt6oich; cPNj_2132_lastvisit=1677135930; cPNj_2132_lastfp=66abe79b56fe4d1db0defa055279da8b; cPNj_2132_atarget=1; cPNj_2132_visitedfid=155; cPNj_2132_st_t=0%7C1677139554%7C368541e9e1763edc8db098bf8fa23d21; cPNj_2132_forum_lastvisit=D_155_1677139554; cPNj_2132_st_p=0%7C1677139559%7Cc8ae05362069bbf82197183735ef5e25; cPNj_2132_viewid=tid_1154619; cPNj_2132_lastact=1677139647%09forum.php%09ajax',
+        'referer': 'https://www.dks54s.com/forum-155-1.html',
+        'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Google Chrome";v="110"',
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"Windows"',
         'sec-fetch-dest': 'document',
@@ -414,14 +415,15 @@ def find_img_urls(article_url):
         'sec-fetch-site': 'same-origin',
         'sec-fetch-user': '?1',
         'upgrade-insecure-requests': '1',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
     }
     response = requests.request("GET", article_url, headers=headers, data=payload)
     htmls = response.content.decode()
     if "98堂" in htmls:
         # 98堂的图片链接
         soup = BeautifulSoup(htmls, "lxml")
-        htmls = soup.select("div.t_fsz")[0].decode()
+        htmls = soup.select("div.t_fsz") or soup.select("div.pcbs")
+        htmls = htmls[0].decode()
         urls_img = re.findall(r'<img.*?file="(.*?)"', htmls)
     elif "yaomitao.com" in htmls:
         # yaomitao.com
@@ -486,7 +488,7 @@ def find_img_urls(article_url):
 
 
 def run(article_url):
-    find_img_urls(article_url)
+    # find_img_urls(article_url)
     second_html = read_html_res_str()
     clear_content(second_html)
 
@@ -495,5 +497,5 @@ if __name__ == '__main__':
     url = "https://23img.com/application/upload.php"
     toutiao = Toutiao_picurl(url)
     toutiao.cut_height = 48
-    article_url = "https://www.djsd997.com/thread-1165045-1-1.html"
+    article_url = "https://www.dks54s.com/thread-1186093-1-1.html"
     run(article_url)

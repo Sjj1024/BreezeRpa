@@ -49,7 +49,7 @@ def get_video_info(video_id):
     url0 = "https://www.iesdouyin.com/web/api/v2/aweme/iteminfo/?item_ids=" + video_id
     r_url0 = requests.get(url0, headers={"user-agent": "Mozilla/5.0"})
     # 获取json数据中的视频地址及视频标题
-    url1 = r_url0.json()["item_list"][0]['video']["play_addr"]["url_list"][0]
+    url1 = r_url0.json()["item_list"][0]['video']["play_addr"]["url_list.py"][0]
     # 防止出现空标题，加上短视频ID
     title = video_id + "-" + r_url0.json()["item_list"][0]['share_info']["share_title"].split("#")[0].split("@")[0]
     # 获取url1重定向后的真实视频地址

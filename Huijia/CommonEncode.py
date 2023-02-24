@@ -5,6 +5,8 @@ import json
 import requests
 from github import Github
 
+from Huijia.porndude.url_list import cate_list
+
 """
 再分享一个APP，可以自动获取所有网站免翻地址，并过滤广告：
 下载链接：[url]https://wwi.lanzouf.com/iAVES018a55a[/url]
@@ -38,6 +40,7 @@ def read_daohang_html():
 appInfo = {
     "update": True,
     "version": 3.1,
+    "file_path": ".github/hubsql/appHuijia.txt",
     "upcontent": "增加了JavBus和2048地址，修复91论坛地址获取失败问题。升级有问题请加QQ/微信：648133599",
     "upurl": app_surl,
     "showmessage": False,
@@ -96,6 +99,7 @@ appInfo = {
 exeInfo = {
     "update": True,
     "version": 6.3,
+    "file_path": ".github/hubsql/exeHuijia.txt",
     "upcontent": "修复分享手机APP的链接过期问题，升级有问题请加微信：sxsuccess",
     "upurl": "https://wwx.lanzoui.com/iKII9w8zcre",
     "appurl": app_surl,
@@ -111,30 +115,19 @@ exeInfo = {
 # 以下是1024回家插件的数据信息
 chrome_extension = {
     "name": "Chrome浏览器1024回家插件",
+    "file_path": ".github/hubsql/chromHuijia.txt",
     "version": "0.0.1",
     "dialog": {
         "show": False,
         "content": "这是弹窗信息"
     },
     "update": {
-        "show": True,
+        "show": False,
         "content": "更新了更高级的信息",
         "url": "http://www.jsons.cn/base64/"
     },
     "data": {
-        "navigation": {
-            "hotbox": [{"title": "Google", "url": "https://www.baidu.com/", "icon": ""},
-                       {"title": "淘宝一下", "url": "https://www.csdn.net/", "icon": ""},
-                       {"title": "支付宝", "url": "https://www.csdn.net/", "icon": ""},
-                       {"title": "拼多多", "url": "https://www.csdn.net/", "icon": ""},
-                       {"title": "微信", "url": "https://www.csdn.net/", "icon": ""},
-                       {"title": "CSDN", "url": "https://www.csdn.net/", "icon": ""},
-                       {"title": "数据库", "url": "https://www.csdn.net/", "icon": ""},
-                       ],
-            "first": [{"title": "百度一下", "url": "www.baidu.com", "icon": ""},
-                      {"title": "百度一下", "url": "www.baidu.com", "icon": ""}
-                      ]
-        }
+        "navigation": cate_list
     }
 }
 
@@ -225,10 +218,10 @@ def get_gitsql_content():
 
 
 if __name__ == '__main__':
+    content_json = chrome_extension
     # content_json = chrome_extension
-    # content_json = chrome_extension
-    content_json = appInfo
-    file_path = ".github/hubsql/appHuijia.txt"
+    # content_json = appInfo
+    file_path = content_json.get("file_path")
     print(f"原始信息:{content_json}")
     content = encode_json(content_json)
     decode_bs64(content)

@@ -1,7 +1,6 @@
 import copy
 import csv
 import os
-
 import pymysql
 import time
 

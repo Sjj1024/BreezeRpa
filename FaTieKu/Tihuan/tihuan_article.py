@@ -26,6 +26,8 @@ class Toutiao_picurl():
             # "Cookie": "_ga=GA1.2.1838920340.1591889347; __utmz=68473421.1592400213.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); __utma=68473421.1838920340.1591889347.1592400213.1592734500.2; tt_webid=6855618365789406728; SLARDAR_WEB_ID=0e3909f6-390f-44d0-9727-09af436760a1; _gid=GA1.2.200393803.1596948295; passport_csrf_token=c0b2df7c7e7e4b99a2d7d6ff6cd0f3fe; s_v_web_id=verify_kdmls7jv_9BX2xa3m_vZzc_4x1D_AIJd_QLy3mQyi4M12; sso_auth_status=801dd1e700f47f2c22c5f80a67c4c6e7; sso_uid_tt=97a2f920d77e2585ccb7abd3682faeb6; sso_uid_tt_ss=97a2f920d77e2585ccb7abd3682faeb6; toutiao_sso_user=7451232a9670d287a611fd84c4c24cfa; toutiao_sso_user_ss=7451232a9670d287a611fd84c4c24cfa; passport_auth_status=d3bc991571cbe17a78247636b02d6a35%2C69b1d85deb0720c4be2547fea32f8d3a; sid_guard=4aa8c025cb0ba0e8976a7fa476fc90d7%7C1596948356%7C5184000%7CThu%2C+08-Oct-2020+04%3A45%3A56+GMT; uid_tt=a5f69c8159558848355015bf72aaf831; uid_tt_ss=a5f69c8159558848355015bf72aaf831; sid_tt=4aa8c025cb0ba0e8976a7fa476fc90d7; sessionid=4aa8c025cb0ba0e8976a7fa476fc90d7; sessionid_ss=4aa8c025cb0ba0e8976a7fa476fc90d7; gftoken=NGFhOGMwMjVjYnwxNTk2OTQ4MzU2NjB8fDAGBgYGBgY; ttcid=560e73f6806a4dbaa94683ce03d0427711; tt_scid=rOW6J.sxx7BszD.wpz14N-z3-KI92pjHwu9FzHd17BRU7zoG9qsTsI2ZOpTATeGGcde5"
             "Cookie": self.get_cookie()
         }
+        # 决定裁剪图片的上头还是下头
+        self.top_bottom = "bottom"
         self.cut_height = 0
 
     def tt_upload(self, image, img_url):
@@ -217,7 +219,7 @@ class Toutiao_picurl():
         # 获取cookie
         cookie_path = os.path.join(self.get_path(), "cookie.txt")
         print(cookie_path)
-        with open(cookie_path, "r") as f:
+        with open(cookie_path, "r", encoding="utf-8") as f:
             data = f.read()
         return data
 
@@ -299,14 +301,36 @@ class Toutiao_picurl():
 lock = threading.Lock()
 
 
+def post_img(url):
+    payload = {}
+    headers = {
+        'authority': 'ingmd.bb8gk.com',
+        'accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+        'accept-language': 'zh-CN,zh;q=0.9,zh-HK;q=0.8,zh-TW;q=0.7',
+        'cache-control': 'no-cache',
+        'pragma': 'no-cache',
+        'referer': 'https://www.54ssjd.com/thread-1192846-1-1.html',
+        'sec-ch-ua': '"Chromium";v="110", "Not A(Brand";v="24", "Google Chrome";v="110"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-fetch-dest': 'image',
+        'sec-fetch-mode': 'no-cors',
+        'sec-fetch-site': 'cross-site',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
+    }
+    response = requests.request("GET", url, headers=headers, data=payload)
+    return response
+
+
 def down_upload_img(img_url, count_upload, urls_img):
     # 下载并上传图片到头条图床
     header = {
-        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36",
-        # "cookie":"__cfduid=d7bf56a09d59c63153be646a4240dc5351598684917; _ga=GA1.2.1719031425.1598684863; _gid=GA1.2.742131085.1598684863"
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.56",
+        "cookie": "cf_chl_2=a2331fa99d8fa7b; cf_clearance=XON3IwLqDGGMwmPbthYZfE2wpuQs.7nsJDk6tZ0X3jY-1677387800-0-250"
     }
     print(f"开始下载图片{img_url}")
-    res = requests.get(img_url, headers=header)
+    res = post_img(img_url)
+    # res = requests.get(img_url, headers=header)
     print(res)
     print(f"图片下载完成{img_url}")
     img_content = res.content
@@ -315,7 +339,10 @@ def down_upload_img(img_url, count_upload, urls_img):
     size = img.size
     width = size[0]
     height = size[1] - toutiao.cut_height
-    cropped = img.crop((0, 0, width, height))  # (left, upper, right, lower)
+    if toutiao.top_bottom == "bottom":
+        cropped = img.crop((0, 0, width, height))  # (left, upper, right, lower)
+    else:
+        cropped = img.crop((0, toutiao.cut_height, width, size[1]))
     imgByteArr = io.BytesIO()
     if img_url.endswith("jpg"):
         cropped.save(imgByteArr, format='JPEG')
@@ -369,7 +396,7 @@ def clear_content(html: str):
     html = re.sub(r'" alt=.*?>', '>', html)
     html = re.sub(r'" data-src=.*?>', '>', html)
     html = re.sub(r'<.*?>', '', html)
-    html = re.sub(r'\S.*?上传', '', html)
+    html = re.sub(r'\S?.*?上传', '', html)
     html = re.sub(r' ', '', html)
     html = re.sub(r'	', '', html)
     html = re.sub(r'\n\n+', '', html)
@@ -377,12 +404,14 @@ def clear_content(html: str):
     html = re.sub(r'微信.*?上传', '', html)
     html = re.sub(r'QQ.*?上传', '', html)
     html = re.sub(r'<div class="xs0">.*?</div>', '', html, re.S)
-    html = re.sub(r'115截图.*?下载附件', '', html, re.S)
-    html = re.sub(r'jpeg.*?下载附件', 'jpg[/img]\n', html)
-    html = re.sub(r'jpg.*?下载附件', 'jpg[/img]\n', html)
+    html = re.sub(r'115截图.*?\s?.*?下载附件', '', html, re.S)
+    html = re.sub(r'jpeg.*?\s?.*?下载附件', 'jpg[/img]\n', html)
+    html = re.sub(r'jpg.*?\s?.*?下载附件', 'jpg[/img]\n', html)
+    html = re.sub(r'png.*?\s?.*?下载附件', 'png[/img]\n', html)
+    html = re.sub(r'gif.*?.*?下载附件', 'gif[/img]\n', html)
     html = re.sub(r'jpg.*?/>', 'jpg[/img]\n', html)
     html = re.sub(r'png.*?/>', 'png[/img]\n', html)
-    html = re.sub(r'png.*?下载附件', 'png[/img]\n', html)
+    html = re.sub(r'jpeg.*?/>', 'jpeg[/img]\n', html)
     html = re.sub(r'IMG.*?\n', '', html, re.S)
     html = re.sub(r'\(.*?\n', '', html, re.S)
     html = re.sub(r'堂', '', html)
@@ -391,7 +420,8 @@ def clear_content(html: str):
     html = re.sub(r'\[/img\]', '[/img]\n', html)
     html = re.sub(r'\[img\]static.*?>', '', html)
     html = re.sub(r'\[img\]static.*?\]', '', html)
-    html = re.sub(r'\n\n+', '', html)
+    html = re.sub(r'\[img\]static.*?zoom', '', html)
+    html = re.sub(r'\n\n+', '\n', html)
     html = re.sub(r'JoinFTVGirlstoGETFULLSET', '', html)
     html = re.sub(r'\[img\]', '\n[img]', html)
     print(html)
@@ -458,12 +488,16 @@ def find_img_urls(article_url):
     for future in as_completed(task_list):
         img_url, picture_url = future.result()
         urls_img.remove(img_url)
+        if picture_url is None:
+            print(f"图床上传失败，没有得到图片地址: {picture_url}")
+            return
         # 如果原图片链接里有photos则替换为真img标签的src
         if "photos" in img_url:
             img_url = img_url.replace("photos", "thumbs")
             htmls = htmls.replace(img_url, picture_url)
         else:
             htmls = htmls.replace(img_url, picture_url)
+        write_html_str(htmls)
         count_upload.append(picture_url)
         print(f"正在等待替换图片，当前已替换：{len(count_upload)},总的图片数：{imgs_unm}")
         print(f"还剩图片链接是:{urls_img}")
@@ -496,6 +530,8 @@ def run(article_url):
 if __name__ == '__main__':
     url = "https://23img.com/application/upload.php"
     toutiao = Toutiao_picurl(url)
-    toutiao.cut_height = 48
-    article_url = "https://www.dks54s.com/thread-1186093-1-1.html"
+    # toutiao.top_bottom = "top"
+    toutiao.top_bottom = "bottom"
+    toutiao.cut_height = 58
+    article_url = "https://www.xftvgirls.com/gallery/skinny-girl-posing-in-different-ways-to-make-it-all-exciting-for-you/"
     run(article_url)

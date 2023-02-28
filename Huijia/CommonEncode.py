@@ -36,6 +36,78 @@ def read_daohang_html():
         return f.read()
 
 
+# 以下是1024回家插件的数据信息
+chrome_extension = {
+    "name": "Chrome浏览器1024回家插件",
+    "file_path": ".github/hubsql/chromHuijia.txt",
+    "version": "0.0.1",
+    "dialog": {
+        "show": False,
+        "content": "这是弹窗信息"
+    },
+    "update": {
+        "show": False,
+        "content": "更新了更高级的信息",
+        "url": "http://www.jsons.cn/base64/"
+    },
+    "data": {
+        # 匹配cookie的规则
+        "cookieRule": {"clcookies": "227c9_winduser",
+                       "91VideoCookies": "DUID",
+                       "91ImgCookies": "CzG_auth",
+                       "98cookies": "cPNj_2132_auth"},
+        # 刷贡献的头部，三个地址平均分布一个
+        "more_info": """
+        提示: 部分网站可能需要VPN翻墙后访问
+        """,
+        "interval": 20,  # 刷贡献的时间间隔/每多少小时刷一次
+        "brush_rate": 30,  # 刷贡献的百分比，越大越容易触发刷
+        "brush_all": False,  # 是否全部刷，只要是headers里面的，就都刷？
+        "show_hotUrl": True,  # 是否在热门推荐的URl地址中展示
+        "GongXians": ["/index.php?u=628155&ext=9a511", "/index.php?u=52993&ext=99ea2",
+                      "/index.php?u=595394&ext=c180e"],
+        "navigation": cate_list
+    }
+}
+
+
+def url_to_html():
+    # 先将热门导航里面的内容通过模板写入到daohang.html中
+    """
+      <div class="tabBox">
+        <h3 class="tabTitle">热门推荐</h3>
+        <div class="aBox">
+          <a href="https://www.baidu.com/" class="alink" target="_blank">百度一下</a>
+        </div>
+      </div>
+    """
+    tips_div_str = f"""<div class="tips">{chrome_extension["data"]["more_info"]}</div>"""
+    tab_box_list = [tips_div_str]
+    for key, val in cate_list.items():
+        # print(f"{key} : {val}")
+        title = val["title"]
+        data_url = val["data"]
+        a_box_list = []
+        for url_a in data_url:
+            a_template = f"""<a href="{url_a["url"]}" class="alink" target="_blank">{url_a["title"]}</a>\n"""
+            a_box_list.append(a_template)
+        a_box_strs = "".join(a_box_list)
+        tab_box_template = f"""<div class="tabBox">
+            <h3 class="tabTitle">{title}</h3>
+            <div class="aBox">
+              {a_box_strs}
+            </div>
+          </div>"""
+        tab_box_list.append(tab_box_template)
+    tab_box_strs = "".join(tab_box_list)
+    daohang_html = read_daohang_html()
+    daohang_html_res = daohang_html.replace("templatePalace", tab_box_strs)
+    with open("daohang_app.html", "w", encoding="utf-8") as f:
+        f.write(daohang_html_res)
+    print(daohang_html_res)
+    return daohang_html_res
+
+
 # 下面是手机app信息：https://www.cnblogs.com/sdfasdf/p/15019781.html
 appInfo = {
     "update": True,
@@ -49,8 +121,8 @@ appInfo = {
     "interval": 20,  # 刷贡献的时间间隔/每多少小时刷一次
     "brush_rate": 30,  # 刷贡献的百分比，越大越容易触发刷
     "brush_all": False,  # 是否全部刷，只要是headers里面的，就都刷？
-    "more_urls": "https://1024shen.com/gohome.html",  # 更多推荐页面
-    "more_html": read_daohang_html(),  # 更多推荐页面
+    "more_urls": "https://xiaoshen.com/gohome.html",  # 更多推荐页面
+    "more_html": url_to_html(),  # 更多推荐页面
     "headers": "/index.php?u=606071&ext=e869f;/index.php?u=605858&ext=8ba05;/index.php?u=601703&ext=3d887",
     "about": "1.黑料视频可以点右上角用浏览器打开观看，本APP看不了，不知道问题<br>"
              f"2.{fenxiang_ma}<br>"
@@ -110,25 +182,6 @@ exeInfo = {
     "weixinxin": "sxsuccess",
     "weiphoto": "photo",
     "mazinote": "需要邀请码才可以注册哦!",
-}
-
-# 以下是1024回家插件的数据信息
-chrome_extension = {
-    "name": "Chrome浏览器1024回家插件",
-    "file_path": ".github/hubsql/chromHuijia.txt",
-    "version": "0.0.1",
-    "dialog": {
-        "show": False,
-        "content": "这是弹窗信息"
-    },
-    "update": {
-        "show": False,
-        "content": "更新了更高级的信息",
-        "url": "http://www.jsons.cn/base64/"
-    },
-    "data": {
-        "navigation": cate_list
-    }
 }
 
 
@@ -218,11 +271,12 @@ def get_gitsql_content():
 
 
 if __name__ == '__main__':
-    content_json = chrome_extension
     # content_json = chrome_extension
-    # content_json = appInfo
+    # content_json = chrome_extension
+    content_json = appInfo
     file_path = content_json.get("file_path")
     print(f"原始信息:{content_json}")
     content = encode_json(content_json)
     decode_bs64(content)
     creat_update_file(file_path, content)
+    # url_to_html()

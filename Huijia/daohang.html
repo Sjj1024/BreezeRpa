@@ -1,202 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>更多推荐</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>更多推荐</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+        .tips {
+            color: red;
+            padding: 1vh 1vh;
+        }
+
+        .tabBox {
+            margin-bottom: 2vh;
+            border-radius: 5px;
+            box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        .tabTitle {
+            margin: 1vh 0 1vh 0;
+            color: white;
+            padding: 1vh 2vh;
+            border-radius: 5px 5px 0 0;
+            border-bottom: 1px solid #ebeef5;
+            box-sizing: border-box;
+            background-color: rgb(0, 108, 130);
+            box-shadow: rgb(0 108 130 / 35%) 0 0 2vh;
+        }
+
+        .aBox {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: start;
+            padding: 1vh 2vh;
+        }
+
+        .alink {
+            display: inline-block;
+            width: 31%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: left;
+            color: black;
+            padding-right: 2%;
+            margin-bottom: 8px;
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
-  <div class="tips">提示: 部分网站可能需要VPN翻墙后访问</div>
-  <div class="tabBox">
-    <h3 class="tabTitle">热门推荐</h3>
-    <div class="aBox">
-      <a href="https://www.baidu.com/" class="alink" target="_blank">百度一下</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://www.csdn.net/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-    </div>
-  </div>
-  <div class="tabBox">
-    <h3 class="tabTitle">热门推荐</h3>
-    <div class="aBox">
-      <a href="https://www.baidu.com/" class="alink" target="_blank">百度一下</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://www.csdn.net/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-    </div>
-  </div>
-  <div class="tabBox">
-    <h3 class="tabTitle">热门推荐</h3>
-    <div class="aBox">
-      <a href="https://www.baidu.com/" class="alink" target="_blank">百度一下</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://www.csdn.net/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-    </div>
-  </div>
-  <div class="tabBox">
-    <h3 class="tabTitle">热门推荐</h3>
-    <div class="aBox">
-      <a href="https://www.baidu.com/" class="alink" target="_blank">百度一下</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://www.csdn.net/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-    </div>
-  </div>
-  <div class="tabBox">
-    <h3 class="tabTitle">热门推荐</h3>
-    <div class="aBox">
-      <a href="https://www.baidu.com/" class="alink" target="_blank">百度一下</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://www.csdn.net/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-    </div>
-  </div>
-  <div class="tabBox">
-    <h3 class="tabTitle">热门推荐</h3>
-    <div class="aBox">
-      <a href="https://www.baidu.com/" class="alink" target="_blank">百度一下</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://www.csdn.net/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-    </div>
-  </div>
-  <div class="tabBox">
-    <h3 class="tabTitle">热门推荐</h3>
-    <div class="aBox">
-      <a href="https://www.baidu.com/" class="alink" target="_blank">百度一下</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://www.csdn.net/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-    </div>
-  </div>
-  <div class="tabBox">
-    <h3 class="tabTitle">热门推荐</h3>
-    <div class="aBox">
-      <a href="https://www.baidu.com/" class="alink" target="_blank">百度一下</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://www.csdn.net/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-    </div>
-  </div>
-  <div class="tabBox">
-    <h3 class="tabTitle">热门推荐</h3>
-    <div class="aBox">
-      <a href="https://www.baidu.com/" class="alink" target="_blank">百度一下</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://www.csdn.net/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-      <a href="https://fanyi.baidu.com/" class="alink" target="_blank">淘宝搜索</a>
-    </div>
-  </div>
+templatePalace
 </body>
-<style type="text/css">
-  body{
-    padding-left: 8px;
-  }
-
-  .tips {
-    color: gray;
-    font-size: 14px;
-  }
-
-  .tabBox{
-    margin-bottom: 10px;
-  }
-
-  .tabTitle {
-    margin: 8px 0px 8px 0px;
-    font-size: 16px;
-  }
-
-  .aBox {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: start;
-  }
-
-  .alink {
-    display: inline-block;
-    width: 25%;
-    /* margin-left: 8px; */
-    text-align: left;
-    color: black;
-    text-decoration: none;
-  }
-</style>
-
 </html>

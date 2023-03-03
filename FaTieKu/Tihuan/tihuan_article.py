@@ -522,7 +522,7 @@ def find_img_urls(article_url):
 
 
 def run(article_url):
-    # find_img_urls(article_url)
+    find_img_urls(article_url)
     second_html = read_html_res_str()
     clear_content(second_html)
 
@@ -533,5 +533,5 @@ if __name__ == '__main__':
     # toutiao.top_bottom = "top"
     toutiao.top_bottom = "bottom"
     toutiao.cut_height = 58
-    article_url = "https://www.xftvgirls.com/gallery/skinny-girl-posing-in-different-ways-to-make-it-all-exciting-for-you/"
+    article_url = "https://www.54ssjd.com/thread-1188813-1-1.html"
     run(article_url)

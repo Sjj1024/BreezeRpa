@@ -36,11 +36,24 @@ def read_daohang_html():
         return f.read()
 
 
+def cao_app_exe_page(html_path):
+    with open(f"caoliu/{html_path}", "r", encoding="utf-8") as f:
+        content_html = f.read()
+        content_html = content_html.replace("""<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<body>""", "")
+        content_html = content_html.replace("""</body>
+</html>""", "")
+        return content_html
+
+
 # 以下是1024回家插件的数据信息
 chrome_extension = {
     "name": "Chrome浏览器1024回家插件",
     "file_path": ".github/hubsql/chromHuijia.txt",
     "version": "0.0.1",
+    # 实验功能访问密码
+    "password": "521121",
     "dialog": {
         "show": False,
         "content": "这是弹窗信息"
@@ -56,16 +69,74 @@ chrome_extension = {
                        "91VideoCookies": "DUID",
                        "91ImgCookies": "CzG_auth",
                        "98cookies": "cPNj_2132_auth"},
-        # 刷贡献的头部，三个地址平均分布一个
+        # 更多消息提醒
         "more_info": """
         提示: 部分网站可能需要VPN翻墙后访问
         """,
+        # 过滤广告或者添加广告配置
+        "filter_all": {
+            "doumei": {
+                "filter": True,
+                "down": """<a href="https://www.baidu.com/">百度一下</a>"""
+            },
+            "caoliu": {
+                "filter": True,  # 广告开关
+                "invcode_info": "1024邀请码:请加微信",
+                "article_tip0": "1024邀请码:请加微信0",
+                "article_tip1": "1024邀请码:请加微信1",
+                "article_tip2": """<a href="https://www.baidu.com/">百度一下1024</a>""",
+                "article_tip3": "1024邀请码:请加微信3",
+                "article_tip4": "1024邀请码:请加微信4",
+                "article_tip5": "1024邀请码:请加微信5",
+                "sptable_footer": "1024邀请码:请加微信sptable_footer",
+                "article_hd": "1024邀请码:请加微信article_hd",
+                "article_ad": "1024邀请码:请加微信article_ad",
+                "app_exe_down_page": cao_app_exe_page("caoliu_app_exe_page.html"),
+                "appDownNa": """<a href="https://www.baidu.com/" target="_blank">下载91APP</a>""",
+            },
+            "91video": {
+                "filter": True,  # 广告开关
+                "invcode_info": "91邀请码:请加微信",
+                "page_header_ad": "91屏蔽头部广告",
+                "video_header_ad1": "91屏蔽视频头部广告1",
+                "video_header_ad2": "91屏蔽视频头部广告2",
+                "rightFirstAd": "91侧边栏第一个广告",
+                "appDownLiBox": """<a href="https://www.baidu.com/" target="_blank">下载91APP</a>""",
+                "iframeBoxsShow": True
+            },
+            "91image": {
+                "filter": True,  # 广告开关
+                "invcode_info": "邀请码:91请加微信",
+                "app_exe_down_page": cao_app_exe_page("91porn_app_down.html"),
+                "porn_vip_page": cao_app_exe_page("91porn_vip_page.html"),
+                "appDownLiBox": """<a href="https://www.baidu.com/" target="_blank">下载91APP</a>""",
+            },
+            "tang98": {
+                "filter": True,  # 广告开关
+                "invcode_info": "邀请码:请加微信",
+                "headerAd": "98头部广告",
+                "footerAd": "98屏蔽页脚底部广告",
+                "listFootAd": "98文章列表页底部内容",
+                "articleFooterAd": "98文章详情页底部广告",
+                "commitAds0": "98评论区广告0",
+                "commitAds1": "98评论区广告1",
+                "appDownLiBox": """<a href="https://www.baidu.com/" target="_blank">下载98APP</a>""",
+            },
+            "heiliao": {
+                "filter": True,  # 广告开关
+                "invcode_info": "邀请码:请加微信",
+                "headerAd": "98头部广告",
+                "appDownLiBox": """<a class="nav-link" href="/category/1.html">下载1024APP</a>""",
+            },
+        },
         "interval": 20,  # 刷贡献的时间间隔/每多少小时刷一次
         "brush_rate": 30,  # 刷贡献的百分比，越大越容易触发刷
         "brush_all": False,  # 是否全部刷，只要是headers里面的，就都刷？
         "show_hotUrl": True,  # 是否在热门推荐的URl地址中展示
+        # 刷贡献的头部，三个地址平均分布一个
         "GongXians": ["/index.php?u=628155&ext=9a511", "/index.php?u=52993&ext=99ea2",
                       "/index.php?u=595394&ext=c180e"],
+        # 更多导航列表
         "navigation": cate_list
     }
 }
@@ -108,8 +179,16 @@ def url_to_html():
     return daohang_html_res
 
 
+def get_home_from_urls(key):
+    hot_homes = cate_list.get("hotbox").get("data")
+    for home in hot_homes:
+        if home.get("title") == key:
+            return home.get("url")
+    return Exception(f"没有找到对应的地址:{key}")
+
+
 # 下面是手机app信息：https://www.cnblogs.com/sdfasdf/p/15019781.html
-appInfo = {
+app_info = {
     "update": True,
     "version": 3.1,
     "file_path": ".github/hubsql/appHuijia.txt",
@@ -124,19 +203,19 @@ appInfo = {
     "more_urls": "https://xiaoshen.com/gohome.html",  # 更多推荐页面
     "more_html": url_to_html(),  # 更多推荐页面
     "headers": "/index.php?u=606071&ext=e869f;/index.php?u=605858&ext=8ba05;/index.php?u=601703&ext=3d887",
-    "about": "1.黑料视频可以点右上角用浏览器打开观看，本APP看不了，不知道问题<br>"
-             f"2.{fenxiang_ma}<br>"
-             "3.隐藏其中一位，不定时分享几个1024码子，用户名用全中文注册！<br>"
-             "4.不要用UC/夸克等垃圾国产浏览器，不然你会发现很多网站都会被屏蔽！<br>"
-             '5.本APP永久停止更新！愿你安好',
+    "about": f"1.{fenxiang_ma}<br>"
+             "2.隐藏其中一位，不定时分享几个1024码子，用户名用全中文注册！<br>"
+             "3.不要用UC/夸克等垃圾国产浏览器，不然你会发现很多网站都会被屏蔽！<br>"
+             '4.本APP永久停止更新！愿你安好',
     "header_ms": "这里总有你想看的吧",  # 这是app菜单栏头部
     "header_url": "",  # 点击头部显示的跳转
-    "caoliu_url1": "https://cl.5252x.xyz",  # 草榴免翻地址
-    "caoliu_url2": "https://cl.5252y.xyz",  # 草榴免翻地址
-    "caoliu_url3": "https://cl.5252z.xyz",  # 草榴免翻地址
+    "caoliu_url1": get_home_from_urls("1024草榴1"),  # 草榴免翻地址
+    "caoliu_url2": get_home_from_urls("1024草榴2"),  # 草榴免翻地址
+    "caoliu_url3": get_home_from_urls("1024草榴3"),  # 草榴免翻地址
     "article_ad": "",
-    "commit_ad": "",  # 草榴评论区广告，支持html
-    "porn_video_url": "https://f0310.91p48.com/index.php",  # 91视频地址
+    "commit_ad": "这只是一个广告：欢迎回家",  # 草榴评论区广告，支持html
+    "porn_video_app": "https://its.better2021app.com",  # 91视频地址
+    "porn_video_url": get_home_from_urls("91Pr视频1"),  # 91视频地址
     "porn_video_1ad": "",
     "porn_video_2ad": "",
     "porn_video_3ad": "",
@@ -144,27 +223,27 @@ appInfo = {
     "porn_video_5ad": "",
     "porn_video_6ad": "",
     "porn_video_footer": "",
-    "porn_image_url": "https://t0328.wonderfulday27.live/index.php",  # 91图片区地址
+    "porn_image_url": get_home_from_urls("91Pr图片"),  # 91图片区地址
     "porn_photo_header": "",
     "porn_photo_header2": "",
     "porn_photo_footer": "",
     "porn_photo_wentou": "",
-    "heiliao_url1": "https://zztt40.com/",  # 黑料免翻地址
-    "heiliao_url2": "https://zztt41.com/",  # 黑料免翻地址
-    "heiliao_url3": "https://zztt42.com/",  # 黑料免翻地址
+    "heiliao_url1": get_home_from_urls("黑料B打烊1"),  # 黑料免翻地址
+    "heiliao_url2": get_home_from_urls("黑料B打烊2"),  # 黑料免翻地址
+    "heiliao_url3": get_home_from_urls("黑料B打烊3"),  # 黑料免翻地址
     "heiliao_header": "",
     "heiliao_footer": "",
     "heiliao_artical": "",
     "mazinote": mazinote,
-    "sehuatang1": "https://dsadsfgd.art",
-    "sehuatang2": "https://www.dkd644.com",
-    "sehuatang3": "https://www.djsd997.com",
-    "javbus1": "https://www.seejav.pw",
-    "javbus2": "https://www.busjav.fun",
-    "javbus3": "https://www.javsee.club",
-    "luntan20481": "https://4s.aaa567.com/2048/",
-    "luntan20482": "https://3q.gouxie8.com/2048/",
-    "luntan20483": "https://lsp.souaiqin.com/2048/"
+    "sehuatang1": get_home_from_urls("98色花堂1"),
+    "sehuatang2": get_home_from_urls("98色花堂2"),
+    "sehuatang3": get_home_from_urls("98色花堂3"),
+    "javbus1": get_home_from_urls("JavBus1"),
+    "javbus2": get_home_from_urls("JavBus2"),
+    "javbus3": get_home_from_urls("JavBus3"),
+    "luntan20481": get_home_from_urls("2048地址1"),
+    "luntan20482": get_home_from_urls("2048地址2"),
+    "luntan20483": get_home_from_urls("2048地址3")
 }
 
 ## 下面是exe程序的信息：https://www.cnblogs.com/sdfasdf/p/15266773.html
@@ -272,11 +351,12 @@ def get_gitsql_content():
 
 if __name__ == '__main__':
     # content_json = chrome_extension
-    # content_json = chrome_extension
-    content_json = appInfo
-    file_path = content_json.get("file_path")
-    print(f"原始信息:{content_json}")
-    content = encode_json(content_json)
-    decode_bs64(content)
-    creat_update_file(file_path, content)
+    # content_json = exeInfo
+    # content_json = appInfo
+    for app in [chrome_extension, app_info]:
+        file_path = app.get("file_path")
+        print(f"原始信息:{app}")
+        content = encode_json(app)
+        decode_bs64(content)
+        creat_update_file(file_path, content)
     # url_to_html()

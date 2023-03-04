@@ -42,26 +42,26 @@ cate_list = {"hotbox": {
             "icon": ""},
         {
             "title": "黑料B打烊1",
-            "url": "https://zztt45.com",
+            "url": "https://zztt52.com",
             "icon": ""},
         {
             "title": "黑料B打烊2",
-            "url": "https://zztt46.com",
+            "url": "https://zztt53.com",
             "icon": ""},
         {
             "title": "黑料B打烊3",
-            "url": "https://zztt47.com",
+            "url": "https://zztt54.com",
             "icon": ""},
         {
-            "title": "JavBus1",
+            "title": "JavBus网1",
             "url": "https://www.seejav.pw",
             "icon": ""},
         {
-            "title": "JavBus2",
+            "title": "JavBus网2",
             "url": "https://www.busjav.fun",
             "icon": ""},
         {
-            "title": "JavBus3",
+            "title": "JavBus网3",
             "url": "https://www.javsee.club",
             "icon": ""},
         {

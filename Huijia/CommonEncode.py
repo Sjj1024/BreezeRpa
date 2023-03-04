@@ -63,6 +63,7 @@ chrome_extension = {
         "content": "更新了更高级的信息",
         "url": "http://www.jsons.cn/base64/"
     },
+    "share": "老司机来了：http://www.jsons.cn/base64/",
     "data": {
         # 匹配cookie的规则
         "cookieRule": {"clcookies": "227c9_winduser",
@@ -126,8 +127,32 @@ chrome_extension = {
                 "filter": True,  # 广告开关
                 "invcode_info": "邀请码:请加微信",
                 "headerAd": "98头部广告",
-                "appDownLiBox": """<a class="nav-link" href="/category/1.html">下载1024APP</a>""",
+                "appDownLiBox": """<a class="nav-link" href="/category/1.html">下载黑料APP</a>""",
+                "articleLikeAd0": """<a class="nav-link" href="/category/1.html">下载黑料APP0</a>""",
+                "articleLikeAd1": """<a class="nav-link" href="/category/1.html">下载黑料APP1</a>""",
+                "articleLikeAd2": """<a class="nav-link" href="/category/1.html">下载黑料APP2</a>""",
+                "articleLikeAd3": """<a class="nav-link" href="/category/1.html">下载黑料APP3</a>""",
+                "articleLikeAd4": """<a class="nav-link" href="/category/1.html">下载黑料APP4</a>""",
+                "articleHeaderAd0": """<a class="nav-link" href="/category/1.html">下载黑料APP0</a>""",
+                "articleHeaderAd1": """<a class="nav-link" href="/category/1.html">下载黑料APP0</a>""",
+                "articleHeaderAd2": """<a class="nav-link" href="/category/1.html">下载黑料APP0</a>""",
+                "articleHeaderAd3": """<a class="nav-link" href="/category/1.html">下载黑料APP0</a>""",
+                "articleHeaderAd4": """<a class="nav-link" href="/category/1.html">下载黑料APP0</a>""",
+                "articleHeaderAd5": """<a class="nav-link" href="/category/1.html">下载黑料APP0</a>""",
+                "articleHeaderAd6": """<a class="nav-link" href="/category/1.html">下载黑料APP0</a>""",
+                "articleHeaderAd7": """<a class="nav-link" href="/category/1.html">下载黑料APP0</a>""",
+                "articleHeaderAd9": """<a class="nav-link" href="/category/1.html">下载黑料APP0</a>""",
             },
+            "pornhub": {
+                "filter": True,  # 广告开关
+                "invcode_info": "邀请码:请加微信",
+                "headerAd": "98头部广告",
+                "appDownLiBox": """<a class="nav-link" href="/category/1.html">下载黑料APP</a>""",
+            },
+            "baidu": {
+                "filter": True,
+                "appDownLiBox": """<a class="nav-link" href="/category/1.html">下载黑料APP</a>"""
+            }
         },
         "interval": 20,  # 刷贡献的时间间隔/每多少小时刷一次
         "brush_rate": 30,  # 刷贡献的百分比，越大越容易触发刷
@@ -184,7 +209,7 @@ def get_home_from_urls(key):
     for home in hot_homes:
         if home.get("title") == key:
             return home.get("url")
-    return Exception(f"没有找到对应的地址:{key}")
+    raise Exception(f"没有找到对应的地址:{key}")
 
 
 # 下面是手机app信息：https://www.cnblogs.com/sdfasdf/p/15019781.html
@@ -238,9 +263,9 @@ app_info = {
     "sehuatang1": get_home_from_urls("98色花堂1"),
     "sehuatang2": get_home_from_urls("98色花堂2"),
     "sehuatang3": get_home_from_urls("98色花堂3"),
-    "javbus1": get_home_from_urls("JavBus1"),
-    "javbus2": get_home_from_urls("JavBus2"),
-    "javbus3": get_home_from_urls("JavBus3"),
+    "javbus1": get_home_from_urls("JavBus网1"),
+    "javbus2": get_home_from_urls("JavBus网2"),
+    "javbus3": get_home_from_urls("JavBus网3"),
     "luntan20481": get_home_from_urls("2048地址1"),
     "luntan20482": get_home_from_urls("2048地址2"),
     "luntan20483": get_home_from_urls("2048地址3")

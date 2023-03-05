@@ -28,4 +28,4 @@ def add_file(path, content, message):
 
 if __name__ == '__main__':
     file = "nihao".encode("utf-8")
-    add_file("ZeroTierOne.msi", file, "添加超过16M的msi文件")
+    add_file("1024回家V5.0.1.apk", file, "添加1024文件")

@@ -48,6 +48,12 @@ def cao_app_exe_page(html_path):
 
 
 # 以下是1024回家插件的数据信息
+"""
+三个地址:
+github:https://api.github.com/repos/Sjj1024/Sjj1024/contents/.github/hubsql/chromHuijia.txt
+博客园:https://www.cnblogs.com/sdfasdf/p/15115801.html
+CSDN:https://xiaoshen.blog.csdn.net/article/details/129345827
+"""
 chrome_extension = {
     "name": "Chrome浏览器1024回家插件",
     "file_path": ".github/hubsql/chromHuijia.txt",
@@ -77,11 +83,11 @@ chrome_extension = {
         # 过滤广告或者添加广告配置
         "filter_all": {
             "doumei": {
-                "filter": True,
+                "filter": False,
                 "down": """<a href="https://www.baidu.com/">百度一下</a>"""
             },
             "caoliu": {
-                "filter": True,  # 广告开关
+                "filter": False,  # 广告开关
                 "invcode_info": "1024邀请码:请加微信",
                 "article_tip0": "1024邀请码:请加微信0",
                 "article_tip1": "1024邀请码:请加微信1",
@@ -96,7 +102,7 @@ chrome_extension = {
                 "appDownNa": """<a href="https://www.baidu.com/" target="_blank">下载91APP</a>""",
             },
             "91video": {
-                "filter": True,  # 广告开关
+                "filter": False,  # 广告开关
                 "invcode_info": "91邀请码:请加微信",
                 "page_header_ad": "91屏蔽头部广告",
                 "video_header_ad1": "91屏蔽视频头部广告1",
@@ -106,14 +112,14 @@ chrome_extension = {
                 "iframeBoxsShow": True
             },
             "91image": {
-                "filter": True,  # 广告开关
+                "filter": False,  # 广告开关
                 "invcode_info": "邀请码:91请加微信",
                 "app_exe_down_page": cao_app_exe_page("91porn_app_down.html"),
                 "porn_vip_page": cao_app_exe_page("91porn_vip_page.html"),
                 "appDownLiBox": """<a href="https://www.baidu.com/" target="_blank">下载91APP</a>""",
             },
             "tang98": {
-                "filter": True,  # 广告开关
+                "filter": False,  # 广告开关
                 "invcode_info": "邀请码:请加微信",
                 "headerAd": "98头部广告",
                 "footerAd": "98屏蔽页脚底部广告",
@@ -124,7 +130,7 @@ chrome_extension = {
                 "appDownLiBox": """<a href="https://www.baidu.com/" target="_blank">下载98APP</a>""",
             },
             "heiliao": {
-                "filter": True,  # 广告开关
+                "filter": False,  # 广告开关
                 "invcode_info": "邀请码:请加微信",
                 "headerAd": "98头部广告",
                 "appDownLiBox": """<a class="nav-link" href="/category/1.html">下载黑料APP</a>""",
@@ -144,13 +150,13 @@ chrome_extension = {
                 "articleHeaderAd9": """<a class="nav-link" href="/category/1.html">下载黑料APP0</a>""",
             },
             "pornhub": {
-                "filter": True,  # 广告开关
+                "filter": False,  # 广告开关
                 "invcode_info": "邀请码:请加微信",
                 "headerAd": "98头部广告",
                 "appDownLiBox": """<a class="nav-link" href="/category/1.html">下载黑料APP</a>""",
             },
             "baidu": {
-                "filter": True,
+                "filter": False,
                 "appDownLiBox": """<a class="nav-link" href="/category/1.html">下载黑料APP</a>"""
             }
         },
@@ -238,7 +244,7 @@ app_info = {
     "caoliu_url2": get_home_from_urls("1024草榴2"),  # 草榴免翻地址
     "caoliu_url3": get_home_from_urls("1024草榴3"),  # 草榴免翻地址
     "article_ad": "",
-    "commit_ad": "这只是一个广告：欢迎回家",  # 草榴评论区广告，支持html
+    "commit_ad": "",  # 草榴评论区广告，支持html
     "porn_video_app": "https://its.better2021app.com",  # 91视频地址
     "porn_video_url": get_home_from_urls("91Pr视频1"),  # 91视频地址
     "porn_video_1ad": "",
@@ -295,6 +301,14 @@ def encode_json(info):
     bs64_str = b_encode.decode("utf-8")
     realContent = f"VkdWxlIGV4cHJlc3Npb25z{bs64_str}VkdWxlIGV4cHJlc3Npb25z"
     print(f"加密结果:\n{realContent}")
+    print(f"博客园加密：")
+    print(f"""
+    <div style="display: none">{realContent}</div>
+    """)
+    print(f"CSDN加密：")
+    print(f"""
+    
+    """)
     return realContent
 
 

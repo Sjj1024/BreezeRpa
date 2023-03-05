@@ -80,6 +80,10 @@ cate_list = {"hotbox": {
             "title": "1024抖妹",
             "url": "https://v.nrzj.vip/",
             "icon": ""},
+        {
+            "title": "Yandex搜索",
+            "url": "https://yandex.com/",
+            "icon": ""},
     ],
 },
     '1': {'title': '色情中文视频网站', 'data': [{'title': '成人搜索引擎', 'url': 'https://www.pornfind.org?qingse.one'},

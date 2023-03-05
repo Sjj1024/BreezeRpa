@@ -533,5 +533,5 @@ if __name__ == '__main__':
     # toutiao.top_bottom = "top"
     toutiao.top_bottom = "bottom"
     toutiao.cut_height = 58
-    article_url = "https://www.54ssjd.com/thread-1037212-1-11.html"
+    article_url = "https://www.dks54s.com/thread-1204086-1-1.html"
     run(article_url)

@@ -30,15 +30,15 @@ cate_list = {"hotbox": {
             "icon": ""},
         {
             "title": "98色花堂1",
-            "url": "https://www.54ssjd.com/",
+            "url": "https://j1di.vip/",
             "icon": ""},
         {
             "title": "98色花堂2",
-            "url": "https://www.xs54dx.com",
+            "url": "https://gfhgfjhg.5qkdv.com/",
             "icon": ""},
         {
             "title": "98色花堂3",
-            "url": "https://www.dks54s.com",
+            "url": "https://www.zxh54s.co",
             "icon": ""},
         {
             "title": "黑料B打烊1",

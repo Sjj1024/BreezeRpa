@@ -40,7 +40,6 @@ def run(wx_url):
     current_time = f"{current_hour}点{current_minute}分{current_second}秒"
     dayOfWeek = datetime.datetime.now().weekday() + 1
     print(f"今天是星期{dayOfWeek}, 当前时间是：{current_time}")
-    mentioned_mobile_list = ["15670339118", "17621631021"]
     if dayOfWeek == 6 or dayOfWeek == 7:
         print(f"今天是周六周日，不用发送签到内容")
         return
@@ -85,6 +84,7 @@ if __name__ == '__main__':
     """
     scheduler = BlockingScheduler()
     # 企业微信机器人接口地址
+    mentioned_mobile_list = ["15670339118", "17621631021", "15071018589"]
     wx_url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=89c9eedd-31db-4e36-bbb3-6176ed9b4395"
     corn_tab = "*/10 * * * *"
     scheduler.add_job(run, CronTrigger.from_crontab(corn_tab), args=(wx_url,))

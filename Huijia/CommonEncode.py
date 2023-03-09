@@ -32,12 +32,12 @@ fenxiang_ma = "分享两个1024邀请码：【f617b*f67e038f1a】【2c*e5ae2e1a5
 
 
 def read_daohang_html():
-    with open("daohang.html", "r", encoding="utf-8") as f:
+    with open("replace_html/daohang_app_template.html", "r", encoding="utf-8") as f:
         return f.read()
 
 
 def cao_app_exe_page(html_path):
-    with open(f"caoliu/{html_path}", "r", encoding="utf-8") as f:
+    with open(f"replace_html/{html_path}", "r", encoding="utf-8") as f:
         content_html = f.read()
         content_html = content_html.replace("""<html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -55,7 +55,7 @@ github:https://api.github.com/repos/Sjj1024/Sjj1024/contents/.github/hubsql/chro
 CSDN:https://xiaoshen.blog.csdn.net/article/details/129345827
 """
 chrome_extension = {
-    "name": "Chrome浏览器1024回家插件",
+    "name": "Chrome1024",
     "file_path": ".github/hubsql/chromHuijia.txt",
     "version": "0.0.1",
     # 实验功能访问密码
@@ -86,7 +86,7 @@ chrome_extension = {
                 "filter": False,
                 "down": """<a href="https://www.baidu.com/">百度一下</a>"""
             },
-            "caoliu": {
+            "replace_html": {
                 "filter": False,  # 广告开关
                 "invcode_info": "1024邀请码:请加微信",
                 "article_tip0": "1024邀请码:请加微信0",
@@ -204,7 +204,7 @@ def url_to_html():
     tab_box_strs = "".join(tab_box_list)
     daohang_html = read_daohang_html()
     daohang_html_res = daohang_html.replace("templatePalace", tab_box_strs)
-    with open("daohang_app.html", "w", encoding="utf-8") as f:
+    with open("replace_html/daohang_app_releases.html", "w", encoding="utf-8") as f:
         f.write(daohang_html_res)
     print(daohang_html_res)
     return daohang_html_res
@@ -219,9 +219,16 @@ def get_home_from_urls(key):
 
 
 # 下面是手机app信息：https://www.cnblogs.com/sdfasdf/p/15019781.html
+"""
+三个地址:
+github:https://api.github.com/repos/Sjj1024/Sjj1024/contents/.github/hubsql/appHuijia.txt
+博客园:https://www.cnblogs.com/sdfasdf/p/16965757.html
+CSDN:https://xiaoshen.blog.csdn.net/article/details/129345827
+"""
 app_info = {
-    "update": True,
+    "name": "Android1024",
     "version": 3.1,
+    "update": True,
     "file_path": ".github/hubsql/appHuijia.txt",
     "upcontent": "增加了JavBus和2048地址，修复91论坛地址获取失败问题。升级有问题请加QQ/微信：648133599",
     "upurl": app_surl,
@@ -316,7 +323,7 @@ def decode_bs64(content):
     content = content.replace("VkdWxlIGV4cHJlc3Npb25z", "")
     info_str = base64.b64decode(content).decode("utf-8")
     json_info = json.loads(info_str)
-    print(f"解密结果:{json_info}")
+    # print(f"解密结果:{json_info}")
 
 
 def creat_chrome_file():
@@ -388,6 +395,14 @@ def get_gitsql_content():
     print(f"GitHub解密结果:{json_info}")
 
 
+def save_encode_content_html(app_type, content):
+    with open("./replace_html/encode_content_template.html", "r", encoding="utf-8") as f:
+        template = f.read()
+        content_html = template.replace("encodeContent", content)
+        with open(f"encode_content_{app_type}", "w", encoding="utf-8") as res:
+            res.write(content_html)
+
+
 if __name__ == '__main__':
     # content_json = chrome_extension
     # content_json = exeInfo
@@ -396,6 +411,9 @@ if __name__ == '__main__':
         file_path = app.get("file_path")
         print(f"原始信息:{app}")
         content = encode_json(app)
+        name = app.get("name")
+        print(f"{name} 加密后的数据是: {content}")
+        save_encode_content_html(name, content)
         decode_bs64(content)
         creat_update_file(file_path, content)
     # url_to_html()

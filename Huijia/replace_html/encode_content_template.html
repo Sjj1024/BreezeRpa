@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ol class="linenums">
+<li class="L0"><span class="com"># 把汉字变为阿拉伯数字</span></li>
+<li class="L1"><span class="kwd">def<span class="pln"> chinese2digits<span class="pun">(<span class="pln">chinese_str<span class="pun">):</span></span></span></span></span></li>
+<li class="L2"><span class="pln"> t <span class="pun">=<span class="pln"> chinese_str</span></span></span></li>
+<li class="L3"><span class="pln"> <span class="kwd">if<span class="pln"> t <span class="kwd">is<span class="pln"> <span class="kwd">None<span class="pln"> <span class="kwd">or<span class="pln"> t<span class="pun">.<span class="pln">strip<span class="pun">()<span class="pln"> <span class="pun">==<span class="pln"> <span class="str">""<span class="pun">:</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></li>
+<li class="L4"><span class="pln"> <span class="kwd">raise<span class="pln"> <span class="typ">Exception<span class="pun">(<span class="str">"input error for %s"<span class="pln"> <span class="pun">%<span class="pln"> chinese_str<span class="pun">)</span></span></span></span></span></span></span></span></span></span></li>
+<li class="L5"><span class="pln"> t <span class="pun">=<span class="pln"> t<span class="pun">.<span class="pln">strip<span class="pun">()</span></span></span></span></span></span></li>
+<li class="L6"><span class="pln"> t <span class="pun">=<span class="pln"> t<span class="pun">.<span class="pln">replace<span class="pun">(<span class="str">"百十"<span class="pun">,<span class="pln"> <span class="str">"百一十"<span class="pun">)</span></span></span></span></span></span></span></span></span></span></span></li>
+<li class="L7"><span class="pln"> common_used_numerals <span class="pun">=<span class="pln"> <span class="pun">{<span class="str">'零'<span class="pun">:<span class="pln"> <span class="lit">0<span class="pun">,<span class="pln"> <span class="str">'一'<span class="pun">:<span class="pln"> <span class="lit">1<span class="pun">,<span class="pln"> <span class="str">'二'<span class="pun">:<span class="pln"> <span class="lit">2<span class="pun">,<span class="pln"> <span class="str">'两'<span class="pun">:<span class="pln"> <span class="lit">2<span class="pun">,<span class="pln"> <span class="str">'三'<span class="pun">:<span class="pln"> <span class="lit">3<span class="pun">,<span class="pln"> <span class="str">'四'<span class="pun">:<span class="pln"> <span class="lit">4<span class="pun">,<span class="pln"> <span class="str">'五'<span class="pun">:<span class="pln"> <span class="lit">5<span class="pun">,<span class="pln"> <span class="str">'六'<span class="pun">:<span class="pln"> <span class="lit">6<span class="pun">,<span class="pln"> <span class="str">'七'<span class="pun">:<span class="pln"> <span class="lit">7<span class="pun">,<span class="pln"> <span class="str">'八'<span class="pun">:<span class="pln"> <span class="lit">8<span class="pun">,<span class="pln"> <span class="str">'九'<span class="pun">:<span class="pln"> <span class="lit">9<span class="pun">,</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></li>
+<li class="L8"><span class="pln"> <span class="str">'十'<span class="pun">:<span class="pln"> <span class="lit">10<span class="pun">,<span class="pln"> <span class="str">'百'<span class="pun">:<span class="pln"> <span class="lit">100<span class="pun">,<span class="pln"> <span class="str">'千'<span class="pun">:<span class="pln"> <span class="lit">1000<span class="pun">,<span class="pln"> <span class="str">'万'<span class="pun">:<span class="pln"> <span class="lit">10000<span class="pun">,<span class="pln"> <span class="str">'亿'<span class="pun">:<span class="pln"> <span class="lit">100000000<span class="pun">}</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></li>
+<li class="L9"><span class="pln"> total <span class="pun">=<span class="pln"> <span class="lit">0</span></span></span></span></li>
+<li class="L0"><span class="pln"> r <span class="pun">=<span class="pln"> <span class="lit">1</span></span></span></span></li>
+<li class="L1"><span class="pln"> <span class="kwd">for<span class="pln"> i <span class="kwd">in<span class="pln"> range<span class="pun">(<span class="pln">len<span class="pun">(<span class="pln">t<span class="pun">)<span class="pln"> <span class="pun">-<span class="pln"> <span class="lit">1<span class="pun">,<span class="pln"> <span class="pun">-<span class="lit">1<span class="pun">,<span class="pln"> <span class="pun">-<span class="lit">1<span class="pun">):</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></li>
+<li class="L2"><span class="pln"> val <span class="pun">=<span class="pln"> common_used_numerals<span class="pun">.<span class="kwd">get<span class="pun">(<span class="pln">t<span class="pun">[<span class="pln">i<span class="pun">])</span></span></span></span></span></span></span></span></span></span></li>
+<li class="L3"><span class="pln"> <span class="kwd">if<span class="pln"> val <span class="kwd">is<span class="pln"> <span class="kwd">None<span class="pun">:</span></span></span></span></span></span></span></li>
+<li class="L4"><span class="pln"> <span class="kwd">raise<span class="pln"> <span class="typ">Exception<span class="pun">(<span class="str">"%s can not be accepted."<span class="pln"> <span class="pun">%<span class="pln"> t<span class="pun">[<span class="pln">i<span class="pun">])</span></span></span></span></span></span></span></span></span></span></span></span></li>
+<li class="L5"><span class="pln"> <span class="kwd">if<span class="pln"> val <span class="pun">&gt;=<span class="pln"> <span class="lit">10<span class="pln"> <span class="kwd">and<span class="pln"> i <span class="pun">==<span class="pln"> <span class="lit">0<span class="pun">:</span></span></span></span></span></span></span></span></span></span></span></span></span></li>
+<li class="L6"><span class="pln"> <span class="kwd">if<span class="pln"> val <span class="pun">&gt;<span class="pln"> r<span class="pun">:</span></span></span></span></span></span></li>
+<li class="L7"><span class="pln"> r <span class="pun">=<span class="pln"> val</span></span></span></li>
+<li class="L8"><span class="pln"> total <span class="pun">=<span class="pln"> total <span class="pun">+<span class="pln"> val</span></span></span></span></span></li>
+<li class="L9"><span class="pln"> <span class="kwd">else<span class="pun">:</span></span></span></li>
+<li class="L0"><span class="pln"> r <span class="pun">=<span class="pln"> r <span class="pun">*<span class="pln"> val</span></span></span></span></span></li>
+<li class="L1"><span class="pln"> <span class="kwd">elif<span class="pln"> val <span class="pun">&gt;=<span class="pln"> <span class="lit">10<span class="pun">:</span></span></span></span></span></span></span></li>
+<li class="L2"><span class="pln"> <span class="kwd">if<span class="pln"> val <span class="pun">&gt;<span class="pln"> r<span class="pun">:</span></span></span></span></span></span></li>
+<li class="L3"><span class="pln"> r <span class="pun">=<span class="pln"> val</span></span></span></li>
+<li class="L4"><span class="pln"> <span class="kwd">else<span class="pun">:</span></span></span></li>
+<li class="L5"><span class="pln"> r <span class="pun">=<span class="pln"> r <span class="pun">*<span class="pln"> val</span></span></span></span></span></li>
+<li class="L6"><span class="pln"> <span class="kwd">else<span class="pun">:</span></span></span></li>
+<li class="L7"><span class="pln"> total <span class="pun">=<span class="pln"> total <span class="pun">+<span class="pln"> r <span class="pun">*<span class="pln"> val</span></span></span></span></span></span></span></li>
+<li class="L8"><span class="pln"> <span class="kwd">return<span class="pln"> total</span></span></span></li>
+<li class="L9"><span class="pln">&nbsp;</span></li>
+<li class="L0"><span class="pln">&nbsp;</span></li>
+<li class="L1"><span class="kwd">if<span class="pln"> __name__ <span class="pun">==<span class="pln"> <span class="str">'__main__'<span class="pun">:</span></span></span></span></span></span></li>
+<li class="L2"><span class="pln"> hanzi <span class="pun">=<span class="pln"> <span class="str">"二万一百七十七"</span></span></span></span></li>
+<li class="L3"><span class="pln"> shuzi <span class="pun">=<span class="pln"> chinese2digits<span class="pun">(<span class="pln">hanzi<span class="pun">)</span></span></span></span></span></span></li>
+<li class="L4"><span class="pln"> <span class="kwd">print<span class="pun">(<span class="str">"转换后的数字是:"<span class="pun">,<span class="pln"> shuzi<span class="pun">)</span></span></span></span></span></span></span></li>
+</ol>
+<p>使用方法：</p>
+<div style="display: none">
+    encodeContent
+</div>
+<p>&nbsp;</p>
+<hr />
+<div class="open-message">如有失效，请留言告知丨转载请注明原文链接：<a title="" href="https://1024shen.com/archives/5269" target="_blank" data-original-title="python3汉字转阿拉伯数字">python3汉字转阿拉伯数字</a></div>
+<div class="article-social">&nbsp;</div>
+</body>
+</html>

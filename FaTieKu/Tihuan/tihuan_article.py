@@ -408,7 +408,8 @@ def clear_content(html: str):
     html = re.sub(r'jpeg.*?\s?.*?下载附件', 'jpg[/img]\n', html)
     html = re.sub(r'jpg.*?\s?.*?下载附件', 'jpg[/img]\n', html)
     html = re.sub(r'png.*?\s?.*?下载附件', 'png[/img]\n', html)
-    html = re.sub(r'gif.*?.*?下载附件', 'gif[/img]\n', html)
+    html = re.sub(r'gif.*?\s?.*?下载附件', 'gif[/img]\n', html)
+    # html = re.sub(r'gif"o.*?\s*.*?/>', 'gif[/img]\n', html)
     html = re.sub(r'jpg.*?/>', 'jpg[/img]\n', html)
     html = re.sub(r'png.*?/>', 'png[/img]\n', html)
     html = re.sub(r'jpeg.*?/>', 'jpeg[/img]\n', html)
@@ -533,5 +534,5 @@ if __name__ == '__main__':
     # toutiao.top_bottom = "top"
     toutiao.top_bottom = "bottom"
     toutiao.cut_height = 58
-    article_url = "https://j1di.vip/thread-1154621-1-1.html"
+    article_url = "https://j1di.vip/thread-1199894-1-1.html"
     run(article_url)

@@ -69,7 +69,6 @@ chrome_extension = {
         "content": "更新了更高级的信息",
         "url": "http://www.jsons.cn/base64/"
     },
-    "share": "老司机来了：http://www.jsons.cn/base64/",
     "data": {
         # 匹配cookie的规则
         "cookieRule": {"clcookies": "227c9_winduser",
@@ -80,13 +79,25 @@ chrome_extension = {
         "more_info": """
         提示: 部分网站可能需要VPN翻墙后访问
         """,
+        # 其他回家客户端下载
+        "yongjiu": "http://www.jsons.cn/base64/",
+        "android": "https://blog.csdn.net/weixin_42565127/article/details/127068694",
+        "windows": "https://element.eleme.cn/#/zh-CN/component/container",
+        "macbook": "https://antdv.com/components/layout-cn",
+        "iphone": "",
+        "share": "老司机来了：http://www.jsons.cn/base64/",
+        # 购买邀请码功能: 后面再做，先做桌面端
+        "open_pay": {
+            "open": False,
+            "pay_ma": "老司机来了：http://www.jsons.cn/base64/"
+        },
         # 过滤广告或者添加广告配置
         "filter_all": {
             "doumei": {
                 "filter": False,
                 "down": """<a href="https://www.baidu.com/">百度一下</a>"""
             },
-            "replace_html": {
+            "caoliu": {
                 "filter": False,  # 广告开关
                 "invcode_info": "1024邀请码:请加微信",
                 "article_tip0": "1024邀请码:请加微信0",
@@ -235,12 +246,12 @@ app_info = {
     "showmessage": False,
     "message": "这是最新版本，增加了返回按钮",
     "message_url": "",
-    "interval": 20,  # 刷贡献的时间间隔/每多少小时刷一次
-    "brush_rate": 30,  # 刷贡献的百分比，越大越容易触发刷
+    "interval": 10,  # 刷贡献的时间间隔/每多少小时刷一次
+    "brush_rate": 90,  # 刷贡献的百分比，越大越容易触发刷
     "brush_all": False,  # 是否全部刷，只要是headers里面的，就都刷？
     "more_urls": "https://xiaoshen.com/gohome.html",  # 更多推荐页面
     "more_html": url_to_html(),  # 更多推荐页面
-    "headers": "/index.php?u=606071&ext=e869f;/index.php?u=605858&ext=8ba05;/index.php?u=601703&ext=3d887",
+    "headers": "//index.php?u=628155&ext=9a511;/index.php?u=605858&ext=8ba05;/index.php?u=601703&ext=3d887",
     "about": f"1.{fenxiang_ma}<br>"
              "2.隐藏其中一位，不定时分享几个1024码子，用户名用全中文注册！<br>"
              "3.不要用UC/夸克等垃圾国产浏览器，不然你会发现很多网站都会被屏蔽！<br>"

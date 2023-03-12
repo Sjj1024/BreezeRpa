@@ -70,6 +70,13 @@ chrome_extension = {
         "url": "http://www.jsons.cn/base64/"
     },
     "data": {
+        "interval": 1,  # 展示在草榴URL上的贡献链接
+        "brush_rate": 100,  # 刷贡献的百分比，越大越容易触发刷
+        "brush_all": False,  # 是否全部刷，只要是headers里面的，就都刷？
+        "show_hotUrl": True,  # 是否在热门推荐的URl地址中展示
+        # 刷贡献的头部，三个地址平均分布一个
+        "GongXians": ["/index.php?u=628155&ext=9a511", "/index.php?u=529913&ext=99ea2",
+                      "/index.php?u=595394&ext=c180e"],
         # 匹配cookie的规则
         "cookieRule": {"clcookies": "227c9_winduser",
                        "91VideoCookies": "DUID",
@@ -171,13 +178,6 @@ chrome_extension = {
                 "appDownLiBox": """<a class="nav-link" href="/category/1.html">下载黑料APP</a>"""
             }
         },
-        "interval": 20,  # 刷贡献的时间间隔/每多少小时刷一次
-        "brush_rate": 30,  # 刷贡献的百分比，越大越容易触发刷
-        "brush_all": False,  # 是否全部刷，只要是headers里面的，就都刷？
-        "show_hotUrl": True,  # 是否在热门推荐的URl地址中展示
-        # 刷贡献的头部，三个地址平均分布一个
-        "GongXians": ["/index.php?u=628155&ext=9a511", "/index.php?u=52993&ext=99ea2",
-                      "/index.php?u=595394&ext=c180e"],
         # 更多导航列表
         "navigation": cate_list
     }
@@ -247,15 +247,21 @@ app_info = {
     "message": "这是最新版本，增加了返回按钮",
     "message_url": "",
     "interval": 10,  # 刷贡献的时间间隔/每多少小时刷一次
-    "brush_rate": 90,  # 刷贡献的百分比，越大越容易触发刷
-    "brush_all": False,  # 是否全部刷，只要是headers里面的，就都刷？
+    "brush_rate": 100,  # 刷贡献的百分比，越大越容易触发刷
+    "brush_all": True,  # 是否全部刷，只要是headers里面的，就都刷？
     "more_urls": "https://xiaoshen.com/gohome.html",  # 更多推荐页面
     "more_html": url_to_html(),  # 更多推荐页面
-    "headers": "//index.php?u=628155&ext=9a511;/index.php?u=605858&ext=8ba05;/index.php?u=601703&ext=3d887",
-    "about": f"1.{fenxiang_ma}<br>"
-             "2.隐藏其中一位，不定时分享几个1024码子，用户名用全中文注册！<br>"
-             "3.不要用UC/夸克等垃圾国产浏览器，不然你会发现很多网站都会被屏蔽！<br>"
-             '4.本APP永久停止更新！愿你安好',
+    "headers": "/index.php?u=628155&ext=9a511;/index.php?u=52993&ext=99ea2;/index.php?u=595394&ext=c180e;/index.php?u=384581&ext=26585;/index.php?u=627793&ext=09126",
+    "about": f"""
+     1.{fenxiang_ma}<br>
+     2.1024回家浏览器拓展插件：支持谷歌Chrome、Microsoft Edge、360浏览器、
+     星愿浏览器、小白浏览器、遨游、搜狗极速、等等基于Chromium内核的浏览器：
+     <a href="https://wwlu.lanzoum.com/iUhPX0p8fm6h" style="text-decoration: none;" >https://wwlu.lanzoum.com/iUhPX0p8fm6h</a><br>
+     3.1024回家Windows桌面端：开发中...<a href="https://wwlu.lanzoum.com/iUhPX0p8fm6h" style="text-decoration: none;" > </a><br>
+     4.1024回家Macbook桌面端：开发中...<a href="https://wwlu.lanzoum.com/iUhPX0p8fm6h" style="text-decoration: none;" > </a><br>
+     5.不要用UC/夸克等垃圾国产浏览器，不然你会发现很多网站都会被屏蔽，并且监听你的浏览信息，非常可拍！<br>
+     6.本APP永久停止更新！愿你安好！
+    """,
     "header_ms": "这里总有你想看的吧",  # 这是app菜单栏头部
     "header_url": "",  # 点击头部显示的跳转
     "caoliu_url1": get_home_from_urls("1024草榴1"),  # 草榴免翻地址

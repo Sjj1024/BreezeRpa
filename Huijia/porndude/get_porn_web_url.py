@@ -58,9 +58,9 @@ def get_url(soup):
                 a_link_list.append({"title": a_text, "url": a_link})
         if a_link_list:
             index_num = index + 50
-            category_dict[str(index_num)] = {}
-            category_dict[str(index_num)]["title"] = title
-            category_dict[str(index_num)]["data"] = a_link_list
+            category_dict[f"hotboxx{index_num}"] = {}
+            category_dict[f"hotboxx{index_num}"]["title"] = title
+            category_dict[f"hotboxx{index_num}"]["data"] = a_link_list
     print(f"最后的结果是:{category_dict}")
     print(f"{category_dict}")
 

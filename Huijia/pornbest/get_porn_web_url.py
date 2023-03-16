@@ -57,9 +57,10 @@ def get_url(soup):
                 # print(f"标题：{title}, 网站：{a_text}, 链接：{a_link}")
                 a_link_list.append({"title": a_text, "url": a_link})
         if a_link_list and title != "色情网站推荐":
-            category_dict[str(index)] = {}
-            category_dict[str(index)]["title"] = title
-            category_dict[str(index)]["data"] = a_link_list
+            index_num = index + 250
+            category_dict[f"hotboxx{index_num}"] = {}
+            category_dict[f"hotboxx{index_num}"]["title"] = title
+            category_dict[f"hotboxx{index_num}"]["data"] = a_link_list
     print(f"最后的结果是:{category_dict}")
     print(f"{category_dict}")
 

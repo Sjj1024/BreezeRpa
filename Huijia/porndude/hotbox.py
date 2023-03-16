@@ -1,4 +1,4 @@
-hotUrls = {"hotbox": {
+hotUrls = {
     "title": "热门推荐",
     "data": [
         {
@@ -53,15 +53,15 @@ hotUrls = {"hotbox": {
             "url": "https://zztt47.com",
             "icon": ""},
         {
-            "title": "JavBus1",
+            "title": "JavBus网1",
             "url": "https://www.seejav.pw",
             "icon": ""},
         {
-            "title": "JavBus2",
+            "title": "JavBus网2",
             "url": "https://www.busjav.fun",
             "icon": ""},
         {
-            "title": "JavBus3",
+            "title": "JavBus网3",
             "url": "https://www.javsee.club",
             "icon": ""},
         {
@@ -80,5 +80,9 @@ hotUrls = {"hotbox": {
             "title": "1024抖妹",
             "url": "https://v.nrzj.vip/",
             "icon": ""},
+        {
+            "title": "Yandex搜",
+            "url": "https://yandex.com/",
+            "icon": ""},
     ],
-}}
+}

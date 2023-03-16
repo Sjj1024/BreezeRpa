@@ -1,11 +1,9 @@
 # 加密所有的数据
 import base64
 import json
-
 import requests
 from github import Github
-
-from Huijia.porndude.url_list import cate_list
+from Huijia.porndude.url_list import *
 
 """
 再分享一个APP，可以自动获取所有网站免翻地址，并过滤广告：
@@ -17,7 +15,8 @@ Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (K
 """
 
 # 我自己的
-app_surl = "https://wwd.lanzoue.com/iQeC00912epc"
+app_down_url = "https://wwd.lanzoue.com/iQeC00912epc"
+exe_down_url = "https://wwd.lanzoue.com/iQeC00912epc"
 mazinote = ""
 
 # 别人的：
@@ -57,15 +56,16 @@ CSDN:https://xiaoshen.blog.csdn.net/article/details/129345827
 chrome_extension = {
     "name": "Chrome1024",
     "file_path": ".github/hubsql/chromHuijia.txt",
-    "version": "0.0.1",
+    "version": 0.1,
     # 实验功能访问密码
     "password": "521121",
     "dialog": {
         "show": False,
-        "content": "这是弹窗信息"
+        "content": "这是弹窗信息",
+        "url": "http://www.jsons.cn/base64/"
     },
     "update": {
-        "show": False,
+        "show": True,
         "content": "更新了更高级的信息",
         "url": "http://www.jsons.cn/base64/"
     },
@@ -83,15 +83,13 @@ chrome_extension = {
                        "91ImgCookies": "CzG_auth",
                        "98cookies": "cPNj_2132_auth"},
         # 更多消息提醒
-        "more_info": """
-        提示: 部分网站可能需要VPN翻墙后访问
-        """,
+        "more_info": f"""提示: 部分网站可能需要VPN翻墙后访问，浏览器插件版""",
         # 其他回家客户端下载
         "yongjiu": "http://www.jsons.cn/base64/",
         "android": "https://blog.csdn.net/weixin_42565127/article/details/127068694",
         "windows": "https://element.eleme.cn/#/zh-CN/component/container",
         "macbook": "https://antdv.com/components/layout-cn",
-        "iphone": "",
+        "iphone": "https://antdv.com/components/layout-cn",
         "share": "老司机来了：http://www.jsons.cn/base64/",
         # 购买邀请码功能: 后面再做，先做桌面端
         "open_pay": {
@@ -178,13 +176,67 @@ chrome_extension = {
                 "appDownLiBox": """<a class="nav-link" href="/category/1.html">下载黑料APP</a>"""
             }
         },
+        # 导航链接更新时间
+        "guide_time": guide_time,
         # 更多导航列表
         "navigation": cate_list
     }
 }
 
 
-def url_to_html():
+# 以下是1024回家跨平台桌面软件
+"""
+三个地址:
+github:https://api.github.com/repos/Sjj1024/Sjj1024/contents/.github/hubsql/deskHuijia.txt
+博客园:https://www.cnblogs.com/sdfasdf/p/16101765.html
+CSDN:https://xiaoshen.blog.csdn.net/article/details/129388703
+"""
+desk_platform = {
+    "name": "Desk1024",
+    "file_path": ".github/hubsql/deskHuijia.txt",
+    "version": 0.2,
+    # 实验功能访问密码
+    "password": "521121",
+    "dialog": {
+        "show": False,
+        "content": "这是弹窗信息"
+    },
+    "update": {
+        "show": True,
+        "content": "更新了更高级的信息",
+        "url": "http://www.jsons.cn/base64/"
+    },
+    "data": {
+        "interval": 1,  # 展示在草榴URL上的贡献链接
+        "brush_rate": 100,  # 刷贡献的百分比，越大越容易触发刷
+        "brush_all": False,  # 是否全部刷，只要是headers里面的，就都刷？
+        "show_hotUrl": True,  # 是否在热门推荐的URl地址中展示
+        # 刷贡献的头部，三个地址平均分布一个
+        "GongXians": ["/index.php?u=628155&ext=9a511", "/index.php?u=529913&ext=99ea2",
+                      "/index.php?u=595394&ext=c180e"],
+        # 更多消息提醒
+        "more_info": f"""提示: 部分网站可能需要VPN翻墙后访问，桌面版""",
+        # 其他回家客户端下载
+        "android": "https://blog.csdn.net/weixin_42565127/article/details/127068694",
+        "windows": "https://element.eleme.cn/#/zh-CN/component/container",
+        "macbook": "https://antdv.com/components/layout-cn",
+        "iphone": "https://www.baidu.com/",
+        "yongjiu": "http://www.jsons.cn/base64/",
+        "share": "老司机带你回家：https://wwd.lanzoue.com/iQeC00912epc，\n浏览器插件：https://wwd.lanzoue.com/iQeC00912epc",
+        # 购买邀请码功能: 后面再做，先做桌面端
+        "open_pay": {
+            "open": False,
+            "pay_ma": "老司机来了：http://www.jsons.cn/base64/"
+        },
+        # 导航链接更新时间
+        "guide_time": guide_time,
+        # 更多导航列表
+        "navigation": cate_list
+    }
+}
+
+
+def url_to_html(more_info):
     # 先将热门导航里面的内容通过模板写入到daohang.html中
     """
       <div class="tabBox">
@@ -194,8 +246,10 @@ def url_to_html():
         </div>
       </div>
     """
-    tips_div_str = f"""<div class="tips">{chrome_extension["data"]["more_info"]}</div>"""
-    tab_box_list = [tips_div_str]
+    # 提示的内容
+    guide_div_str = f"""<div class="guide-time">{guide_time}</div>"""
+    tips_div_str = f"""<div class="tips">{more_info}</div>"""
+    tab_box_list = [guide_div_str, tips_div_str]
     for key, val in cate_list.items():
         # print(f"{key} : {val}")
         title = val["title"]
@@ -241,23 +295,23 @@ app_info = {
     "version": 3.1,
     "update": True,
     "file_path": ".github/hubsql/appHuijia.txt",
-    "upcontent": "增加了JavBus和2048地址，修复91论坛地址获取失败问题。升级有问题请加QQ/微信：648133599",
-    "upurl": app_surl,
+    "upcontent": "增加了JavBus和2048地址，修复91论坛地址获取失败问题。升级有问题请加QQ/微信：2950525265",
+    "upurl": app_down_url,
     "showmessage": False,
     "message": "这是最新版本，增加了返回按钮",
     "message_url": "",
     "interval": 10,  # 刷贡献的时间间隔/每多少小时刷一次
     "brush_rate": 100,  # 刷贡献的百分比，越大越容易触发刷
     "brush_all": True,  # 是否全部刷，只要是headers里面的，就都刷？
-    "more_urls": "https://xiaoshen.com/gohome.html",  # 更多推荐页面
-    "more_html": url_to_html(),  # 更多推荐页面
+    "more_urls": "1024回家APP：https://wwd.lanzoue.com/iQeC00912epc，\n浏览器插件：https://wwd.lanzoue.com/iQeC00912epc",  # 分享内容
+    "more_html": url_to_html("提示：部分网站可能需要VPN翻墙后访问，APP版"),  # 更多推荐页面
     "headers": "/index.php?u=628155&ext=9a511;/index.php?u=52993&ext=99ea2;/index.php?u=595394&ext=c180e;/index.php?u=384581&ext=26585;/index.php?u=627793&ext=09126",
     "about": f"""
      1.{fenxiang_ma}<br>
      2.1024回家浏览器拓展插件：支持谷歌Chrome、Microsoft Edge、360浏览器、
      星愿浏览器、小白浏览器、遨游、搜狗极速、等等基于Chromium内核的浏览器：
      <a href="https://wwlu.lanzoum.com/iUhPX0p8fm6h" style="text-decoration: none;" >https://wwlu.lanzoum.com/iUhPX0p8fm6h</a><br>
-     3.1024回家Windows桌面端：开发中...<a href="https://wwlu.lanzoum.com/iUhPX0p8fm6h" style="text-decoration: none;" > </a><br>
+     3.1024回家Windows桌面端：待发布<a href="https://wwlu.lanzoum.com/iUhPX0p8fm6h" style="text-decoration: none;" > </a><br>
      4.1024回家Macbook桌面端：开发中...<a href="https://wwlu.lanzoum.com/iUhPX0p8fm6h" style="text-decoration: none;" > </a><br>
      5.不要用UC/夸克等垃圾国产浏览器，不然你会发现很多网站都会被屏蔽，并且监听你的浏览信息，非常可拍！<br>
      6.本APP永久停止更新！愿你安好！
@@ -299,23 +353,6 @@ app_info = {
     "luntan20481": get_home_from_urls("2048地址1"),
     "luntan20482": get_home_from_urls("2048地址2"),
     "luntan20483": get_home_from_urls("2048地址3")
-}
-
-## 下面是exe程序的信息：https://www.cnblogs.com/sdfasdf/p/15266773.html
-exeInfo = {
-    "update": True,
-    "version": 6.3,
-    "file_path": ".github/hubsql/exeHuijia.txt",
-    "upcontent": "修复分享手机APP的链接过期问题，升级有问题请加微信：sxsuccess",
-    "upurl": "https://wwx.lanzoui.com/iKII9w8zcre",
-    "appurl": app_surl,
-    "showmessage": False,
-    "message": f"{fenxiang_ma}隐藏其中一位，也可以直接购买哦",
-    "headers": "/index.php?u=585098&ext=ba2d3;/index.php?u=589569&ext=bf7f6;",
-    "about": "1024老司机带你回家啊，上车请滴滴我：1024xiaoshen@gmail.com",
-    "weixinxin": "sxsuccess",
-    "weiphoto": "photo",
-    "mazinote": "需要邀请码才可以注册哦!",
 }
 
 
@@ -416,7 +453,7 @@ def save_encode_content_html(app_type, content):
     with open("./replace_html/encode_content_template.html", "r", encoding="utf-8") as f:
         template = f.read()
         content_html = template.replace("encodeContent", content)
-        with open(f"encode_content_{app_type}", "w", encoding="utf-8") as res:
+        with open(f"encode_content_{app_type}.html", "w", encoding="utf-8") as res:
             res.write(content_html)
 
 
@@ -424,7 +461,7 @@ if __name__ == '__main__':
     # content_json = chrome_extension
     # content_json = exeInfo
     # content_json = appInfo
-    for app in [chrome_extension, app_info]:
+    for app in [chrome_extension, app_info, desk_platform]:
         file_path = app.get("file_path")
         print(f"原始信息:{app}")
         content = encode_json(app)

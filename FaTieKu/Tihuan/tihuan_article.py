@@ -529,10 +529,10 @@ def run(article_url):
 
 
 if __name__ == '__main__':
-    url = "https://23img.com/application/upload.php"
-    toutiao = Toutiao_picurl(url)
+    tuchuang_url = "https://23img.com/application/upload.php"
+    toutiao = Toutiao_picurl(tuchuang_url)
     # toutiao.top_bottom = "top"
     toutiao.top_bottom = "bottom"
     toutiao.cut_height = 58
-    article_url = "https://j1di.vip/thread-820868-1-1.html"
+    article_url = "https://www.xvhi6.com/thread-1215779-1-1.html"
     run(article_url)

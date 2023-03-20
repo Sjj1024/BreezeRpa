@@ -1,3 +1,4 @@
+import random
 import uuid
 import pandas as pd
 import numpy as np
@@ -13,10 +14,20 @@ def make_date(index, start_num, sub_target, random_data):
         if len(target_data) >= sub_target:
             break
         index_num += 1
+        # 创造ID列，是否加密
         if use_uuid:
             random_data[0] = str(uuid.uuid1()).upper().replace("-", "") + str(uuid.uuid1()).upper().replace("-", "")
         else:
             random_data[0] = str(index_num)
+        # 创建X列：范围-100, 1000000
+        if len(random_data) > 1:
+            # 使用历史数据
+            print("使用库中数据，不自己造数据了")
+        else:
+            # 自己造数据:根据多少列来自己创造
+            print("自己造数据")
+            for col in range(1, column + 1):
+                random_data[col] = random.randint(-100, 1000000)
         target_data.append(deepcopy(random_data))
     client = clickhouse_connect.get_client(host=host, port=port, username=username, password=password)
     client.insert(f"{data_name}.{table}", target_data)
@@ -37,10 +48,18 @@ def creat_copy_data(client, need_num, count, current_count):
     executor = ThreadPoolExecutor(max_workers=50)
     print(f"所有子线程都在努力创造数据了，total_thread: {total_thread}，last_num: {last_num}")
     for index in range(0, total_thread):
-        random_data = client.command(f"select * from {data_name}.{table} order by rand() limit 1;")
+        # 是使用库中的还是使用随机的
+        if use_mock:
+            random_data = []
+        else:
+            random_data = client.command(f"select * from {data_name}.{table} order by rand() limit 1;")
         task_list.append(executor.submit(lambda cxp: make_date(*cxp), (index, count, thread_num, random_data)))
     if last_num:
-        random_data = client.command(f"select * from {data_name}.{table} order by rand() limit 1;")
+        # 是使用库中的还是使用随机的
+        if use_mock:
+            random_data = []
+        else:
+            random_data = client.command(f"select * from {data_name}.{table} order by rand() limit 1;")
         start_num = count + thread_num * total_thread
         task_list.append(executor.submit(lambda cxp: make_date(*cxp), (0, start_num, last_num, random_data)))
     for future in as_completed(task_list):
@@ -80,18 +99,23 @@ alter table p_6540819793207889920.d_6542157498671960064 delete where id != '';
 
 def start_run():
     confirm = input(f"确定要向表{table}中创造数据么？不要弄错表了哦，确认无误后回车即可开始！")
+    client = clickhouse_connect.get_client(host=host, port=port, username=username, password=password)
+    count = client.command(f"select count() from {data_name}.{table};")
     # 判断数据表中的数据是否是1条
-
+    if count == 1:
+        # 清空表内容
+        client.command(f"alter table {data_name}.{table} delete where id != '';")
     # 区分是guest还是host：guest添加y host不用
-
+    if role == "guest":
+        print(f"是guest用户，需要添加y列")
+    else:
+        print("是host，不用添加y列")
     # 区分id用不用加密，是否需要有序
 
     # 创建数据，普通数据范围-100, 1000000，y列数据范围：0，1
 
     # 创建完成之后，检查数据数据是否正确
 
-    client = clickhouse_connect.get_client(host=host, port=port, username=username, password=password)
-    count = client.command(f"select count() from {data_name}.{table};")
     current_count = client.command(f"select count(DISTINCT id) from {data_name}.{table};")
     need_num = target - current_count
     print(f"目标是{target}条，当前拥有{count}条数据，去重后有{current_count}条数据，与目标相差{need_num}条")

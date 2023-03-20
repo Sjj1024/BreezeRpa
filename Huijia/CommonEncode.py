@@ -83,7 +83,9 @@ chrome_extension = {
                        "91ImgCookies": "CzG_auth",
                        "98cookies": "cPNj_2132_auth"},
         # 更多消息提醒
-        "more_info": f"""提示: 部分网站可能需要VPN翻墙后访问，浏览器插件版""",
+        "more_info": f"""提示: 部分网站可能需要VPN翻墙后访问，如果你想感谢我，
+我的比特币账户：<span style="padding: 0 5px 0 2px;">3HJTSzf2GL7Bj8r7HakUNS1G9jauemk1Lt</span>我的以太坊账户：<span style="padding: 0 5px 0 2px;">0xb9061992ea948e247a4542209c14c5e7ea79afc6</span>
+        """,
         # 其他回家客户端下载
         "yongjiu": "http://www.jsons.cn/base64/",
         "android": "https://blog.csdn.net/weixin_42565127/article/details/127068694",
@@ -130,8 +132,8 @@ chrome_extension = {
             "91image": {
                 "filter": False,  # 广告开关
                 "invcode_info": "邀请码:91请加微信",
-                "app_exe_down_page": cao_app_exe_page("91porn_app_down.html"),
-                "porn_vip_page": cao_app_exe_page("91porn_vip_page.html"),
+                "app_exe_down_page": cao_app_exe_page("porn_app_down.html"),
+                "porn_vip_page": cao_app_exe_page("porn_vip_page.html"),
                 "appDownLiBox": """<a href="https://www.baidu.com/" target="_blank">下载91APP</a>""",
             },
             "tang98": {
@@ -183,7 +185,6 @@ chrome_extension = {
     }
 }
 
-
 # 以下是1024回家跨平台桌面软件
 """
 三个地址:
@@ -194,12 +195,13 @@ CSDN:https://xiaoshen.blog.csdn.net/article/details/129388703
 desk_platform = {
     "name": "Desk1024",
     "file_path": ".github/hubsql/deskHuijia.txt",
-    "version": 0.2,
+    "version": 0.1,
     # 实验功能访问密码
     "password": "521121",
     "dialog": {
-        "show": False,
-        "content": "这是弹窗信息"
+        "show": True,
+        "content": "这是弹窗信息",
+        "url": "http://www.jsons.cn/base64/"
     },
     "update": {
         "show": True,
@@ -215,7 +217,9 @@ desk_platform = {
         "GongXians": ["/index.php?u=628155&ext=9a511", "/index.php?u=529913&ext=99ea2",
                       "/index.php?u=595394&ext=c180e"],
         # 更多消息提醒
-        "more_info": f"""提示: 部分网站可能需要VPN翻墙后访问，桌面版""",
+        "more_info": f"""提示: 部分网站可能需要VPN翻墙后访问，如果你想感谢我，
+        我的比特币账户：<span style="padding: 0 5px 0 2px;">3HJTSzf2GL7Bj8r7HakUNS1G9jauemk1Lt</span>我的以太坊账户：<span style="padding: 0 5px 0 2px;">0xb9061992ea948e247a4542209c14c5e7ea79afc6</span>
+""",
         # 其他回家客户端下载
         "android": "https://blog.csdn.net/weixin_42565127/article/details/127068694",
         "windows": "https://element.eleme.cn/#/zh-CN/component/container",
@@ -303,14 +307,15 @@ app_info = {
     "interval": 10,  # 刷贡献的时间间隔/每多少小时刷一次
     "brush_rate": 100,  # 刷贡献的百分比，越大越容易触发刷
     "brush_all": True,  # 是否全部刷，只要是headers里面的，就都刷？
-    "more_urls": "1024回家APP：https://wwd.lanzoue.com/iQeC00912epc，\n浏览器插件：https://wwd.lanzoue.com/iQeC00912epc",  # 分享内容
+    "more_urls": "1024回家APP：https://wwd.lanzoue.com/iQeC00912epc，\n浏览器插件：https://wwd.lanzoue.com/iQeC00912epc",
+    # 分享内容
     "more_html": url_to_html("提示：部分网站可能需要VPN翻墙后访问，APP版"),  # 更多推荐页面
     "headers": "/index.php?u=628155&ext=9a511;/index.php?u=52993&ext=99ea2;/index.php?u=595394&ext=c180e;/index.php?u=384581&ext=26585;/index.php?u=627793&ext=09126",
     "about": f"""
      1.{fenxiang_ma}<br>
      2.1024回家浏览器拓展插件：支持谷歌Chrome、Microsoft Edge、360浏览器、
      星愿浏览器、小白浏览器、遨游、搜狗极速、等等基于Chromium内核的浏览器：
-     <a href="https://wwlu.lanzoum.com/iUhPX0p8fm6h" style="text-decoration: none;" >https://wwlu.lanzoum.com/iUhPX0p8fm6h</a><br>
+     <a href="https://wwlu.lanzoum.com/iUhPX0p8fm6h" style="text-decoration: none;" > </a><br>
      3.1024回家Windows桌面端：待发布<a href="https://wwlu.lanzoum.com/iUhPX0p8fm6h" style="text-decoration: none;" > </a><br>
      4.1024回家Macbook桌面端：开发中...<a href="https://wwlu.lanzoum.com/iUhPX0p8fm6h" style="text-decoration: none;" > </a><br>
      5.不要用UC/夸克等垃圾国产浏览器，不然你会发现很多网站都会被屏蔽，并且监听你的浏览信息，非常可拍！<br>
@@ -337,6 +342,7 @@ app_info = {
     "porn_photo_header2": "",
     "porn_photo_footer": "",
     "porn_photo_wentou": "",
+    "porn_vip_page": cao_app_exe_page("porn_vip_page.html"),
     "heiliao_url1": get_home_from_urls("黑料B打烊1"),  # 黑料免翻地址
     "heiliao_url2": get_home_from_urls("黑料B打烊2"),  # 黑料免翻地址
     "heiliao_url3": get_home_from_urls("黑料B打烊3"),  # 黑料免翻地址

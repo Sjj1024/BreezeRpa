@@ -18,7 +18,7 @@ hotUrls = {
         },
         {
             "title": "91Pr视频1",
-            "url": "https://f0225.9p234.com/index.php",
+            "url": "https://w1218.91p46.com/index.php",
             "icon": ""},
         {
             "title": "91Pr视频2",
@@ -30,27 +30,27 @@ hotUrls = {
             "icon": ""},
         {
             "title": "98色花堂1",
-            "url": "https://www.54ssjd.com/",
+            "url": "https://www.hghg58.com",
             "icon": ""},
         {
             "title": "98色花堂2",
-            "url": "https://www.xs54dx.com",
+            "url": "https://www.xvhi6.com",
             "icon": ""},
         {
             "title": "98色花堂3",
-            "url": "https://www.dks54s.com",
+            "url": "https://www.xvhi6.cn",
             "icon": ""},
         {
             "title": "黑料B打烊1",
-            "url": "https://zztt45.com",
+            "url": "https://zztt52.com",
             "icon": ""},
         {
             "title": "黑料B打烊2",
-            "url": "https://zztt46.com",
+            "url": "https://zztt53.com",
             "icon": ""},
         {
             "title": "黑料B打烊3",
-            "url": "https://zztt47.com",
+            "url": "https://zztt54.com",
             "icon": ""},
         {
             "title": "JavBus网1",

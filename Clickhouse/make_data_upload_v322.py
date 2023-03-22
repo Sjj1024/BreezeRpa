@@ -11,6 +11,7 @@ def make_date(index, start_num, sub_target, random_data):
     target_data = []
     index_num = start_num + (index * sub_target)
     while True:
+        index_num += 1
         if len(target_data) >= sub_target:
             break
         # 创造ID列，是否加密
@@ -33,7 +34,6 @@ def make_date(index, start_num, sub_target, random_data):
             for col in range(2, column + 1):
                 random_data[col] = random.randint(-100, 1000000)
         target_data.append(deepcopy(random_data))
-        index_num += 1
     client = clickhouse_connect.get_client(host=host, port=port, username=username, password=password)
     client.insert(f"{data_name}.{table}", target_data)
     client.close()
@@ -41,12 +41,12 @@ def make_date(index, start_num, sub_target, random_data):
 
 
 def creat_data_control(client, need_num, count, current_count):
-    print("数据库中已经存在数据，就从已存在数据中随机copy...")
+    # print("数据库中已经存在数据，就从已存在数据中随机copy...")
     thread_num = 10000
     total_thread = need_num // thread_num
     last_num = need_num % thread_num
     task_list = []
-    executor = ThreadPoolExecutor(max_workers=1)
+    executor = ThreadPoolExecutor(max_workers=workers_num)
     print(f"所有子线程都在努力创造数据了，total_thread: {total_thread}，last_num: {last_num}")
     for index in range(0, total_thread):
         # 是使用库中的还是使用随机的
@@ -56,6 +56,7 @@ def creat_data_control(client, need_num, count, current_count):
             else:
                 random_data = [i for i in range(0, column + 1)]
         else:
+            # 使用库中数据
             random_data = client.command(f"select * from {data_name}.{table} order by rand() limit 1;")
         task_list.append(executor.submit(lambda cxp: make_date(*cxp), (index, count, thread_num, random_data)))
     if last_num:
@@ -101,27 +102,26 @@ select count(distinct(id)) from p_项目ID.d_数据集id;
 -- 统计总得数量
 select count(id) from p_项目ID.d_数据集id;
 -- 清空表数据或者删除某条数据
-alter table p_6540819793207889920.d_6542157498671960064 delete where id != '';
+alter table p_项目ID.d_数据集id delete where id != '';
 """)
 
 
 def start_run():
-    input(f"确定要向表{table}中创造数据么？回车确认即可执行")
+    # input(f"确定要向表{table}中创造数据么？回车确认即可执行")
     client = clickhouse_connect.get_client(host=host, port=port, username=username, password=password)
     count = client.command(f"select count() from {data_name}.{table};")
+    current_count = client.command(f"select count(DISTINCT id) from {data_name}.{table};")
+    need_num = target - current_count
+    print(f"目标是{target}条，当前拥有{count}条数据，去重后有{current_count}条数据，与目标相差{need_num}条")
+    if need_num <= 0:
+        print(f"不需要增加数据，已退出")
+        return
     # 判断数据表中的数据是否是1条
     if count <= 1:
         # 清空表内容
         client.command(f"alter table {data_name}.{table} delete where id != '';")
     else:
-        print("表中的数据不止一条啊")
-        raise Exception("表中的数据不止一条啊")
-    current_count = client.command(f"select count(DISTINCT id) from {data_name}.{table};")
-    need_num = target - current_count
-    print(f"目标是{target}条，当前拥有{count}条数据，去重后有{current_count}条数据，与目标相差{need_num}条")
-    if need_num <= 0:
-        print(f"不需要增加，已退出")
-        return
+        input("表中的数据不止一条啊，确定没搞错表吧？")
     # 自己代码mock
     creat_data_control(client, need_num, count, current_count)
 
@@ -145,26 +145,26 @@ pass：ck@12345
 
 
 if __name__ == '__main__':
+    # 子线程数量: 每个线程负责10000条数据
+    workers_num = 10
     # 数据库配置：ip port user passwd
     host = "172.20.58.37"
-    # port = 31003
-    port = 31103
+    port = 31003
+    # port = 31103
     # 是 guest 还是 host
-    # role = "guest"
-    role = "host"
+    role = "guest"
+    # role = "host"
     username = "default"
     password = "ck@12345"
     # 要向哪个库的哪个表里面创建数据
-    data_name = "p_6552301375097671680"
-    table = "d_6552302986448605184"
+    data_name = "p_6553458627242364928"
+    table = "d_6553467570387685376"
     # 目标数据：多少列，仅在创建模板的时候有用
-    column = 10
+    column = 500
     # 目标数据：多少条，仅在创建数据的时候有用
-    target = 500
+    target = 100 * 10000
     # 是否对ID加密
-    use_uuid = True
-    # ID列是否有序
-    order_id = True
+    use_uuid = False
     # 自己代码创建还是copy已有的数据: True mock, False copy
     use_mock = True
     # 创建模板csv文件

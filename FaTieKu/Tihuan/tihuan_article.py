@@ -171,7 +171,7 @@ class Toutiao_picurl():
             'sec-fetch-dest': 'empty',
             'sec-fetch-mode': 'cors',
             'sec-fetch-site': 'same-origin',
-            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
         }
         jpg_content = {"file": (f"{img_url}", image)}
         random_num = random.randint(1000, 900000)
@@ -473,6 +473,7 @@ def find_img_urls(article_url):
     urls_img = [i for i in urls_img if i.startswith("http")]
     urls_img = [i for i in urls_img if not i.endswith("html")]
     urls_img = [i for i in urls_img if not i.endswith("gif")]
+    urls_img = [i for i in urls_img if not i.endswith("jpg")]
     urls_img = [i for i in urls_img if "face" not in i]
     urls_img = [i for i in urls_img if not i.startswith("https://23img")]
     urls_img = [i for i in urls_img if not i.startswith("http://skeimg")]
@@ -534,5 +535,5 @@ if __name__ == '__main__':
     # toutiao.top_bottom = "top"
     toutiao.top_bottom = "bottom"
     toutiao.cut_height = 58
-    article_url = "https://www.xvhi6.com/thread-1215779-1-1.html"
+    article_url = "https://www.hghg58.com/thread-1222937-1-1.html"
     run(article_url)

@@ -30,8 +30,8 @@ mazinote = ""
 fenxiang_ma = "分享两个1024邀请码：【f617b*f67e038f1a】【2c*e5ae2e1a55721】"
 
 
-def read_daohang_html():
-    with open("replace_html/daohang_app_template.html", "r", encoding="utf-8") as f:
+def read_daohang_html(template):
+    with open(f"replace_html/{template}", "r", encoding="utf-8") as f:
         return f.read()
 
 
@@ -83,8 +83,8 @@ chrome_extension = {
                        "91ImgCookies": "CzG_auth",
                        "98cookies": "cPNj_2132_auth"},
         # 更多消息提醒
-        "more_info": f"""提示: 部分网站可能需要VPN翻墙后访问，如果你想感谢我，
-我的比特币账户：<span style="padding: 0 5px 0 2px;">3HJTSzf2GL7Bj8r7HakUNS1G9jauemk1Lt</span>我的以太坊账户：<span style="padding: 0 5px 0 2px;">0xb9061992ea948e247a4542209c14c5e7ea79afc6</span>
+        "more_info": f"""<div style="color: red;"><span style="color: red;">提示: 部分网站可能需要VPN翻墙后访问</span>，如果你想感谢我，
+我的比特币账户：<span style="padding: 0 5px 0 2px;">3HJTSzf2GL7Bj8r7HakUNS1G9jauemk1Lt</span>我的以太坊账户：<span style="padding: 0 5px 0 2px;">0xb9061992ea948e247a4542209c14c5e7ea79afc6</span></div>
         """,
         # 其他回家客户端下载
         "yongjiu": "http://www.jsons.cn/base64/",
@@ -217,8 +217,8 @@ desk_platform = {
         "GongXians": ["/index.php?u=628155&ext=9a511", "/index.php?u=529913&ext=99ea2",
                       "/index.php?u=595394&ext=c180e"],
         # 更多消息提醒
-        "more_info": f"""提示: 部分网站可能需要VPN翻墙后访问，如果你想感谢我，
-        我的比特币账户：<span style="padding: 0 5px 0 2px;">3HJTSzf2GL7Bj8r7HakUNS1G9jauemk1Lt</span>我的以太坊账户：<span style="padding: 0 5px 0 2px;">0xb9061992ea948e247a4542209c14c5e7ea79afc6</span>
+        "more_info": f"""<div style="color: red;"><span style="color: red;">提示: 部分网站可能需要VPN翻墙后访问</span>，如果你想感谢我，
+        我的比特币账户：<span style="padding: 0 5px 0 2px;">3HJTSzf2GL7Bj8r7HakUNS1G9jauemk1Lt</span>我的以太坊账户：<span style="padding: 0 5px 0 2px;">0xb9061992ea948e247a4542209c14c5e7ea79afc6</span></div>
 """,
         # 其他回家客户端下载
         "android": "https://blog.csdn.net/weixin_42565127/article/details/127068694",
@@ -240,7 +240,7 @@ desk_platform = {
 }
 
 
-def url_to_html(more_info):
+def url_to_html(more_info, is_iphone=False):
     # 先将热门导航里面的内容通过模板写入到daohang.html中
     """
       <div class="tabBox">
@@ -271,12 +271,59 @@ def url_to_html(more_info):
           </div>"""
         tab_box_list.append(tab_box_template)
     tab_box_strs = "".join(tab_box_list)
-    daohang_html = read_daohang_html()
+    daohang_html = read_daohang_html("daohang_app_template.html")
     daohang_html_res = daohang_html.replace("templatePalace", tab_box_strs)
     with open("replace_html/daohang_app_releases.html", "w", encoding="utf-8") as f:
         f.write(daohang_html_res)
-    print(daohang_html_res)
-    return daohang_html_res
+    if is_iphone:
+        iphone_html = daohang_html_res.replace("""<!DOCTYPE html>
+<html lang="zh">""", "").replace("</html>", "")
+        return iphone_html
+    else:
+        return daohang_html_res
+
+
+def url_to_iphone(more_info, is_iphone=True):
+    # 先将热门导航里面的内容通过模板写入到daohang.html中
+    """
+      <div class="tabBox">
+        <h3 class="tabTitle">热门推荐</h3>
+        <div class="aBox">
+          <a href="https://www.baidu.com/" class="alink" target="_blank">百度一下</a>
+        </div>
+      </div>
+    """
+    # 提示的内容
+    guide_div_str = f"""<div class="guide-time">{guide_time}</div>"""
+    tips_div_str = f"""<div class="tips">{more_info}</div>"""
+    tab_box_list = [guide_div_str, tips_div_str]
+    for key, val in cate_list.items():
+        # print(f"{key} : {val}")
+        title = val["title"]
+        data_url = val["data"]
+        a_box_list = []
+        for url_a in data_url:
+            a_template = f"""<a href="{url_a["url"]}" class="alink" target="_blank">{url_a["title"]}</a>\n"""
+            a_box_list.append(a_template)
+        a_box_strs = "".join(a_box_list)
+        tab_box_template = f"""<div class="tabBox">
+                <h3 class="tabTitle">{title}</h3>
+                <div class="aBox" >
+                  {a_box_strs}
+                </div>
+              </div>"""
+        tab_box_list.append(tab_box_template)
+    tab_box_strs = "".join(tab_box_list)
+    daohang_html = read_daohang_html("daohang_iphone_template.html")
+    daohang_html_res = daohang_html.replace("templatePalace", tab_box_strs)
+    with open("replace_html/daohang_iphone_releases.html", "w", encoding="utf-8") as f:
+        f.write(daohang_html_res)
+    if is_iphone:
+        iphone_html = daohang_html_res.replace("""<!DOCTYPE html>
+    <html lang="zh">""", "").replace("</html>", "")
+        return iphone_html
+    else:
+        return daohang_html_res
 
 
 def get_home_from_urls(key):
@@ -309,10 +356,11 @@ app_info = {
     "brush_all": True,  # 是否全部刷，只要是headers里面的，就都刷？
     "more_urls": "1024回家APP：https://wwd.lanzoue.com/iQeC00912epc，\n浏览器插件：https://wwd.lanzoue.com/iQeC00912epc",
     # 分享内容
-    "more_html": url_to_html("提示：部分网站可能需要VPN翻墙后访问，APP版"),  # 更多推荐页面
+    "more_html": url_to_html("""<span style="color: red;">提示: 部分网站可能需要VPN翻墙后访问，APP版</span>""", False),
+    # 更多推荐页面
     "headers": "/index.php?u=628155&ext=9a511;/index.php?u=52993&ext=99ea2;/index.php?u=595394&ext=c180e;/index.php?u=384581&ext=26585;/index.php?u=627793&ext=09126",
     "about": f"""
-     1.{fenxiang_ma}<br>
+     1.如果你想感谢我，我的比特币账户：<span style="padding: 0 5px 0 2px;">3HJTSzf2GL7Bj8r7HakUNS1G9jauemk1Lt</span>我的以太坊账户：<span style="padding: 0 5px 0 2px;">0xb9061992ea948e247a4542209c14c5e7ea79afc6</span><br>
      2.1024回家浏览器拓展插件：支持谷歌Chrome、Microsoft Edge、360浏览器、
      星愿浏览器、小白浏览器、遨游、搜狗极速、等等基于Chromium内核的浏览器：
      <a href="https://wwlu.lanzoum.com/iUhPX0p8fm6h" style="text-decoration: none;" > </a><br>
@@ -359,6 +407,21 @@ app_info = {
     "luntan20481": get_home_from_urls("2048地址1"),
     "luntan20482": get_home_from_urls("2048地址2"),
     "luntan20483": get_home_from_urls("2048地址3")
+}
+
+"""
+IPhone插件内容
+"""
+iphone_home = {
+    "name": "IPhone1024",
+    "file_path": ".github/hubsql/iphoneHuijia.txt",
+    "version": 0.1,
+    "dialog": {
+        "show": True,
+        "content": "这是弹窗信息",
+        "url": "http://www.jsons.cn/base64/"
+    },
+    "content": url_to_iphone("""<span style="color: red;">提示: 部分网站可能需要VPN翻墙后访问，IPhone版</span>""", True)
 }
 
 
@@ -467,7 +530,7 @@ if __name__ == '__main__':
     # content_json = chrome_extension
     # content_json = exeInfo
     # content_json = appInfo
-    for app in [chrome_extension, app_info, desk_platform]:
+    for app in [chrome_extension, desk_platform, app_info, iphone_home]:
         file_path = app.get("file_path")
         print(f"原始信息:{app}")
         content = encode_json(app)

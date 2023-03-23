@@ -63,7 +63,7 @@ def run(wx_url):
             }
         })
         pay_lunch_remind(wx_url, payload)
-    elif (current_hour == 18) and (20 <= current_minute < 30):
+    elif (current_hour == 19) and (0 <= current_minute < 10):
         content = f"别干了，快下班打卡吧！总是忘记打卡的人，是不是你？！！！,需要艾特的话给我发手机号，当前时间:{current_time}"
         payload = json.dumps({
             "msgtype": "text",

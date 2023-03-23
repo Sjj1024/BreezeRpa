@@ -163,9 +163,11 @@ class Toutiao_picurl():
             'authority': '23img.com',
             'accept': '*/*',
             'accept-language': 'zh-CN,zh;q=0.9,zh-HK;q=0.8,zh-TW;q=0.7',
+            'cache-control': 'no-cache',
             'origin': 'https://23img.com',
+            'pragma': 'no-cache',
             'referer': 'https://23img.com/',
-            'sec-ch-ua': '"Not_A Brand";v="99", "Google Chrome";v="109", "Chromium";v="109"',
+            'sec-ch-ua': '"Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111"',
             'sec-ch-ua-mobile': '?0',
             'sec-ch-ua-platform': '"Windows"',
             'sec-fetch-dest': 'empty',
@@ -174,9 +176,9 @@ class Toutiao_picurl():
             'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'
         }
         jpg_content = {"file": (f"{img_url}", image)}
-        random_num = random.randint(1000, 900000)
+        random_num = random.randint(10, 900000)
         data = {"name": (None, f"{img_url}random_num.jpg"),
-                "uuid": f"o_1feklnhtu122{random_num}t3h5vvhuknrhb"
+                "uuid": f"o_t3h5vvhuknrhb{random_num}esdwrwrw322e"
                 }
         try:
             print("开始发送上传图片请求")
@@ -473,7 +475,7 @@ def find_img_urls(article_url):
     urls_img = [i for i in urls_img if i.startswith("http")]
     urls_img = [i for i in urls_img if not i.endswith("html")]
     urls_img = [i for i in urls_img if not i.endswith("gif")]
-    urls_img = [i for i in urls_img if not i.endswith("jpg")]
+    # urls_img = [i for i in urls_img if not i.endswith("jpg")]
     urls_img = [i for i in urls_img if "face" not in i]
     urls_img = [i for i in urls_img if not i.startswith("https://23img")]
     urls_img = [i for i in urls_img if not i.startswith("http://skeimg")]
@@ -535,5 +537,5 @@ if __name__ == '__main__':
     # toutiao.top_bottom = "top"
     toutiao.top_bottom = "bottom"
     toutiao.cut_height = 58
-    article_url = "https://www.hghg58.com/thread-1222937-1-1.html"
+    article_url = "https://www.hghg58.com/thread-1223262-1-1.html"
     run(article_url)

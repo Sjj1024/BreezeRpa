@@ -1,6 +1,6 @@
 from Huijia.porndude.hotbox import hotUrls
 
-guide_time = "地址更新时间：2023-03-15 15:54:39"
+guide_time = "地址更新时间：2023-03-27 16:54:39"
 
 cate_list = {"hotbox": hotUrls,
              'hotboxx50': {'title': '免费色情视频网站',

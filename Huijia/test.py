@@ -1,21 +1,20 @@
-import random
-
-
-def random_dic(dicts):
-    dict_key_ls = list(dicts.keys())
-    random.shuffle(dict_key_ls)
-    new_dict = {}
-    for key in dict_key_ls:
-        new_dict[key] = dicts.get(key)
-    return new_dict
-
-
-if __name__ == '__main__':
-    demo_dict = {
-        'google': 'android',
-        'facebook': 'whatsapp',
-        'microsoft': 'windows',
-        'apple': 'mac',
-    }
-    print(demo_dict)
-    print(random_dic(demo_dict))
+i = int(input("请输入一个数值"))
+# qw=int
+# sw=int
+# bw=int
+# gw=int
+n = int
+if i <= 9999:
+    n = i * i
+    qw = n // 1000
+    bw = n // 100 % 10
+    sw = n // 10 % 10
+    gw = n % 10
+    print(f"条件结果是: {qw == bw and sw == gw and qw != sw}")
+    if qw == bw and sw == gw and qw != sw:
+        print("豫A" + str(qw) * 2 + str(sw) * 2)
+    else:
+        i = i + 1
+        print(f"i的值是:{i}")
+else:
+    print("错误")

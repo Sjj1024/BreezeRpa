@@ -126,29 +126,11 @@ def start_run():
     creat_data_control(client, need_num, count, current_count)
 
 
-"""
-110环境：
-ip：172.20.8.110
-port：31003
-user：default
-pass：ck@12345
-
-Demo环境：
-ip：172.20.58.37
-portA：31003
-portB：31103
-portC：32003
-user：default
-pass：ck@12345
-
-"""
-
-
 if __name__ == '__main__':
     # 子线程数量: 每个线程负责10000条数据
     workers_num = 10
     # 数据库配置：ip port user passwd
-    host = "172.20.58.37"
+    host = "IP地址"
     port = 31003
     # port = 31103
     # 是 guest 还是 host

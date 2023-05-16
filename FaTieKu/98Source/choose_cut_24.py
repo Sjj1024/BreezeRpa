@@ -14,14 +14,14 @@ def get_pictures():
 def del_others(dir):
     print("仅保留前24张")
     pictures = os.listdir(dir)
-    pic_dir = [os.path.join(dir, j) for j in pictures]
-    if len(pic_dir) > 23:
-        others_del = pic_dir[23:]
-        need_pic = pic_dir[:23]
-        for one in others_del:
-            os.remove(one)
-    else:
-        need_pic = pic_dir
+    need_pic = [os.path.join(dir, j) for j in pictures]
+    # if len(pic_dir) > 23:
+    #     others_del = pic_dir[23:]
+    #     need_pic = pic_dir[:23]
+    #     for one in others_del:
+    #         os.remove(one)
+    # else:
+    #     need_pic = pic_dir
     for pic in need_pic:
         try:
             cut_pic(pic)
@@ -34,7 +34,7 @@ def cut_pic(pic):
     img = Image.open(pic)
     size = img.size
     width = size[0]
-    height = size[1] - 48
+    height = size[1] - 88
     cropped = img.crop((0, 0, width, height))  # (left, upper, right, lower)
     res = cropped.tobytes()
     cropped.save(pic)

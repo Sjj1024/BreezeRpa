@@ -7,6 +7,7 @@ cachelib==0.4.1
 certifi==2022.12.7
 cffi==1.15.1
 charset-normalizer==2.1.1
+chinesecalendar==1.8.0
 click==8.0.4
 clickhouse-connect==0.5.11
 clicknium==0.1.11
@@ -22,6 +23,8 @@ Flask-SQLAlchemy==2.5.1
 Flask-WTF==1.0.0
 flatbuffers==22.12.6
 greenlet==1.1.2
+hijri-converter==2.3.1
+holidays==0.24
 humanfriendly==10.0
 idna==3.4
 importlib-metadata==4.9.0
@@ -29,6 +32,7 @@ importlib-resources==5.10.0
 itsdangerous==2.0.1
 Jinja2==3.1.1
 jsonschema==4.17.3
+korean-lunar-calendar==0.3.1
 loguru==0.6.0
 lxml==4.9.2
 lz4==4.3.2

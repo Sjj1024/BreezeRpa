@@ -181,14 +181,14 @@ class Toutiao_picurl():
         # 获取cookie
         cookie_path = os.path.join(self.get_path(), "cookie.txt")
         print(cookie_path)
-        with open(cookie_path, "r") as f:
+        with open(cookie_path, "r", encoding="utf-8") as f:
             data = f.read()
         return data
 
     def save_cookie(self, cookie):
         # 保存cookie
         cookie_path = os.path.join(self.get_path(), "cookie.txt")
-        with open(cookie_path, "w") as f:
+        with open(cookie_path, "w", encoding="utf-8") as f:
             f.write(cookie)
 
     def get_path(self):

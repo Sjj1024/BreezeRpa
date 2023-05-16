@@ -79,7 +79,7 @@ chrome_extension = {
                       "/index.php?u=595394&ext=c180e"],
         # 匹配cookie的规则
         "cookieRule": {"clcookies": "227c9_winduser",
-                       "91VideoCookies": "DUID",
+                       "91VideoCookies": "USERNAME",
                        "91ImgCookies": "CzG_auth",
                        "98cookies": "cPNj_2132_auth"},
         # 更多消息提醒
@@ -199,7 +199,7 @@ desk_platform = {
     # 实验功能访问密码
     "password": "521121",
     "dialog": {
-        "show": True,
+        "show": False,
         "content": "这是弹窗信息",
         "url": "http://www.jsons.cn/base64/"
     },
@@ -296,7 +296,23 @@ def url_to_iphone(more_info, is_iphone=True):
     # 提示的内容
     guide_div_str = f"""<div class="guide-time">{guide_time}</div>"""
     tips_div_str = f"""<div class="tips">{more_info}</div>"""
-    tab_box_list = [guide_div_str, tips_div_str]
+    # 功能区按钮：安卓版，win版等
+    btn_buttons = f"""<div class="tabBox">
+            <h3 class="tabTitle tabTop">1024回家iPhone版</h3>
+            <div class="testBox">
+                <div class="btnBox">
+                    <button class="btn" id="android">安卓APP</button>
+                    <button class="btn" id="windows">Windows</button>
+                    <button class="btn" id="macbook">Mac电脑</button>
+                    <button class="btn" id="iphone">iPhone版</button>
+                    <button class="btn" id="yongjiu">永久地址</button>
+                    <button class="btn" id="share">分享插件</button>
+                </div>
+                {guide_div_str}
+                {tips_div_str}
+            </div>
+          </div>"""
+    tab_box_list = [btn_buttons]
     for key, val in cate_list.items():
         # print(f"{key} : {val}")
         title = val["title"]
@@ -320,7 +336,7 @@ def url_to_iphone(more_info, is_iphone=True):
         f.write(daohang_html_res)
     if is_iphone:
         iphone_html = daohang_html_res.replace("""<!DOCTYPE html>
-    <html lang="zh">""", "").replace("</html>", "")
+    <html>""", "").replace("</html>", "")
         return iphone_html
     else:
         return daohang_html_res
@@ -360,7 +376,7 @@ app_info = {
     # 更多推荐页面
     "headers": "/index.php?u=628155&ext=9a511;/index.php?u=52993&ext=99ea2;/index.php?u=595394&ext=c180e;/index.php?u=384581&ext=26585;/index.php?u=627793&ext=09126",
     "about": f"""
-     1.如果你想感谢我，我的比特币账户：<span style="padding: 0 5px 0 2px;">3HJTSzf2GL7Bj8r7HakUNS1G9jauemk1Lt</span>我的以太坊账户：<span style="padding: 0 5px 0 2px;">0xb9061992ea948e247a4542209c14c5e7ea79afc6</span><br>
+     1.如果你想感谢我，请合理给我打赏吧，<br>我的比特币账户：<span style="padding: 0 5px 0 2px;word-wrap: break-word;">3HJTSzf2GL7Bj8r7HakUNS1G9jauemk1Lt</span><br>我的以太坊账户：<span style="padding: 0 5px 0 2px;word-wrap: break-word;">0xb9061992ea948e247a4542209c14c5e7ea79afc6</span><br>
      2.1024回家浏览器拓展插件：支持谷歌Chrome、Microsoft Edge、360浏览器、
      星愿浏览器、小白浏览器、遨游、搜狗极速、等等基于Chromium内核的浏览器：
      <a href="https://wwlu.lanzoum.com/iUhPX0p8fm6h" style="text-decoration: none;" > </a><br>
@@ -410,18 +426,47 @@ app_info = {
 }
 
 """
-IPhone插件内容
+iPhone插件内容
+github:https://api.github.com/repos/Sjj1024/Sjj1024/contents/.github/hubsql/iphoneHuijia.txt
+博客园:https://www.cnblogs.com/sdfasdf/p/16966745.html
+CSDN:https://xiaoshen.blog.csdn.net/article/details/129709226
 """
 iphone_home = {
     "name": "IPhone1024",
     "file_path": ".github/hubsql/iphoneHuijia.txt",
     "version": 0.1,
     "dialog": {
-        "show": True,
-        "content": "这是弹窗信息",
-        "url": "http://www.jsons.cn/base64/"
+        "show": False,
+        "content": "这是弹窗信息"
     },
-    "content": url_to_iphone("""<span style="color: red;">提示: 部分网站可能需要VPN翻墙后访问，IPhone版</span>""", True)
+    "update": {
+        "show": False,
+        "content": "更新了更高级的信息",
+        "url": "https://www.jsons.cn/base64/"
+    },
+    "data": {
+        "interval": 1,  # 刷贡献速率，几个小时刷一次
+        "brush_rate": 100,  # 刷贡献的百分比，越大越容易触发开刷
+        "brush_all": False,  # 是否全部刷，只要是headers里面的，就都刷？
+        "show_hotUrl": True,  # 是否在热门推荐的URl地址中展示
+        # 刷贡献的头部，三个地址平均分布一个
+        "GongXians": ["/index.php?u=628155&ext=9a511", "/index.php?u=529913&ext=99ea2",
+                      "/index.php?u=595394&ext=c180e"],
+        # 匹配cookie的规则
+        "cookieRule": {"clcookies": "227c9_winduser",
+                       "91VideoCookies": "USERNAME",
+                       "91ImgCookies": "CzG_auth",
+                       "98cookies": "cPNj_2132_auth"},
+        # 其他回家客户端下载
+        "yongjiu": "永久地址: http://www.jsons.cn/base64/",
+        "android": "安卓APP：https://blog.csdn.net/weixin_42565127/article/details/127068694",
+        "windows": "Window：https://element.eleme.cn/#/zh-CN/component/container",
+        "macbook": "Mac电脑：https://antdv.com/components/layout-cn",
+        "iphone": "iPhone：https://antdv.com/components/layout-cn",
+        "share": "老司机来了：http://www.jsons.cn/base64/",
+    },
+    # 其中的内容是消息提醒内容
+    "content": url_to_iphone("""<span>提示: 部分网站可能需要VPN翻墙后访问，IPhone版</span>""", True)
 }
 
 

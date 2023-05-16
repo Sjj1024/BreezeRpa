@@ -15,7 +15,6 @@ def add_file(path, content, message):
                'Accept': 'application/vnd.github.v3+json',
                'Content-Type': 'application/json'}
     base64_content = base64.b64encode(content).decode('utf-8')
-    # print(base64_content)
     payload = json.dumps({
         "message": message,
         "branch": "gh-pages",

@@ -42,15 +42,15 @@ hotUrls = {
             "icon": ""},
         {
             "title": "黑料B打烊1",
-            "url": "https://zztt52.com",
+            "url": "https://zztt55.com",
             "icon": ""},
         {
             "title": "黑料B打烊2",
-            "url": "https://zztt53.com",
+            "url": "https://zztt56.com",
             "icon": ""},
         {
             "title": "黑料B打烊3",
-            "url": "https://zztt54.com",
+            "url": "https://zztt57.com",
             "icon": ""},
         {
             "title": "JavBus网1",

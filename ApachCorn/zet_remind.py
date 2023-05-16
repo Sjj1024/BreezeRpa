@@ -86,7 +86,7 @@ def run(wx_url):
 if __name__ == '__main__':
     scheduler = BlockingScheduler()
     # 企业微信机器人接口地址
-    wx_url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=89c9eedd-31db-4e36-bbb3-6176ed9b4395"
+    wx_url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=你自己的key"
     corn_tab = "*/10 * * * *"
     scheduler.add_job(run, CronTrigger.from_crontab(corn_tab), args=(wx_url,))
     print(f"定时任务启动了：定时提醒签到内容")

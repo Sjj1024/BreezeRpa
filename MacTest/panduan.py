@@ -16,6 +16,7 @@ def play_voice(content):
     res = os.popen("pwd").read()
     print(res)
 
+
 def is_mac():
     system = platform.system()
     if system == "Windows":
@@ -24,6 +25,7 @@ def is_mac():
     else:
         print("当前系统是Mac")
         return True
+
 
 def get_device_list():
     print("get_device_list")
@@ -41,6 +43,7 @@ def get_device_list():
         print(f"设备连接不正常,得到的adb devices结果是:\n{res}")
         raise Exception("设备连接不正常")
 
+
 def play_mp3():
     from playsound import playsound
     # video_path = f"{os.getcwd()}/sources/success.mp3"
@@ -50,8 +53,10 @@ def play_mp3():
     print(video_path)
     playsound(video_path)
 
+
 def run():
     get_device_list()
+
 
 if __name__ == '__main__':
     play_mp3()

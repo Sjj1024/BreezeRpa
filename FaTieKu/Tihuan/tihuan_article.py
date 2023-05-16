@@ -475,7 +475,8 @@ def find_img_urls(article_url):
     urls_img = [i for i in urls_img if i.startswith("http")]
     urls_img = [i for i in urls_img if not i.endswith("html")]
     urls_img = [i for i in urls_img if not i.endswith("gif")]
-    # urls_img = [i for i in urls_img if not i.endswith("jpg")]
+    # 过滤掉不能下载的图片
+    urls_img = [i for i in urls_img if i not in cant_img]
     urls_img = [i for i in urls_img if "face" not in i]
     urls_img = [i for i in urls_img if not i.startswith("https://23img")]
     urls_img = [i for i in urls_img if not i.startswith("http://skeimg")]
@@ -536,6 +537,8 @@ if __name__ == '__main__':
     toutiao = Toutiao_picurl(tuchuang_url)
     # toutiao.top_bottom = "top"
     toutiao.top_bottom = "bottom"
-    toutiao.cut_height = 58
-    article_url = "https://www.hghg58.com/thread-1223262-1-1.html"
+    toutiao.cut_height = 88
+    article_url = "https://www.hghg58.com/forum.php?mod=viewthread&tid=1322067&extra=page%3D1"
+    # 不需要下载的图片
+    cant_img = ["https://xms45.com/tupian/forum/202304/19/083134jbdedwkyuw0tu7ep.jpg"]
     run(article_url)
